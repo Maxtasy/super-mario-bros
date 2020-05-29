@@ -1,0 +1,14 @@
+- Tweak friction, acceleration, maybe add air friction
+- Secret coins in breakables/invisible item blocks
+- Break blocks
+
+Game logic:
+
+1.) Initial state
+2.) User wants to move
+3.) Pseudo move character model to desired location
+4.) Check if any collisions would happen
+4.1) Move him in closest place of collision, set velocity of this axis to 0
+4.2) Check if we have to scroll screen (did mario cross the magic border? Do we have any more level to the rigth? How far did he cross the border?)
+4.3) Apply this deltaX to all objects (mario, background, blocks, etc.) game.scroll()
+5.) Draw everything
