@@ -11,12 +11,22 @@ characterSprites.src = "sprites/character.png";
 const tileSprites = new Image();
 tileSprites.src = "sprites/tiles.png";
 
+const objectSprites = new Image();
+objectSprites.src = "sprites/objects.png";
+
 const themeOffsetMap = {
     "overworld": 0,
     "underground": 480,
     "castle": 960,
     "water": 1840,
     "orange": 2320
+}
+
+const objectThemeOffsetMap = {
+    "overworld": 0,
+    "underground": 720,
+    "castle": 1440,
+    "water": 2160,
 }
 
 const typeOffsetMap = {
@@ -270,10 +280,26 @@ const typeOffsetMap = {
     },
 }
 
+const objectTypeOffsetMap = {
+    "mushroom": {
+        x: 0,
+        y: 0
+    },
+    "1up": {
+        x: 80,
+        y: 0
+    },
+    "flower": {
+        x: 0,
+        y: 160
+    }
+}
+
 const worldData = {
     11: {
         bg: "#6b8cff",
         width: 16960,
+        gravity: 2.15,
         rectangles: [
             {x: 0, y: 1000, w: 69, h: 1, theme: "overworld", type: "floor", collision: true},
             {x: 5680, y: 1000, w: 15, h: 1, theme: "overworld", type: "floor", collision: true},
@@ -296,7 +322,7 @@ const worldData = {
             {x: 14480, y: 360, w: 8, h: 8, theme: "overworld", type: "solid"},
         ],
         tiles: [
-            {x: 1280, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
+            {x: 1280, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "mushroom"},
             {x: 1680, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
             {x: 1840, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
             {x: 1760, y: 360, theme: "overworld", type: "questionMark", animate: true, collision: true},
@@ -327,8 +353,6 @@ const worldData = {
 
             {x: 13600, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
             {x: 13680, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
-            
-            {x: 15840, y: 920, theme: "overworld", type: "solid", collision: true},
         ],
         hills: [
             {x: 0, y: 760, w: 5, h: 3, theme: "overworld"}, 
@@ -360,6 +384,13 @@ const worldData = {
             {x: 14400, y: 120, theme: "overworld", amount: 2},
             {x: 16000, y: 200, theme: "overworld", amount: 1},
         ],
+        flag: {
+            x: 15840,
+            y: 120,
+            w: 1,
+            h: 11,
+            theme: "overworld"
+        },
     },
     12: "#6b8cff",
     13: "#6b8cff",
@@ -395,11 +426,15 @@ const worldData = {
 }
 
 const animateSequences = {
-    "questionMark": [1920, 1920, 2000, 2080, 2000]
+    "questionMark": [1920, 1920, 2000, 2080, 2000],
+}
+
+const objectVelTable = {
+    "mushroom": 3
 }
 
 class Tile {
-    constructor(parent, x, y, theme="overworld", type="floor", animate=false, collision=false) {
+    constructor(parent, x, y, theme="overworld", type="floor", animate=false, collision=false, itemTheme=null, itemType=null) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
@@ -412,6 +447,8 @@ class Tile {
         this.type = type;
         this.animate = animate;
         this.collision = collision;
+        this.itemTheme = itemTheme;
+        this.itemType = itemType;
         this.sX = typeOffsetMap[this.type].x;
         this.sY = themeOffsetMap[this.theme] + typeOffsetMap[this.type].y;
         this.sprites = tileSprites;
@@ -630,7 +667,49 @@ class Step {
 }
 
 class Flag {
+    constructor(parent, x, y, w, h, theme) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.theme = theme;
 
+        this.parts = [];
+
+        this.parts.push(new Tile(this, this.x, this.y, this.theme, "flagTop", false, true));
+        for (let i = 0; i < this.h; i++) {
+            this.parts.push(new Tile(this, this.x, this.y + (i + 1) *  this.blocksize, this.theme, "flagPole", false, true));
+        }
+        this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, this.theme, "solid", false, true));
+    }
+
+    removeCollision() {
+        this.parts.forEach(part => {
+            if (part.type === "flagPole") {
+                part.collision = false;
+            }
+        });
+    }
+
+    update() {
+        this.parts.forEach(part => {
+            part.update();
+        });
+    }
+
+    scroll(deltaX) {
+        this.parts.forEach(part => {
+            part.scroll(deltaX);
+        });
+    }
+
+    draw() {
+        this.parts.forEach(part => {
+            part.draw();
+        });
+    }
 }
 
 class Pipe {
@@ -656,7 +735,7 @@ class World {
 
         this.tiles = [];
         worldData[worldID].tiles.forEach(tile => {
-            this.tiles.push(new Tile(this, tile.x, tile.y, tile.theme, tile.type, tile.animate, tile.collision));
+            this.tiles.push(new Tile(this, tile.x, tile.y, tile.theme, tile.type, tile.animate, tile.collision, tile.itemTheme, tile.itemType));
         });
 
         this.hills = [];
@@ -668,6 +747,8 @@ class World {
         worldData[worldID].clouds.forEach(cloud => {
             this.clouds.push(new Cloud(this, cloud.x, cloud.y, cloud.theme, cloud.amount));
         });
+        const flagData = worldData[worldID].flag;
+        this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme);
     }
 
     update() {
@@ -683,6 +764,8 @@ class World {
         this.tiles.forEach(tile => {
             tile.update();
         });
+        // Flag
+        this.flag.update();
     }
 
     scroll(deltaX) {
@@ -708,6 +791,8 @@ class World {
         this.clouds.forEach(cloud => {
             cloud.scroll(deltaX);
         });
+        // Flag
+        this.flag.scroll(deltaX);
     }
 
     draw() {
@@ -725,6 +810,7 @@ class World {
         // Bushes
         // Pipes
         // Flag
+        this.flag.draw();
         // Castle
         // Rectangles
         this.rectangles.forEach(rectangle => {
@@ -773,7 +859,7 @@ class Character {
         
         this.xVel = 0;
         this.yVel = 0;
-        this.gravity = 2.15;
+        this.gravity = this.parent.gravity;
         this.jumpForce = 40;
         this.xVelMaxWalk = 12;
         this.xVelMaxSprint = 18;
@@ -782,6 +868,7 @@ class Character {
         this.inAir = true;
         this.facingForward = true;
         this.friction = 0;
+        this.frictionAir = 1;
         this.frictionGround = 1;
         this.xAccel = 0;
         this.xAccelSprint = 3;
@@ -799,17 +886,25 @@ class Character {
             running: "running",
             jumping: "jumping",
             swimming: "swimming",
-            ducking: "ducking"
+            ducking: "ducking",
+            crappling: "crappling"
         }
         this.frames = {
             running: [80, 160, 240]
         }
+
+        this.endsequence = false;
     }
 
     jump() {
         this.yVel -= this.jumpForce;
         this.inAir = true;
         this.movement.current = this.movement.jumping;
+    }
+
+    grow() {
+        this.setState(this.state.big);
+        this.setHeight();
     }
 
     setState(newState) {
@@ -820,11 +915,13 @@ class Character {
         if (this.state.current === this.state.small) {
             this.h = 80;
         } else {
+            this.y -= 80;
             this.h = 160;
         }
     }
 
     setVelocities() {
+        if (this.endsequence && this.y + this.h < this.parent.screensize.height - 160) return;
         // User wants to move right
         if (this.parent.keyStates.right && !this.parent.keyStates.left) {
             this.facingForward = true;
@@ -858,6 +955,12 @@ class Character {
             } else {
                 this.friction = 0;
             }
+        } else {
+            if (this.xVel > 0) {
+                this.friction = this.frictionAir;
+            } else if (this.xVel < 0) {
+                this.friction = -this.frictionAir;
+            }
         }
 
         // Calculate new xVel
@@ -879,6 +982,16 @@ class Character {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
+
+        console.log(this.y)
+
+        if (this.endsequence && this.y + this.h < this.parent.screensize.height - 160) {
+            return;
+        } else if (this.endsequence) {
+            this.movement.current = this.movement.walking;
+            this.xVel = 5;
+            this.parent.world.flag.removeCollision();
+        }
 
         // Screen edges
         if (this.x < 0) {
@@ -977,13 +1090,71 @@ class Character {
                     this.y = tile.bottom;
                     this.yOld = this.y;
                     this.yVel = 0;
+                    if (tile.itemType) {
+                        tile.type = "disabled";
+                        tile.sX = typeOffsetMap[tile.type].x;
+                        tile.sY = themeOffsetMap[tile.theme] + typeOffsetMap[tile.type].y;
+                        this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, tile.itemType);
+                        tile.animate = false;
+                        tile.itemTheme = null;
+                        tile.itemType = null;
+                    }
                 }
+            }
+        });
+
+        // Flag
+        this.parent.world.flag.parts.forEach(part => {
+            if (part.type === "flagPole" && part.collision) {
+                if (this.x + this.w > part.x) {
+                    this.x = part.x - this.blocksize * 1/4;
+                    this.xVel = 0;
+                    this.movement.current = this.movement.crappling;
+                    this.parent.disableInput();
+                    this.endsequence = true;
+                    this.yVel = 5;
+                }
+            } else {
+                if (this.y + this.h > part.top && this.y < part.bottom && this.x < part.right && this.x + this.w > part.left) {
+                    // Character entered tile from the top
+                    if (this.y + this.h > part.top && this.yOld + this.h <= part.top) {
+                        this.y = part.top - this.h;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                        this.inAir = false;
+                    // Character entered tile from the left
+                    } else if (this.x + this.w > part.left && this.xOld + this.w <= part.left) {
+                        this.x = part.left - this.w;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered tile from the right
+                    } else if (this.x < part.right && this.xOld >= part.right) {
+                        this.x = part.right;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered tile from the bottom
+                    } else if (this.y < part.bottom && this.yOld >= part.bottom) {
+                        this.y = part.bottom;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            }
+        })
+
+        // Items
+        this.parent.items.forEach(item => {
+            if (this.y + this.h > item.y && this.y < item.y + this.blocksize && this.x < item.x + this.blocksize && this.x + this.w > item.x) {
+                item.activate();
+                item.destroy();
             }
         });
     }
 
     setMovement() {
-        if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
+        if (this.movement.current == this.movement.crappling) {
+            return;
+        } else if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
             this.movement.current = this.movement.standing;
         } else if (this.xVel !== 0 && this.yVel === 0 && !this.inAir) {
             if (this.parent.keyStates.sprint) {
@@ -1021,7 +1192,11 @@ class Character {
             this.sX = this.frames.running[this.frame % this.frames.running.length];
         } else if (this.movement.current === this.movement.jumping) {
             this.sX = 400;
+        } else if (this.movement.current === this.movement.crappling) {
+            this.sX = 640;
         }
+
+        // console.log(this.movement.current)
 
         // In which direction is the player looking
         if (!this.facingForward) {
@@ -1049,6 +1224,154 @@ class Enemy {
     
 }
 
+class Item {
+    constructor (parent, x, y, theme, type) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
+        this.x = x;
+        this.xOld = this.x;
+        this.y = y;
+        this.yOld = this.y;
+        this.theme = theme;
+        this.type = type;
+        this.sprites = objectSprites;
+        this.sX = objectThemeOffsetMap[this.theme] + objectTypeOffsetMap[this.type].x;
+        this.sY = objectTypeOffsetMap[this.type].y;
+        this.animate = animateSequences[this.type];
+        this.xVel = objectVelTable[this.type];
+        this.yVel = 0;
+
+        if (this.animate) {
+            this.frame = 0;
+            this.sequence = animateSequences[this.type];
+        }
+
+        if (this.xVel) {
+            this.xVel = objectVelTable[this.type];
+        }
+    }
+
+    activate() {
+        if (this.type === "mushroom" && this.parent.character.state.current === "small") {
+            this.parent.character.grow();
+        }
+    }
+
+    destroy() {
+        const itemIndex = this.parent.items.indexOf(this);
+        this.parent.items.splice(itemIndex, 1)
+        console.log(this.parent.items)
+    }
+
+    update() {
+        this.yVel += this.gravity;
+
+        this.xOld = this.x;
+        this.x += this.xVel;
+        this.yOld = this.y;
+        this.y += this.yVel;
+
+        // Screen edges
+        if (this.x + this.blocksize < 0 || this.x > this.parent.screensize.width || this.y > this.parent.screensize.height) {
+            this.destroy();
+        }
+
+        // Rectangles
+        this.parent.world.rectangles.forEach(rectangle => {
+            if (this.y + this.blocksize > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.blocksize > rectangle.left) {
+                // Item entered Rectangle from the top
+                if (this.y + this.blocksize > rectangle.top && this.yOld + this.blocksize <= rectangle.top) {
+                    this.y = rectangle.top - this.blocksize;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                // Item entered Rectangle from the left
+                } else if (this.x + this.blocksize > rectangle.left && this.xOld + this.blocksize <= rectangle.left) {
+                    this.x = rectangle.left - this.blocksize;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered Rectangle from the right
+                } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
+                    this.x = rectangle.right;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered Rectangle from the bottom
+                } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
+                    this.y = rectangle.bottom;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            }
+        });
+        
+        
+        // Steps
+        this.parent.world.steps.forEach(step => {
+            // Check for each rectangle of the step
+            step.rectangles.forEach(rectangle => {
+                if (this.y + this.blocksize > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.blocksize > rectangle.left) {
+                    // Item entered rectangle from the top
+                    if (this.y + this.blocksize > rectangle.top && this.yOld + this.blocksize <= rectangle.top) {
+                        this.y = rectangle.top - this.blocksize;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    // Item entered rectangle from the left
+                    } else if (this.x + this.blocksize > rectangle.left && this.xOld + this.blocksize <= rectangle.left) {
+                        this.x = rectangle.left - this.blocksize;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Item entered rectangle from the right
+                    } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
+                        this.x = rectangle.right;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Item entered rectangle from the bottom
+                    } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
+                        this.y = rectangle.bottom;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            });
+        });
+        
+        // Tiles
+        this.parent.world.tiles.forEach(tile => {
+            if (this.y + this.blocksize > tile.top && this.y < tile.bottom && this.x < tile.right && this.x + this.blocksize > tile.left) {
+                // Item entered tile from the top
+                if (this.y + this.blocksize > tile.top && this.yOld + this.blocksize <= tile.top) {
+                    this.y = tile.top - this.blocksize;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                // Item entered tile from the left
+                } else if (this.x + this.blocksize > tile.left && this.xOld + this.blocksize <= tile.left) {
+                    this.x = tile.left - this.blocksize;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered tile from the right
+                } else if (this.x < tile.right && this.xOld >= tile.right) {
+                    this.x = tile.right;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered tile from the bottom
+                } else if (this.y < tile.bottom && this.yOld >= tile.bottom) {
+                    this.y = tile.bottom;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            }
+        });
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.blocksize, this.blocksize, this.x, this.y, this.blocksize, this.blocksize);
+    }
+}
+
 class Game {
     constructor() {
         this.frame = 0;
@@ -1061,31 +1384,56 @@ class Game {
             right: false,
             sprint: false
         };
+        this.ignoreInput = false;
         this.currentWorld = 11;
+        this.gravity = worldData[this.currentWorld].gravity;
         this.blocksize = 80;
         this.scrollLine = this.screensize.width / 2;
 
         this.character = new Character(this);
         this.world = new World(this, this.currentWorld);
-    }  
+
+        this.items = [];
+    }
+
+    enableInput() {
+        this.ignoreInput = false;
+    }
+
+    disableInput() {
+        this.ignoreInput = true;
+    }
+
+    spawnItem(x, y, theme, type) {
+        this.items.push(new Item(this, x, y, theme, type))
+    }
     // Runs each frame
     update() {
         this.frame++;
 
         this.character.update();
         this.world.update();
+        this.items.forEach(item => {
+            item.update();
+        });
 
         // Scroll screen if player character crossed "magic line"
         if (this.character.x > this.scrollLine && this.world.end > this.screensize.width) {
             const deltaX = Math.round(this.character.x - this.scrollLine);
             this.character.scroll(deltaX);
             this.world.scroll(deltaX);
+            this.items.forEach(item => {
+                item.scroll(deltaX);
+            });
         }
     }
 
     draw() {
         this.world.draw();
         this.character.draw();
+        this.items.forEach(item => {
+            item.draw();
+        });
     }
 }
 
@@ -1095,8 +1443,14 @@ function spawn() {
     game.player.y = cvs.height / 2;
 }
 
+function stopHere() {
+    throw new Error("Halting execution");
+}
+
 function handleKeydown(e) {
-    if (e.keyCode === 32 && game.character.yVel === 0) {
+    if (game.ignoreInput) return;
+
+    if (e.keyCode === 32 && !game.character.inAir) {
         game.character.jump();
     } else if (e.keyCode === 37) {
         game.keyStates.left = true;
