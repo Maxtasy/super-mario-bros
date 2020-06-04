@@ -58,7 +58,7 @@ const typeOffsetMap = {
         x: 960,
         y: 0
     },
-    "castleWindowsMiddle": {
+    "castleWall": {
         x: 1040,
         y: 0
     },
@@ -297,8 +297,13 @@ const objectTypeOffsetMap = {
 
 const worldData = {
     11: {
+        spawnLocation: {
+            x: 160,
+            y: 760
+        },
         bg: "#6b8cff",
         width: 16960,
+        levelEndLine: 16400,
         gravity: 2.15,
         rectangles: [
             {x: 0, y: 1000, w: 69, h: 1, theme: "overworld", type: "floor", collision: true},
@@ -384,6 +389,27 @@ const worldData = {
             {x: 14400, y: 120, theme: "overworld", amount: 2},
             {x: 16000, y: 200, theme: "overworld", amount: 1},
         ],
+        bushes: [
+            {x: 880, y: 920, theme: "overworld", amount: 3},
+            {x: 1840, y: 920, theme: "overworld", amount: 1},
+            {x: 3280, y: 920, theme: "overworld", amount: 2},
+            {x: 4720, y: 920, theme: "overworld", amount: 3},
+            {x: 5680, y: 920, theme: "overworld", amount: 1},
+            {x: 7120, y: 920, theme: "overworld", amount: 2},
+            {x: 8560, y: 920, theme: "overworld", amount: 3},
+            {x: 9520, y: 920, theme: "overworld", amount: 1},
+            {x: 10960, y: 920, theme: "overworld", amount: 2},
+            {x: 12560, y: 920, theme: "overworld", amount: 1},
+            {x: 13360, y: 920, theme: "overworld", amount: 1},
+            {x: 16400, y: 920, theme: "overworld", amount: 1},
+        ],
+        pipes: [
+            {x: 2240, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
+            {x: 3040, y: 760, size: 3, theme: "overworld", opening: "top", canEnter: false, destination: null},
+            {x: 3680, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: false, destination: null},
+            {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: 111},
+            {x: 13040, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
+        ],
         flag: {
             x: 15840,
             y: 120,
@@ -391,7 +417,12 @@ const worldData = {
             h: 11,
             theme: "overworld"
         },
+        castles: [
+            {x: 16160, y: 600, theme: "overworld", name: "small"}
+        ]
     },
+    // Sub level of 11 (underworld)
+    111: "#000000",
     12: "#6b8cff",
     13: "#6b8cff",
     14: "#000000",
@@ -430,7 +461,38 @@ const animateSequences = {
 }
 
 const objectVelTable = {
-    "mushroom": 3
+    "mushroom": 3,
+    "goomba": 3,
+}
+
+const castles = {
+    "small": [
+        {x: 80, y: 0, type: "castleTop"},
+        {x: 160, y: 0, type: "castleTop"},
+        {x: 240, y: 0, type: "castleTop"},
+
+        {x: 80, y: 80, type: "castleWindowsLeft"},
+        {x: 160, y: 80, type: "castleWall"},
+        {x: 240, y: 80, type: "castleWindowsRight"},
+
+        {x: 0, y: 160, type: "castleTop"},
+        {x: 80, y: 160, type: "castleSemiTop"},
+        {x: 160, y: 160, type: "castleSemiTop"},
+        {x: 240, y: 160, type: "castleSemiTop"},
+        {x: 320, y: 160, type: "castleTop"},
+
+        {x: 0, y: 240, type: "castleWall"},
+        {x: 80, y: 240, type: "castleWall"},
+        {x: 160, y: 240, type: "castleDoorTop"},
+        {x: 240, y: 240, type: "castleWall"},
+        {x: 320, y: 240, type: "castleWall"},
+
+        {x: 0, y: 320, type: "castleWall"},
+        {x: 80, y: 320, type: "castleWall"},
+        {x: 160, y: 320, type: "castleDoorBottom"},
+        {x: 240, y: 320, type: "castleWall"},
+        {x: 320, y: 320, type: "castleWall"},
+    ]
 }
 
 class Tile {
@@ -620,6 +682,45 @@ class Cloud {
     }
 }
 
+class Bush {
+    constructor(parent, x, y, theme="overworld", amount=1) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.theme = theme;
+        this.amount = amount;
+
+        this.tiles = [];
+        
+        for (let i = 0; i < this.amount + 2; i++) {
+            let typeName = null;
+            if (i === 0) {
+                typeName = "bushLeft";
+            } else if (i === this.amount + 1) {
+                typeName = "bushRight";
+            } else {
+                typeName = "bush"
+            }
+            if (typeName) {
+                this.tiles.push(new Tile(this, this.x + i * this.blocksize, this.y, this.theme, typeName));
+            }
+        }
+    }
+
+    scroll(deltaX) {
+        this.tiles.forEach(tile => {
+            tile.scroll(deltaX);
+        });
+    }
+
+    draw() {
+        this.tiles.forEach(tile => {
+            tile.draw();
+        });
+    }
+}
+
 class Step {
     constructor(parent, x, y, w, h, theme="overworld", type="solid", animate=false, collision=true, reversed=false) {
         this.parent = parent;
@@ -713,7 +814,82 @@ class Flag {
 }
 
 class Pipe {
+    constructor(parent, x, y, size=2, theme="overworld", opening="top", canEnter=false, destination=null) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.theme = theme;
+        this.opening = opening;
+        this.canEnter = canEnter;
+        this.destination = destination;
 
+        this.tiles = [];
+
+        if (this.opening === "top") {
+            for (let i = 0; i < this.size; i++) {
+                for (let j = 0; j < 2; j++) {
+                    let typeName = null;
+                    if (i === 0 && j === 0) {
+                        typeName = "pipeVerticalTopLeft";
+                    } else if (i === 0 && j === 1) {
+                        typeName = "pipeVerticalTopRight";
+                    } else if (j === 0) {
+                        typeName = "pipeVerticalLeft";
+                    } else if (j === 1) {
+                        typeName = "pipeVerticalRight";
+                    }
+                    if (typeName) {
+                        this.tiles.push(new Tile(this, this.x + j * this.blocksize, this.y + i * this.blocksize, this.theme, typeName, false, true));
+                    }
+                }
+            }
+        }
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        this.tiles.forEach(tile => {
+            tile.scroll(deltaX);
+        });
+    }
+
+    draw() {
+        this.tiles.forEach(tile => {
+            tile.draw();
+        });
+    }
+}
+
+class Castle {
+    constructor(parent, x, y, theme, name) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.theme = theme;
+        this.name = name;
+
+        this.tiles = [];
+
+        castles[this.name].forEach(tile => {
+            this.tiles.push(new Tile(this, this.x + tile.x, this.y + tile.y, this.theme, tile.type));
+        })
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        this.tiles.forEach(tile => {
+            tile.scroll(deltaX);
+        });
+    }
+
+    draw() {
+        this.tiles.forEach(tile => {
+            tile.draw();
+        });
+    }
 }
 
 class World {
@@ -721,6 +897,7 @@ class World {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.end = worldData[worldID].width;
+        this.levelEndLine = worldData[worldID].levelEndLine;
         this.backgroundColor = worldData[worldID].bg;
 
         this.rectangles = [];
@@ -747,6 +924,22 @@ class World {
         worldData[worldID].clouds.forEach(cloud => {
             this.clouds.push(new Cloud(this, cloud.x, cloud.y, cloud.theme, cloud.amount));
         });
+
+        this.bushes = [];
+        worldData[worldID].bushes.forEach(bush => {
+            this.bushes.push(new Bush(this, bush.x, bush.y, bush.theme, bush.amount));
+        });
+
+        this.pipes = [];
+        worldData[worldID].pipes.forEach(pipe => {
+            this.pipes.push(new Pipe(this, pipe.x, pipe.y, pipe.size, pipe.theme, pipe.opening, pipe.canEnter, pipe.destination));
+        });
+
+        this.castles = [];
+        worldData[worldID].castles.forEach(castle => {
+            this.castles.push(new Castle(this, castle.x, castle.y, castle.theme, castle.name));
+        });
+
         const flagData = worldData[worldID].flag;
         this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme);
     }
@@ -770,6 +963,7 @@ class World {
 
     scroll(deltaX) {
         this.end -= deltaX;
+        this.levelEndLine -= deltaX;
 
         // Rectangles
         this.rectangles.forEach(rectangle => {
@@ -791,6 +985,18 @@ class World {
         this.clouds.forEach(cloud => {
             cloud.scroll(deltaX);
         });
+        // Bushes
+        this.bushes.forEach(bush => {
+            bush.scroll(deltaX);
+        });
+        // Pipes
+        this.pipes.forEach(pipe => {
+            pipe.scroll(deltaX);
+        });
+        // Castles
+        this.castles.forEach(castle => {
+            castle.scroll(deltaX);
+        });
         // Flag
         this.flag.scroll(deltaX);
     }
@@ -808,10 +1014,19 @@ class World {
             cloud.draw();
         });
         // Bushes
+        this.bushes.forEach(bush => {
+            bush.draw();
+        });
         // Pipes
+        this.pipes.forEach(pipe => {
+            pipe.draw();
+        });
         // Flag
         this.flag.draw();
         // Castle
+        this.castles.forEach(castle => {
+            castle.draw();
+        });
         // Rectangles
         this.rectangles.forEach(rectangle => {
             rectangle.draw();
@@ -828,13 +1043,13 @@ class World {
 }
 
 class Character {
-    constructor(parent) {
+    constructor(parent, spawnLocationX, spawnLocationY) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.frame = 0;
-        this.x = 160;
+        this.x = spawnLocationX;
         this.xOld = this.x;
-        this.y = this.parent.screensize.height / 2;
+        this.y = spawnLocationY;
         this.yOld = this.y;
         this.w = 80;
         this.h = 80;
@@ -894,6 +1109,7 @@ class Character {
         }
 
         this.endsequence = false;
+        this.visible = true;
     }
 
     jump() {
@@ -982,8 +1198,6 @@ class Character {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
-
-        console.log(this.y)
 
         if (this.endsequence && this.y + this.h < this.parent.screensize.height - 160) {
             return;
@@ -1103,6 +1317,36 @@ class Character {
             }
         });
 
+        // Pipes
+        this.parent.world.pipes.forEach(pipe => {
+            if (pipe.opening === "top") {
+                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
+                    // Character entered pipe from the top
+                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
+                        this.y = pipe.y - this.h;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                        this.inAir = false;
+                    // Character entered pipe from the left
+                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
+                        this.x = pipe.x - this.w;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered pipe from the right
+                    } else if (this.x < pipe.x + 2 * this.blocksize && this.xOld >= pipe.x + 2 * this.blocksize) {
+                        this.x = pipe.x + 2 * this.blocksize;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered pipe from the bottom
+                    } else if (this.y < pipe.y + pipe.size * this.blocksize && this.yOld >= pipe.y + pipe.size * this.blocksize) {
+                        this.y = pipe.y + pipe.size * this.blocksize;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            }
+        });
+
         // Flag
         this.parent.world.flag.parts.forEach(part => {
             if (part.type === "flagPole" && part.collision) {
@@ -1149,6 +1393,11 @@ class Character {
                 item.destroy();
             }
         });
+
+        // Level end line
+        if (this.x + this.w > this.parent.world.levelEndLine) {
+            this.visible = false;
+        }
     }
 
     setMovement() {
@@ -1216,7 +1465,9 @@ class Character {
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        if (this.visible) {
+            ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        }
     }
 }
 
@@ -1390,7 +1641,7 @@ class Game {
         this.blocksize = 80;
         this.scrollLine = this.screensize.width / 2;
 
-        this.character = new Character(this);
+        this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y);
         this.world = new World(this, this.currentWorld);
 
         this.items = [];
