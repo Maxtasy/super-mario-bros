@@ -1,6 +1,8 @@
+- Rewrite all collision functions in style of character -> tile
+- Update all worldData of 11
+- "breakable" type break animation
+- Only do collision detection on objects on the screen, push/pop others
 - Tweak friction, acceleration, maybe add air friction
-- Secret coins in breakables/invisible item blocks
-- Break blocks
 
 Game logic:
 
