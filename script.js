@@ -326,8 +326,6 @@ const worldData = {
             {x: 14480, y: 360, w: 8, h: 8, theme: "overworld", type: "solid"},
         ],
         tiles: [
-            {x: 480, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "star"},
-
             {x: 1280, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
             {x: 1680, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "mushroom"},
             {x: 1840, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
@@ -437,20 +435,20 @@ const worldData = {
             {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: 111},
             {x: 13040, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
         ],
-        // flag: {
-        //     x: 15840,
-        //     y: 120,
-        //     w: 1,
-        //     h: 11,
-        //     theme: "overworld"
-        // },
         flag: {
-            x: 400,
+            x: 15840,
             y: 120,
             w: 1,
             h: 11,
             theme: "overworld"
         },
+        // flag: {
+        //     x: 400,
+        //     y: 120,
+        //     w: 1,
+        //     h: 11,
+        //     theme: "overworld"
+        // },
         castles: [
             {x: 16160, y: 600, theme: "overworld", name: "small"}
         ]
@@ -863,6 +861,7 @@ class Flag {
     }
 
     scroll(deltaX) {
+        this.x -= deltaX;
         this.parts.forEach(part => {
             part.scroll(deltaX);
         });
@@ -1153,10 +1152,20 @@ class Character {
             crappling: "crappling"
         }
         this.frames = {
-            running: [80, 160, 240]
+            running: [80, 160, 240],
+            growing: [
+                {sX: 0, sY: 0, h: 160},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 160, h: 80},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 0, h: 160},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 160, h: 80},
+            ]
         }
         this.visible = true;
         this.invincibility = 0;
+        this.growing = 0;
     }
 
     jump() {
@@ -1170,12 +1179,12 @@ class Character {
     }
 
     setHeight(height) {
-        if (height == 80) {
+        if (height == 80 && this.h != 80) {
             this.hitboxOffsetX = 4;
             this.hitboxOffsetTop = 5;
             this.y += 80;
             this.h = 80;
-        } else if (height = 160) {
+        } else if (height == 160 && this.h != 160) {
             this.hitboxOffsetX = 3;
             this.hitboxOffsetTop = 8;
             this.y -= 80;
@@ -1184,6 +1193,7 @@ class Character {
     }
 
     setVelocities() {
+        if (this.parent.flagReached || this.growing > 0) return
         // User wants to move right
         if (this.parent.keyStates.right && !this.parent.keyStates.left) {
             this.facingRight = true;
@@ -1237,6 +1247,16 @@ class Character {
     }
 
     updatePosition() {
+        if (this.growing > 0) return
+        if (this.parent.flagReached && this.y < 920) {
+            this.yVel = 5;
+            this.xVel = 0;
+            this.movement.current = this.movement.crappling;
+        } else if (this.parent.flagReached && this.y >= 920) {
+            this.xVel = 5;
+            this.movement.current = this.movement.walking;
+        } 
+
         // Calculate new position and store old position
         this.xOld = this.x;
         this.x += this.xVel;
@@ -1245,14 +1265,6 @@ class Character {
     }
 
     collision() {
-        if (this.endsequence && this.y + this.h < this.parent.screensize.height - 160) {
-            return;
-        } else if (this.endsequence) {
-            this.movement.current = this.movement.walking;
-            this.xVel = 5;
-            this.parent.world.flag.removeCollision();
-        }
-
         // Left screen edge
         if (this.x - this.hitboxOffsetX <= 0) {
             this.x = 0 - this.hitboxOffsetX;
@@ -1356,7 +1368,7 @@ class Character {
                     this.yOld = this.y;
                     this.yVel = 0;
 
-                    if (tile.type === "breakableShiny" && !tile.itemType && this.state.current != this.state.small) {
+                    if (tile.type === "breakableShiny" && !tile.itemType && this.h == 160) {
                         tile.type = "blank";
                         tile.collision = false;
                         tile.updateSpriteOffsets();
@@ -1413,8 +1425,6 @@ class Character {
             }
         });
 
-        // Flag
-
         // Items
         this.parent.items.forEach(item => {
             if (item.type != "coinItem" && this.y + this.h > item.y && this.y < item.y + this.blocksize && this.x < item.x + this.blocksize && this.x + this.w > item.x) {
@@ -1423,6 +1433,12 @@ class Character {
             }
         });
 
+        // Flag
+        if (this.x + this.w - this.hitboxOffsetX > this.parent.world.flag.x && !this.parent.flagReached) {
+            this.parent.flagReached = true;
+            this.x = this.parent.world.flag.x;
+        }
+
         // Level end line
         if (this.x + this.w > this.parent.world.levelEndLine) {
             this.visible = false;
@@ -1430,6 +1446,7 @@ class Character {
     }
 
     setMovement() {
+        if (this.growing > 0) return
         if (this.movement.current == this.movement.crappling) {
             return;
         } else if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
@@ -1446,6 +1463,22 @@ class Character {
     }
 
     setSprite() {
+        if (this.growing > 0) {
+            if (this.parent.frame % 10 == 0) {
+                this.sX = this.frames.growing[this.growing - 1].sX;
+                this.sY = this.frames.growing[this.growing - 1].sY;
+                this.setHeight(this.frames.growing[this.growing - 1].h);
+
+                // In which direction is the player looking
+                if (!this.facingRight) {
+                    this.sY += this.facingLeftYOffset;
+                }
+                this.growing--;
+            }
+
+            return;
+        }
+
         if (this.state.current === this.state.normal) {
             if (this.h == 80) {
                 this.sY = 160;
@@ -1547,7 +1580,7 @@ class Item {
 
     activate() {
         if (this.type === "mushroom" || this.type === "flower" && this.parent.character.h === 80) {
-            this.parent.character.setHeight(160);
+            this.parent.character.growing = this.parent.character.frames.growing.length;
         } else if (this.type === "flower" && this.parent.character.h === 160) {
             this.parent.character.state.current = this.parent.character.state.flower;
         } else if (this.type === "1up") {
@@ -1739,6 +1772,8 @@ class Game {
 
         this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y);
         this.world = new World(this, this.currentWorld);
+
+        this.flagReached = false;
 
         this.items = [];
     }

@@ -1,5 +1,4 @@
-- grow animations
-- Fix flag
+- Block character on bottom tile of flag
 - Add enemies
 - "breakable" type break animation
 - Only do collision detection on objects on the screen, push/pop others
