@@ -292,6 +292,10 @@ const objectTypeOffsetMap = {
     "coinItem": {
         x: 0,
         y: 560
+    },
+    "star": {
+        x: 0,
+        y: 240
     }
 }
 
@@ -311,12 +315,7 @@ const worldData = {
             {x: 7120, y: 1000, w: 64, h: 1, theme: "overworld", type: "floor", collision: true},
             {x: 12400, y: 1000, w: 57, h: 1, theme: "overworld", type: "floor", collision: true},
 
-            {x: 6400, y: 360, w: 8, h: 1, theme: "overworld", type: "breakableShiny", collision: true},
-            {x: 7280, y: 360, w: 3, h: 1, theme: "overworld", type: "breakableShiny", collision: true},
-            {x: 9680, y: 360, w: 3, h: 1, theme: "overworld", type: "breakableShiny",  collision: true},
-            {x: 10320, y: 680, w: 2, h: 1, theme: "overworld", type: "breakableShiny",  collision: true},
             {x: 12160, y: 680, w: 1, h: 4, theme: "overworld", type: "solid", collision: true},
-            {x: 13440, y: 680, w: 2, h: 1, theme: "overworld", type: "breakableShiny", collision: true},
             {x: 15120, y: 360, w: 1, h: 8, theme: "overworld", type: "solid", collision: true},
         ],
         steps : [
@@ -327,6 +326,8 @@ const worldData = {
             {x: 14480, y: 360, w: 8, h: 8, theme: "overworld", type: "solid"},
         ],
         tiles: [
+            {x: 480, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "star"},
+
             {x: 1280, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
             {x: 1680, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "mushroom"},
             {x: 1840, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
@@ -341,24 +342,48 @@ const worldData = {
             {x: 6160, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
             {x: 6240, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "mushroom"},
             {x: 6320, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
+            
+            {x: 6400, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6480, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6560, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6640, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6720, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6800, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6880, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 6960, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
 
+            {x: 7280, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 7360, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 7440, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
             {x: 7520, y: 360, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
+
             {x: 7520, y: 680, theme: "overworld", type: "breakableShiny", collision: true, itemTheme: "overworld", itemType: "coinItem"},
 
-            {x: 8480, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
-            {x: 8720, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
-            {x: 8720, y: 360, theme: "overworld", type: "questionMark", animate: true, collision: true},
-            {x: 8960, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
+            {x: 8000, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 8080, y: 680, theme: "overworld", type: "breakableShiny", collision: true, itemTheme: "overworld", itemType: "star"},
+
+            {x: 8480, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
+            {x: 8720, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
+            {x: 8720, y: 360, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "mushroom"},
+            {x: 8960, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
             
             {x: 9440, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
 
+            {x: 9680, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 9760, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 9840, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+
             {x: 10240, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 10320, y: 360,  theme: "overworld", type: "questionMark",  animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
+            {x: 10400, y: 360,  theme: "overworld", type: "questionMark",  animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
             {x: 10480, y: 360, theme: "overworld", type: "breakableShiny", collision: true},
 
-            {x: 10320, y: 360,  theme: "overworld", type: "questionMark",  animate: true, collision: true},
-            {x: 10400, y: 360,  theme: "overworld", type: "questionMark",  animate: true, collision: true},
+            {x: 10320, y: 680,  theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 10400, y: 680,  theme: "overworld", type: "breakableShiny", collision: true},
 
-            {x: 13600, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true},
+            {x: 13440, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 13520, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
+            {x: 13600, y: 680, theme: "overworld", type: "questionMark", animate: true, collision: true, itemTheme: "overworld", itemType: "coinItem"},
             {x: 13680, y: 680, theme: "overworld", type: "breakableShiny", collision: true},
         ],
         hills: [
@@ -412,8 +437,15 @@ const worldData = {
             {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: 111},
             {x: 13040, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
         ],
+        // flag: {
+        //     x: 15840,
+        //     y: 120,
+        //     w: 1,
+        //     h: 11,
+        //     theme: "overworld"
+        // },
         flag: {
-            x: 15840,
+            x: 400,
             y: 120,
             w: 1,
             h: 11,
@@ -462,6 +494,8 @@ const animateSequences = {
     "questionMark": [1920, 1920, 2000, 2080, 2000],
     "coinTile": [1920, 1920, 2000, 2800, 2000],
     "coinItem": [0, 80, 160, 240],
+    "flower": [0, 80, 160, 240],
+    "star": [0, 80, 160, 240],
 }
 
 const objectVelTable = {
@@ -482,6 +516,10 @@ const objectVelTable = {
         yVel: -20
     },
     "flower": {
+        xVel: 0,
+        yVel: 0
+    },
+    "star": {
         xVel: 0,
         yVel: 0
     }
@@ -818,14 +856,6 @@ class Flag {
         this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, this.theme, "solid", false, true));
     }
 
-    removeCollision() {
-        this.parts.forEach(part => {
-            if (part.type === "flagPole") {
-                part.collision = false;
-            }
-        });
-    }
-
     update() {
         this.parts.forEach(part => {
             part.update();
@@ -1088,14 +1118,6 @@ class Character {
 
         this.hitboxOffsetX = 4;
         this.hitboxOffsetTop = 5;
-        this.hitbox = {
-            left: this.x + this.hitboxOffsetX,
-            right: this.x + this.w - this.hitboxOffsetX,
-            top: this.y + this.hitboxOffsetTop,
-            bottom: this.y + this.h
-        }
-
-        this.hitboxOld = { ...this.hitbox };
 
         this.facingLeftYOffset = 240;
         this.xVel = 0;
@@ -1114,10 +1136,11 @@ class Character {
         this.xAccelSprint = 9;
         this.xAccelWalk = 6;
         this.state = {
-            current: "small",
-            small: "small",
-            big: "big",
-            flower: "flower"
+            current: "normal",
+            last: "normal",
+            normal: "normal",
+            flower: "flower",
+            star: "star",
         }
         this.movement = {
             current: "standing",
@@ -1132,18 +1155,8 @@ class Character {
         this.frames = {
             running: [80, 160, 240]
         }
-
-        this.endsequence = false;
         this.visible = true;
-    }
-
-    updateHitbox() {
-        this.hitboxOld = { ...this.hitbox };
-
-        this.hitbox.bottom = this.y + this.h;
-        this.hitbox.left = this.x + this.hitboxOffsetX;
-        this.hitbox.right = this.x + this.w - this.hitboxOffsetX;
-        this.hitbox.top = this.y + this.hitboxOffsetTop;
+        this.invincibility = 0;
     }
 
     jump() {
@@ -1152,43 +1165,25 @@ class Character {
         this.movement.current = this.movement.jumping;
     }
 
-    changeState(direction) {
-        if (direction === 1) {
-            if (this.state.current === this.state.small) {
-                this.state.current = this.state.big;
-            } else if (this.state.current === this.state.big) {
-                this.state.current = this.state.flower;
-            }
-        } else if (direction === -1) {
-            if (this.state.current === this.state.small) {
-                this.die();
-            } else {
-                this.state.current = this.state.small;
-            }
-        }
-        this.setHeight();
-    }
-
     die() {
         console.log("You died")
     }
 
-    setHeight() {
-        if (this.state.current === this.state.small) {
+    setHeight(height) {
+        if (height == 80) {
             this.hitboxOffsetX = 4;
             this.hitboxOffsetTop = 5;
+            this.y += 80;
             this.h = 80;
-        } else {
+        } else if (height = 160) {
             this.hitboxOffsetX = 3;
             this.hitboxOffsetTop = 8;
             this.y -= 80;
             this.h = 160;
         }
-        this.updateHitbox();
     }
 
     setVelocities() {
-        if (this.endsequence && this.y + this.h < this.parent.screensize.height - 160) return;
         // User wants to move right
         if (this.parent.keyStates.right && !this.parent.keyStates.left) {
             this.facingRight = true;
@@ -1247,8 +1242,6 @@ class Character {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
-
-        this.updateHitbox();
     }
 
     collision() {
@@ -1261,44 +1254,44 @@ class Character {
         }
 
         // Left screen edge
-        if (this.hitbox.left <= 0 && this.parent.keyStates.left) {
+        if (this.x - this.hitboxOffsetX <= 0) {
             this.x = 0 - this.hitboxOffsetX;
         } 
 
         // Respawn if falling to death (for testing)
-        if (this.hitbox.top > this.parent.screensize.height) {
+        if (this.y > this.parent.screensize.height) {
             this.y = this.parent.screensize.height / 2;
             this.x = 80;
         }
 
         // Rectangles
         this.parent.world.rectangles.forEach(rectangle => {
-            if (rectangle.collision && this.hitbox.bottom > rectangle.top && this.hitbox.top < rectangle.bottom && this.hitbox.left < rectangle.right && this.hitbox.right > rectangle.left) {
-                // Character entered Rectangle from the top
-                if (this.hitbox.bottom > rectangle.top && this.hitboxOld.bottom <= rectangle.top) {
+            if (rectangle.collision && 
+                this.y + this.h > rectangle.top && 
+                this.y + this.hitboxOffsetTop < rectangle.bottom && 
+                this.x + this.hitboxOffsetX < rectangle.right && 
+                this.x + this.w - this.hitboxOffsetX > rectangle.left) {
+                // Character entered rectangle from the top
+                if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
                     this.y = rectangle.top - this.h;
                     this.yOld = this.y;
                     this.yVel = 0;
                     this.inAir = false;
-                    this.updateHitbox();
-                // Character entered Rectangle from the left
-                } else if (this.hitbox.right > rectangle.left && this.hitboxOld.right <= rectangle.left) {
+                // Character entered rectangle from the left
+                } else if (this.x + this.w - this.hitboxOffsetX > rectangle.left && this.xOld + this.w - this.hitboxOffsetX <= rectangle.left) {
                     this.x = rectangle.left - this.w + this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                    this.updateHitbox();
-                // Character entered Rectangle from the right
-                } else if (this.hitbox.left < rectangle.right && this.hitboxOld.left >= rectangle.right) {
+                // Character entered rectangle from the right
+                } else if (this.x + this.hitboxOffsetX < rectangle.right && this.xOld + this.hitboxOffsetX >= rectangle.right) {
                     this.x = rectangle.right - this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                    this.updateHitbox();
-                // Character entered Rectangle from the bottom
-                } else if (this.hitbox.top < rectangle.bottom && this.hitboxOld.top >= rectangle.bottom) {
+                // Character entered rectangle from the bottom
+                } else if (this.y + this.hitboxOffsetTop < rectangle.bottom && this.yOld + this.hitboxOffsetTop >= rectangle.bottom) {
                     this.y = rectangle.bottom - this.hitboxOffsetTop;
                     this.yOld = this.y;
                     this.yVel = 0;
-                    this.updateHitbox();
                 }
             }
         });
@@ -1337,32 +1330,31 @@ class Character {
 
         // Tiles
         this.parent.world.tiles.forEach(tile => {
-            if (tile.collision && this.hitbox.bottom > tile.top && this.hitbox.top < tile.bottom && this.hitbox.left < tile.right && this.hitbox.right > tile.left) {
+            if (tile.collision && this.y + this.h > tile.top && 
+                this.y + this.hitboxOffsetTop < tile.bottom && 
+                this.x + this.hitboxOffsetX < tile.right && 
+                this.x + this.w - this.hitboxOffsetX > tile.left) {
                 // Character entered tile from the top
-                if (!tile.secret && this.hitbox.bottom > tile.top && this.hitboxOld.bottom <= tile.top) {
+                if (!tile.secret && this.y + this.h > tile.top && this.yOld + this.h <= tile.top) {
                     this.y = tile.top - this.h;
                     this.yOld = this.y;
                     this.yVel = 0;
                     this.inAir = false;
-                    this.updateHitbox();
                 // Character entered tile from the left
-                } else if (!tile.secret && this.hitbox.right > tile.left && this.hitboxOld.right <= tile.left) {
+                } else if (!tile.secret && this.x + this.w - this.hitboxOffsetX > tile.left && this.xOld + this.w - this.hitboxOffsetX <= tile.left) {
                     this.x = tile.left - this.w + this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                    this.updateHitbox();
                 // Character entered tile from the right
-                } else if (!tile.secret && this.hitbox.left < tile.right && this.hitboxOld.left >= tile.right) {
+                } else if (!tile.secret && this.x + this.hitboxOffsetX < tile.right && this.xOld + this.hitboxOffsetX >= tile.right) {
                     this.x = tile.right - this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                    this.updateHitbox();
                 // Character entered tile from the bottom
-                } else if (this.hitbox.top < tile.bottom && this.hitboxOld.top >= tile.bottom) {
+                } else if (this.y + this.hitboxOffsetTop < tile.bottom && this.yOld + this.hitboxOffsetTop >= tile.bottom) {
                     this.y = tile.bottom - this.hitboxOffsetTop;
                     this.yOld = this.y;
                     this.yVel = 0;
-                    this.updateHitbox();
 
                     if (tile.type === "breakableShiny" && !tile.itemType && this.state.current != this.state.small) {
                         tile.type = "blank";
@@ -1372,7 +1364,7 @@ class Character {
 
                     if (tile.itemType) {
                         // Spawn flower instead of mushroom if we are big
-                        if (tile.itemType === "mushroom" && this.state.current != this.state.small) {
+                        if (tile.itemType === "mushroom" && this.h !== 80) {
                             this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, "flower");
                         } else {
                             this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, tile.itemType);
@@ -1422,43 +1414,6 @@ class Character {
         });
 
         // Flag
-        this.parent.world.flag.parts.forEach(part => {
-            if (part.type === "flagPole" && part.collision) {
-                if (this.x + this.w > part.x) {
-                    this.x = part.x - this.blocksize * 1/4;
-                    this.xVel = 0;
-                    this.movement.current = this.movement.crappling;
-                    this.parent.disableInput();
-                    this.endsequence = true;
-                    this.yVel = 5;
-                }
-            } else {
-                if (this.y + this.h > part.top && this.y < part.bottom && this.x < part.right && this.x + this.w > part.left) {
-                    // Character entered tile from the top
-                    if (this.y + this.h > part.top && this.yOld + this.h <= part.top) {
-                        this.y = part.top - this.h;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                        this.inAir = false;
-                    // Character entered tile from the left
-                    } else if (this.x + this.w > part.left && this.xOld + this.w <= part.left) {
-                        this.x = part.left - this.w;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered tile from the right
-                    } else if (this.x < part.right && this.xOld >= part.right) {
-                        this.x = part.right;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered tile from the bottom
-                    } else if (this.y < part.bottom && this.yOld >= part.bottom) {
-                        this.y = part.bottom;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
-                }
-            }
-        })
 
         // Items
         this.parent.items.forEach(item => {
@@ -1491,16 +1446,30 @@ class Character {
     }
 
     setSprite() {
-        // Size
-        if (this.state.current === this.state.small) {
-            this.sY = 160;
-            this.h = 80;
-        } else if (this.state.current === this.state.big) {
-            this.sY = 0;
-            this.h = 160;
+        if (this.state.current === this.state.normal) {
+            if (this.h == 80) {
+                this.sY = 160;
+            } else {
+                this.sY = 0;
+            }
         } else if (this.state.current === this.state.flower) {
-            this.sY = 960;
-            this.h = 160;
+            if (this.h == 80) {
+                this.sY = 1120;
+            } else {
+                this.sY = 960;
+            }
+        } else if (this.state.current === this.state.star) {
+            if (this.parent.frame % 10 == 0) {
+                this.invincibility--;
+                if (this.invincibility == 0) {
+                    this.state.current = this.state.last;
+                }
+            }
+            if (this.h == 80) {
+                this.sY = 1600 + this.invincibility % 3 * 480;
+            } else {
+                this.sY = 1440 + this.invincibility % 3 * 480;
+            }
         }
 
         // Standing/Walking/Jumping/Ducking/Swimming/etc
@@ -1577,10 +1546,16 @@ class Item {
     }
 
     activate() {
-        if (this.type === "mushroom" && this.parent.character.state.current === "small" || this.type === "flower") {
-            this.parent.character.changeState(1);
+        if (this.type === "mushroom" || this.type === "flower" && this.parent.character.h === 80) {
+            this.parent.character.setHeight(160);
+        } else if (this.type === "flower" && this.parent.character.h === 160) {
+            this.parent.character.state.current = this.parent.character.state.flower;
         } else if (this.type === "1up") {
             this.parent.lives += 1;
+        } else if (this.type === "star") {
+            this.parent.character.state.last = this.parent.character.state.current;
+            this.parent.character.state.current = this.parent.character.state.star;
+            this.parent.character.invincibility = 60;
         }
     }
 
@@ -1592,10 +1567,12 @@ class Item {
     update() {
         // Update sprite
         if (this.animate) {
-            this.lifetime--;
-
-            if (this.lifetime < 0) {
-                this.destroy();
+            if (this.type === "coinItem") {
+                this.lifetime--;
+    
+                if (this.lifetime < 0) {
+                    this.destroy();
+                }
             }
 
             if (this.parent.frame % 10 === 0) {
