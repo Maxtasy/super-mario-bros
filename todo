@@ -1,6 +1,6 @@
-- Block character on bottom tile of flag
+- Pipe enter
 - Add enemies
-- "breakable" type break animation
+- block bounce up animation
 - Only do collision detection on objects on the screen, push/pop others
 - Tweak friction, acceleration, maybe add air friction
 
