@@ -3,6 +3,7 @@ const ctx = cvs.getContext("2d");
 const page = document.documentElement;
 
 let fullscreen = false;
+const gameVolume = 0.2;
 
 // Load sprites
 const characterSprites = new Image();
@@ -14,9 +15,69 @@ tileSprites.src = "sprites/tiles.png";
 const objectSprites = new Image();
 objectSprites.src = "sprites/objects.png";
 
+// Load audio files
+const musicOverworld = new Audio("audio/music_overworld.wav");
+musicOverworld.volume = gameVolume;
+const musicUnderworld = new Audio("audio/music_underworld.wav");
+musicUnderworld.volume = gameVolume;
+const musicCastle = new Audio("audio/music_castle.wav");
+musicCastle.volume = gameVolume;
+const musicWater = new Audio("audio/music_water.wav");
+musicWater.volume = gameVolume;
+const musicInvincible = new Audio("audio/music_invincible.wav");
+musicInvincible.volume = gameVolume;
+
+const sound1up = new Audio("audio/smb_1-up.wav");
+sound1up.volume = gameVolume;
+const soundBowserFalls = new Audio("audio/smb_bowserfalls.wav");
+soundBowserFalls.volume = gameVolume;
+const soundBowserFire = new Audio("audio/smb_bowserfire.wav");
+soundBowserFire.volume = gameVolume;
+const soundBreakBlock = new Audio("audio/smb_breakblock.wav");
+soundBreakBlock.volume = gameVolume;
+const soundBump = new Audio("audio/smb_bump.wav");
+soundBump.volume = gameVolume;
+const soundCoin = new Audio("audio/smb_coin.wav");
+soundCoin.volume = gameVolume;
+const soundFireball = new Audio("audio/smb_fireball.wav");
+soundFireball.volume = gameVolume;
+const soundFireworks = new Audio("audio/smb_fireworks.wav");
+soundFireworks.volume = gameVolume;
+const soundFlagpole = new Audio("audio/smb_flagpole.wav");
+soundFlagpole.volume = gameVolume;
+const soundGameOver = new Audio("audio/smb_gameover.wav");
+soundGameOver.volume = gameVolume;
+const soundJumpSmall = new Audio("audio/smb_jump-small.wav");
+soundJumpSmall.volume = gameVolume;
+const soundJumpSuper = new Audio("audio/smb_jump-super.wav");
+soundJumpSuper.volume = gameVolume;
+const soundKick = new Audio("audio/smb_kick.wav");
+soundKick.volume = gameVolume;
+const soundMarioDie = new Audio("audio/smb_mariodie.wav");
+soundMarioDie.volume = gameVolume;
+const soundPause = new Audio("audio/smb_pause.wav");
+soundPause.volume = gameVolume;
+// Pipe travel / Power down
+const soundPipe = new Audio("audio/smb_pipe.wav");
+soundPipe.volume = gameVolume;
+const soundPowerup = new Audio("audio/smb_powerup.wav");
+soundPowerup.volume = gameVolume;
+const soundPowerupAppears = new Audio("audio/smb_powerup_appears.wav");
+soundPowerupAppears.volume = gameVolume;
+const soundStageClear = new Audio("audio/smb_stage_clear.wav");
+soundStageClear.volume = gameVolume;
+const soundStomp = new Audio("audio/smb_stomp.wav");
+soundStomp.volume = gameVolume;
+const soundVine = new Audio("audio/smb_vine.wav");
+soundVine.volume = gameVolume;
+const soundWarning = new Audio("audio/smb_warning.wav");
+soundWarning.volume = gameVolume;
+const soundWorldClear = new Audio("audio/smb_world_clear.wav");
+soundWorldClear.volume = gameVolume;
+
 const themeOffsetMap = {
     "overworld": 0,
-    "underground": 480,
+    "underworld": 480,
     "castle": 960,
     "water": 1840,
     "orange": 2320
@@ -325,6 +386,7 @@ const worldData = {
         width: 16960,
         levelEndLine: 16400,
         gravity: 2.15,
+        music: musicOverworld,
         rectangles: [
             {x: 0, y: 1000, w: 69, h: 1, theme: "overworld", type: "floor", collision: true},
             {x: 5680, y: 1000, w: 15, h: 1, theme: "overworld", type: "floor", collision: true},
@@ -445,6 +507,7 @@ const worldData = {
             {x: 16400, y: 920, theme: "overworld", amount: 1},
         ],
         pipes: [
+            {x: 400, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: true, destination: 111},
             {x: 2240, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3040, y: 760, size: 3, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3680, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: false, destination: null},
@@ -456,7 +519,8 @@ const worldData = {
             y: 120,
             w: 1,
             h: 11,
-            theme: "overworld"
+            theme: "overworld",
+            nextLevel: 111
         },
         // flag: {
         //     x: 400,
@@ -470,7 +534,35 @@ const worldData = {
         ]
     },
     // Sub level of 11 (underworld)
-    111: "#000000",
+    111: {
+        spawnLocation: {
+            x: 480,
+            y: 120
+        },
+        bg: "#000000",
+        width: 1920,
+        gravity: 2.15,
+        rectangles: [
+            {x: 0, y: 1000, w: 24, h: 1, theme: "underworld", type: "floor", collision: true},
+            
+            {x: 0, y: 120, w: 5, h: 11, theme: "underworld", type: "breakable", collision: true},
+            {x: 640, y: 120, w: 7, h: 1, theme: "underworld", type: "breakable", collision: true},
+            {x: 640, y: 760, w: 7, h: 3, theme: "underworld", type: "breakable", collision: true},
+            
+            {x: 1520, y: 120, w: 1, h: 9, theme: "underworld", type: "pipeVerticalLeft", collision: true},
+            {x: 1600, y: 120, w: 1, h: 11, theme: "underworld", type: "pipeVerticalRight", collision: true},
+            
+            {x: 1680, y: 120, w: 3, h: 11, theme: "underworld", type: "breakable", collision: true},
+        ],
+        tiles: [
+            {x: 1520, y: 840, theme: "underworld", type: "pipeConnectorTopLeft", collision: true},
+            {x: 1520, y: 920, theme: "underworld", type: "pipeConnectorBottomLeft", collision: true},
+
+        ],
+        pipes: [
+            {x: 1360, y: 840, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: 11},
+        ]
+    },
     12: "#6b8cff",
     13: "#6b8cff",
     14: "#000000",
@@ -660,12 +752,6 @@ class Rectangle {
         this.sprites = tileSprites;
     }
 
-    update() {
-        if (this.animate) {
-            // Update sprite
-        }
-    }
-
     scroll(deltaX) {
         this.x -= deltaX;
         this.left = this.x;
@@ -848,12 +934,6 @@ class Step {
         }
     }
 
-    update() {
-        this.rectangles.forEach(rectangle => {
-            rectangle.update();
-        });
-    }
-
     scroll(deltaX) {
         this.rectangles.forEach(rectangle => {
             rectangle.scroll(deltaX);
@@ -868,7 +948,7 @@ class Step {
 }
 
 class Flag {
-    constructor(parent, x, y, w, h, theme) {
+    constructor(parent, x, y, w, h, theme, nextLevel) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
@@ -876,6 +956,7 @@ class Flag {
         this.w = w;
         this.h = h;
         this.theme = theme;
+        this.nextLevel = nextLevel;
 
         this.parts = [];
 
@@ -917,6 +998,7 @@ class Pipe {
         this.opening = opening;
         this.canEnter = canEnter;
         this.destination = destination;
+        this.collision = true;
 
         this.tiles = [];
 
@@ -932,6 +1014,24 @@ class Pipe {
                         typeName = "pipeVerticalLeft";
                     } else if (j === 1) {
                         typeName = "pipeVerticalRight";
+                    }
+                    if (typeName) {
+                        this.tiles.push(new Tile(this, this.x + j * this.blocksize, this.y + i * this.blocksize, this.theme, typeName, false, true));
+                    }
+                }
+            }
+        } else if (this.opening === "left") {
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < this.size; j++) {
+                    let typeName = null;
+                    if (i === 0 && j === 0) {
+                        typeName = "pipeHorizontalTopLeft";
+                    } else if (i === 1 && j === 0) {
+                        typeName = "pipeHorizontalBottomLeft";
+                    } else if (i === 0) {
+                        typeName = "pipeHorizontalTop";
+                    } else if (i === 1) {
+                        typeName = "pipeHorizontalBottom";
                     }
                     if (typeName) {
                         this.tiles.push(new Tile(this, this.x + j * this.blocksize, this.y + i * this.blocksize, this.theme, typeName, false, true));
@@ -994,64 +1094,70 @@ class World {
         this.backgroundColor = worldData[worldID].bg;
 
         this.rectangles = [];
-        worldData[worldID].rectangles.forEach(rectangle => {
-            this.rectangles.push(new Rectangle(this, rectangle.x, rectangle.y, rectangle.w, rectangle.h, rectangle.theme, rectangle.type, rectangle.animate, rectangle.collision));
-        });
+        if (worldData[worldID].rectangles) {
+            worldData[worldID].rectangles.forEach(rectangle => {
+                this.rectangles.push(new Rectangle(this, rectangle.x, rectangle.y, rectangle.w, rectangle.h, rectangle.theme, rectangle.type, rectangle.animate, rectangle.collision));
+            });
+        }
 
         this.steps = [];
-        worldData[worldID].steps.forEach(step => {
-            this.steps.push(new Step(this, step.x, step.y, step.w, step.h, step.theme, step.type, step.animate, step.collision, step.reversed));
-        });
+        if (worldData[worldID].steps) {
+            worldData[worldID].steps.forEach(step => {
+                this.steps.push(new Step(this, step.x, step.y, step.w, step.h, step.theme, step.type, step.animate, step.collision, step.reversed));
+            });
+        }
 
         this.tiles = [];
-        worldData[worldID].tiles.forEach(tile => {
-            this.tiles.push(new Tile(this, tile.x, tile.y, tile.theme, tile.type, tile.animate, tile.collision, tile.itemTheme, tile.itemType, tile.secret));
-        });
+        if (worldData[worldID].tiles) {
+            worldData[worldID].tiles.forEach(tile => {
+                this.tiles.push(new Tile(this, tile.x, tile.y, tile.theme, tile.type, tile.animate, tile.collision, tile.itemTheme, tile.itemType, tile.secret));
+            });
+        }
 
         this.hills = [];
-        worldData[worldID].hills.forEach(hill => {
-            this.hills.push(new Hill(this, hill.x, hill.y, hill.w, hill.h, hill.theme, hill.type));
-        });
+        if (worldData[worldID].hills) {
+            worldData[worldID].hills.forEach(hill => {
+                this.hills.push(new Hill(this, hill.x, hill.y, hill.w, hill.h, hill.theme, hill.type));
+            });
+
+        }
 
         this.clouds = [];
-        worldData[worldID].clouds.forEach(cloud => {
-            this.clouds.push(new Cloud(this, cloud.x, cloud.y, cloud.theme, cloud.amount));
-        });
+        if (worldData[worldID].clouds) {
+            worldData[worldID].clouds.forEach(cloud => {
+                this.clouds.push(new Cloud(this, cloud.x, cloud.y, cloud.theme, cloud.amount));
+            });
+        }
 
         this.bushes = [];
-        worldData[worldID].bushes.forEach(bush => {
-            this.bushes.push(new Bush(this, bush.x, bush.y, bush.theme, bush.amount));
-        });
-
-        this.pipes = [];
-        worldData[worldID].pipes.forEach(pipe => {
-            this.pipes.push(new Pipe(this, pipe.x, pipe.y, pipe.size, pipe.theme, pipe.opening, pipe.canEnter, pipe.destination));
-        });
+        if (worldData[worldID].bushes) {
+            worldData[worldID].bushes.forEach(bush => {
+                this.bushes.push(new Bush(this, bush.x, bush.y, bush.theme, bush.amount));
+            });
+        }
 
         this.castles = [];
-        worldData[worldID].castles.forEach(castle => {
-            this.castles.push(new Castle(this, castle.x, castle.y, castle.theme, castle.name));
-        });
+        if (worldData[worldID].castles) {
+            worldData[worldID].castles.forEach(castle => {
+                this.castles.push(new Castle(this, castle.x, castle.y, castle.theme, castle.name));
+            });
+        }
 
-        const flagData = worldData[worldID].flag;
-        this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme);
+        if (worldData[worldID].flag) {
+            const flagData = worldData[worldID].flag;
+            this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.nextLevel);
+        }
     }
 
     update() {
-        // Rectangles
-        this.rectangles.forEach(rectangle => {
-            rectangle.update();
-        });
-        // Steps
-        this.steps.forEach(step => {
-            step.update();
-        });
-        // Tiles
-        this.tiles.forEach(tile => {
-            tile.update();
-        });
-        // Flag
-        this.flag.update();
+        if (this.tiles) {
+            this.tiles.forEach(tile => {
+                tile.update();
+            });
+        }
+        if (this.flag) {
+            this.flag.update();
+        }
     }
 
     scroll(deltaX) {
@@ -1082,10 +1188,6 @@ class World {
         this.bushes.forEach(bush => {
             bush.scroll(deltaX);
         });
-        // Pipes
-        this.pipes.forEach(pipe => {
-            pipe.scroll(deltaX);
-        });
         // Castles
         this.castles.forEach(castle => {
             castle.scroll(deltaX);
@@ -1110,12 +1212,10 @@ class World {
         this.bushes.forEach(bush => {
             bush.draw();
         });
-        // Pipes
-        this.pipes.forEach(pipe => {
-            pipe.draw();
-        });
         // Flag
-        this.flag.draw();
+        if (this.flag) {
+            this.flag.draw();
+        }
         // Castle
         this.castles.forEach(castle => {
             castle.draw();
@@ -1204,10 +1304,14 @@ class Character {
         this.yVel -= this.jumpForce;
         this.inAir = true;
         this.movement.current = this.movement.jumping;
+        soundJumpSmall.currentTime = 0;
+        soundJumpSmall.play();
     }
 
     die() {
         console.log("You died")
+        soundMarioDie.currentTime = 0;
+        soundMarioDie.play();
     }
 
     setHeight(height) {
@@ -1225,7 +1329,7 @@ class Character {
     }
 
     setVelocities() {
-        if (this.parent.flagReached || this.growing > 0) return;
+        if (this.parent.transition || this.growing > 0) return;
 
         // User wants to move right
         if (this.parent.keyStates.right && !this.parent.keyStates.left) {
@@ -1280,15 +1384,41 @@ class Character {
     }
 
     updatePosition() {
-        if (this.growing > 0) return
+        if (this.growing > 0) return;
 
-        if (this.parent.flagReached && this.y + this.h < 920) {
+        if (this.parent.transitionType === "flagReached" && this.y + this.h < 920) {
             this.yVel = 5;
             this.xVel = 0;
             this.movement.current = this.movement.crappling;
-        } else if (this.parent.flagReached && this.y + this.h >= 1000) {
+        } else if (this.parent.transitionType === "flagReached" && this.y + this.h >= 1000) {
             this.xVel = 5;
             this.movement.current = this.movement.walking;
+        } else if (this.parent.transitionType === "levelEnd") {
+            this.visible = false;
+
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.parent.warpTo);
+            }
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "pipeEnterTop") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.parent.warpTo);
+            }
+            this.xVel = 0;
+            this.yVel = 3;
+            this.movement.current = this.movement.standing;
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "pipeEnterLeft") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.parent.warpTo);
+            }
+            this.xVel = 3;
+            this.yVel = 0;
+            this.movement.current = this.movement.walking;
+
+            this.parent.transitionTimer--;
         }
 
         // Calculate new position and store old position
@@ -1401,25 +1531,48 @@ class Character {
                     this.yOld = this.y;
                     this.yVel = 0;
 
-                    if (tile.type === "breakableShiny" && !tile.itemType && this.h == 160) {
-                        tile.type = "blank";
-                        tile.collision = false;
-                        tile.updateSpriteOffsets();
-                        this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopLeft");
-                        this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopRight");
-                        this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomLeft");
-                        this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomRight");
-                    }
+                    if (tile.secret) tile.secret = false;
 
-                    if (tile.itemType) {
+                    if (tile.type === "disabled") {
+                        soundBump.currentTime = 0;
+                        soundBump.play(); 
+                    } else if (tile.type === "breakableShiny" && !tile.itemType) {
+                        if (this.h == 160) {
+                            soundBreakBlock.currentTime = 0;
+                            soundBreakBlock.play();
+                            tile.type = "blank";
+                            tile.collision = false;
+                            tile.updateSpriteOffsets();
+                            this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopLeft");
+                            this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopRight");
+                            this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomLeft");
+                            this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomRight");
+                        } else {
+                            soundBump.currentTime = 0;
+                            soundBump.play(); 
+                        }
+                    } else if (tile.itemType) {
                         // Spawn flower instead of mushroom if we are big
-                        if (tile.itemType === "mushroom" && this.h !== 80) {
-                            this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, "flower", true);
+                        if (tile.itemType === "mushroom") {
+                            if (this.h !== 80) {
+                                this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, "flower", true);
+                            } else {
+                                this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, "mushroom", true);
+                            }
+                            soundPowerupAppears.currentTime = 0;
+                            soundPowerupAppears.play();
+                        } else if (tile.itemType === "coinItem") {
+                            this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, "coinItem", true);
+                            soundCoin.currentTime = 0;
+                            soundCoin.play();
                         } else {
                             this.parent.spawnItem(tile.x, tile.y - this.blocksize, tile.itemTheme, tile.itemType, true);
+                            soundPowerupAppears.currentTime = 0;
+                            soundPowerupAppears.play();
                         }
 
                         tile.content--;
+
                         if (tile.content === 0) {
                             tile.type = "disabled";
                             tile.updateSpriteOffsets()
@@ -1433,8 +1586,8 @@ class Character {
         });
 
         // Pipes
-        this.parent.world.pipes.forEach(pipe => {
-            if (pipe.opening === "top") {
+        this.parent.pipes.forEach(pipe => {
+            if (pipe.collision && pipe.opening === "top") {
                 if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
                     // Character entered pipe from the top
                     if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
@@ -1442,7 +1595,14 @@ class Character {
                             this.parent.keyStates.down && !this.parent.keyStates.up && 
                             this.x > pipe.x + this.blocksize * .25 && 
                             this.x + this.w < pipe.x + 2 * this.blocksize - this.blocksize * .25) {
-                            console.log("wants to enter pipe")
+                            this.x = pipe.x + this.blocksize / 2;
+                            pipe.collision = false;
+                            this.parent.transition = true;
+                            this.parent.transitionType = "pipeEnterTop";
+                            this.parent.transitionTimer = this.parent.transitionTimers.pipe;
+                            this.parent.warpTo = pipe.destination;
+                            soundPipe.currentTime = 0;
+                            soundPipe.play();
                         }
                         this.y = pipe.y - this.h;
                         this.yOld = this.y;
@@ -1450,6 +1610,43 @@ class Character {
                         this.inAir = false;
                     // Character entered pipe from the left
                     } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
+                        this.x = pipe.x - this.w;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered pipe from the right
+                    } else if (this.x < pipe.x + 2 * this.blocksize && this.xOld >= pipe.x + 2 * this.blocksize) {
+                        this.x = pipe.x + 2 * this.blocksize;
+                        this.xOld = this.x;
+                        this.xVel = 0;
+                    // Character entered pipe from the bottom
+                    } else if (this.y < pipe.y + pipe.size * this.blocksize && this.yOld >= pipe.y + pipe.size * this.blocksize) {
+                        this.y = pipe.y + pipe.size * this.blocksize;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            } else if (pipe.collision && pipe.opening === "left") {
+                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
+                    // Character entered pipe from the top
+                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
+                        this.y = pipe.y - this.h;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                        this.inAir = false;
+                    // Character entered pipe from the left
+                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
+                        if (pipe.canEnter &&
+                            this.parent.keyStates.right && !this.parent.keyStates.left && 
+                            this.y + this.h > pipe.y + this.blocksize * 1.25) {
+                            this.y = pipe.y + this.blocksize / 2;
+                            pipe.collision = false;
+                            this.parent.transition = true;
+                            this.parent.transitionType = "pipeEnterLeft";
+                            this.parent.transitionTimer = this.parent.transitionTimers.pipe;
+                            this.parent.warpTo = pipe.destination;
+                            soundPipe.currentTime = 0;
+                            soundPipe.play();
+                        }
                         this.x = pipe.x - this.w;
                         this.xOld = this.x;
                         this.xVel = 0;
@@ -1477,28 +1674,38 @@ class Character {
         });
 
         // Flag
-        if (this.x + this.w - this.hitboxOffsetX > this.parent.world.flag.x && !this.parent.flagReached) {
-            if (this.y + this.h > 920) {
-                this.x = this.parent.world.flag.x - this.w + this.hitboxOffsetX;
-                this.xOld = this.x;
-                this.xVel = 0;
-            } else {
-                this.parent.flagReached = true;
-                this.x = this.parent.world.flag.x;
+        if (this.parent.world.flag) {
+            if (this.x + this.w - this.hitboxOffsetX > this.parent.world.flag.x && this.parent.transitionType !== "flagReached") {
+                if (this.y + this.h >= 920) {
+                    this.x = this.parent.world.flag.x - this.w + this.hitboxOffsetX;
+                    this.xOld = this.x;
+                    this.xVel = 0;
+                } else {
+                    this.parent.transition = true;
+                    this.parent.transitionType = "flagReached";
+                    this.parent.warpTo = this.parent.world.flag.nextLevel;
+                    this.x = this.parent.world.flag.x;
+                    soundFlagpole.currentTime = 0;
+                    soundFlagpole.play();
+                    musicOverworld.pause();
+                    musicOverworld.currentTime = 0;
+                }
             }
         }
 
         // Level end line
         if (this.x + this.w > this.parent.world.levelEndLine) {
-            this.visible = false;
+            this.parent.transitionType = "levelEnd";
+            this.parent.transitionTimer = this.parent.transitionTimers.levelEnd;
+            soundStageClear.currentTime = 0;
+            soundStageClear.play();
         }
     }
 
     setMovement() {
-        if (this.growing > 0) return
-        if (this.movement.current == this.movement.crappling) {
-            return;
-        } else if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
+        if (this.growing > 0 || this.parent.transition) return;
+
+        if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
             this.movement.current = this.movement.standing;
         } else if (this.xVel !== 0 && this.yVel === 0 && !this.inAir) {
             if (this.parent.keyStates.sprint) {
@@ -1513,7 +1720,7 @@ class Character {
 
     setSprite() {
         if (this.growing > 0) {
-            if (this.parent.frame % 10 == 0) {
+            if (this.parent.frame % 5 == 0) {
                 this.sX = this.frames.growing[this.growing - 1].sX;
                 this.sY = this.frames.growing[this.growing - 1].sY;
                 this.setHeight(this.frames.growing[this.growing - 1].h);
@@ -1545,6 +1752,9 @@ class Character {
                 this.invincibility--;
                 if (this.invincibility == 0) {
                     this.state.current = this.state.last;
+                    musicInvincible.pause();
+                    this.parent.music.currentTime = 0;
+                    this.parent.music.play();
                 }
             }
             if (this.h == 80) {
@@ -1631,20 +1841,38 @@ class Item {
     activate() {
         if (this.type === "mushroom" || this.type === "flower" && this.parent.character.h === 80) {
             this.parent.character.growing = this.parent.character.frames.growing.length;
+            soundPowerup.currentTime = 0;
+            soundPowerup.play()
         } else if (this.type === "flower" && this.parent.character.h === 160) {
             this.parent.character.state.current = this.parent.character.state.flower;
+            soundPowerup.currentTime = 0;
+            soundPowerup.play()
         } else if (this.type === "1up") {
-            this.parent.lives += 1;
+            this.parent.lives++;
+            sound1up.currentTime = 0;
+            sound1up.play()
         } else if (this.type === "star") {
             this.parent.character.state.last = this.parent.character.state.current;
             this.parent.character.state.current = this.parent.character.state.star;
             this.parent.character.invincibility = 60;
+            this.parent.music.pause();
+            musicInvincible.currentTime = 0;
+            musicInvincible.play();
         }
     }
 
     destroy() {
         const itemIndex = this.parent.items.indexOf(this);
-        this.parent.items.splice(itemIndex, 1)
+        this.parent.items.splice(itemIndex, 1);
+    }
+
+    updatePosition() {
+        this.yVel += this.gravity;
+        
+        this.xOld = this.x;
+        this.x += this.xVel;
+        this.yOld = this.y;
+        this.y += this.yVel;
     }
 
     update() {
@@ -1664,13 +1892,7 @@ class Item {
             }
         }
 
-        // Update position
-        this.yVel += this.gravity;
-        
-        this.xOld = this.x;
-        this.x += this.xVel;
-        this.yOld = this.y;
-        this.y += this.yVel;
+        this.updatePosition();
 
         // Collision
         // Screen edges
@@ -1766,7 +1988,7 @@ class Item {
         });
 
         // Pipes
-        this.parent.world.pipes.forEach(pipe => {
+        this.parent.pipes.forEach(pipe => {
             if (pipe.opening === "top") {
                 if (this.y + this.blocksize > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.blocksize > pipe.x) {
                     // Character entered pipe from the top
@@ -1806,11 +2028,12 @@ class Item {
 
 class Game {
     constructor() {
-        this.frame = 0;
+        this.blocksize = 80;
         this.screensize = {
             width: cvs.width,
             height: cvs.height
         };
+        this.scrollLine = this.screensize.width / 2;
         this.keyStates = {
             left: false,
             right: false,
@@ -1819,26 +2042,62 @@ class Game {
             down: false
         };
         this.lives = 3;
-        this.ignoreInput = false;
         this.currentWorld = 11;
-        this.gravity = worldData[this.currentWorld].gravity;
-        this.blocksize = 80;
-        this.scrollLine = this.screensize.width / 2;
 
+        this.transition = false;
+        this.transitionType = null;
+        this.transitionTimer = 0;
+        this.transitionTimers = {
+            pipe: 60,
+            levelEnd: 480,
+        }
+        this.warpTo = null;
+
+        this.gameState = {
+            current: "menu",
+            menu: "menu",
+            paused: "paused",
+            play: "play"
+        }
+    }
+
+    showMenu() {
+        if (this.gameState.current !== this.gameState.menu) return;
+        ctx.fillStyle = "red"
+        ctx.font = "30px Arial";
+        ctx.fillText("Press enter to play", 50, 50)
+    }
+
+    startGame() {
+        this.loadWorld(this.currentWorld);
+    }
+
+    loadWorld(worldID) {
+        this.frame = 0;
+        this.currentWorld = worldID;
+        this.music = worldData[this.currentWorld].music;
+        this.gravity = worldData[this.currentWorld].gravity;
+        //TODO: Keep state/size between warps
         this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y);
         this.world = new World(this, this.currentWorld);
 
-        this.flagReached = false;
+        this.pipes = [];
+        if (worldData[worldID].pipes) {
+            worldData[worldID].pipes.forEach(pipe => {
+                this.pipes.push(new Pipe(this, pipe.x, pipe.y, pipe.size, pipe.theme, pipe.opening, pipe.canEnter, pipe.destination));
+            });
+        }
+
+        this.transition = false;
+        this.transitionType = null;
+        this.warpTo = null;
 
         this.items = [];
-    }
-
-    enableInput() {
-        this.ignoreInput = false;
-    }
-
-    disableInput() {
-        this.ignoreInput = true;
+        //TODO: Play music
+        if (this.music) {
+            this.music.currentTime = 0;
+            this.music.play();
+        }
     }
 
     spawnItem(x, y, theme, type, collision) {
@@ -1846,6 +2105,7 @@ class Game {
     }
     // Runs each frame
     update() {
+        if (this.gameState.current !== this.gameState.play) return;
         this.frame++;
 
         this.character.update();
@@ -1859,6 +2119,9 @@ class Game {
             const deltaX = Math.round(this.character.x - this.scrollLine);
             this.character.scroll(deltaX);
             this.world.scroll(deltaX);
+            this.pipes.forEach(pipe => {
+                pipe.scroll(deltaX);
+            });
             this.items.forEach(item => {
                 item.scroll(deltaX);
             });
@@ -1866,8 +2129,12 @@ class Game {
     }
 
     draw() {
+        if (this.gameState.current !== this.gameState.play) return;
         this.world.draw();
         this.character.draw();
+        this.pipes.forEach(pipe => {
+            pipe.draw();
+        });
         this.items.forEach(item => {
             item.draw();
         });
@@ -1885,8 +2152,6 @@ function stopHere() {
 }
 
 function handleKeydown(e) {
-    if (game.ignoreInput) return;
-
     if (e.keyCode === 32 && !game.character.inAir) {
         game.character.jump();
     } else if (e.keyCode === 37) {
@@ -1903,6 +2168,9 @@ function handleKeydown(e) {
         toggleFullscreen();
     } else if (e.keyCode === 71) {
         spawn();
+    } else if (e.keyCode === 13 && game.gameState.current === game.gameState.menu) {
+        game.gameState.current = game.gameState.play;
+        game.loadWorld(game.currentWorld);
     }
 }
 
@@ -1954,6 +2222,7 @@ function toggleFullscreen() {
 }
 
 function loop() {
+    game.showMenu();
     game.update();
     game.draw();
     setTimeout(loop, 16.66);
