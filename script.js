@@ -15,6 +15,9 @@ tileSprites.src = "sprites/tiles.png";
 const objectSprites = new Image();
 objectSprites.src = "sprites/objects.png";
 
+const enemySprites = new Image();
+enemySprites.src = "sprites/enemies.png";
+
 // Load audio files
 const musicOverworld = new Audio("audio/music_overworld.wav");
 musicOverworld.volume = gameVolume;
@@ -88,6 +91,13 @@ const objectThemeOffsetMap = {
     "underground": 720,
     "castle": 1440,
     "water": 2160,
+}
+
+const enemyThemeOffsetMap = {
+    "overworld": 0,
+    "underground": 320,
+    "castle": 640,
+    "water": 960,
 }
 
 const typeOffsetMap = {
@@ -507,12 +517,15 @@ const worldData = {
             {x: 16400, y: 920, theme: "overworld", amount: 1},
         ],
         pipes: [
-            {x: 400, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: true, destination: 111},
+            {x: 640, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 2240, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3040, y: 760, size: 3, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3680, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: 111},
             {x: 13040, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
+        ],
+        enemies: [
+            {x: 1760, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
         ],
         flag: {
             x: 15840,
@@ -522,13 +535,6 @@ const worldData = {
             theme: "overworld",
             nextLevel: 111
         },
-        // flag: {
-        //     x: 400,
-        //     y: 120,
-        //     w: 1,
-        //     h: 11,
-        //     theme: "overworld"
-        // },
         castles: [
             {x: 16160, y: 600, theme: "overworld", name: "small"}
         ]
@@ -675,6 +681,23 @@ const castles = {
         {x: 240, y: 320, type: "castleWall"},
         {x: 320, y: 320, type: "castleWall"},
     ]
+}
+
+const enemyProperties = {
+    "goomba": {
+        sX: 0,
+        sY: 80,
+        w: 80,
+        h: 80,
+        hitboxOffsetX: 20,
+        hitboxOffsetTop: 30,
+        hitboxOffsetBottom: 25,
+        frames: [0, 80],
+        xVel: 5,
+        yVel: 0,
+        stompable: true,
+        shootable: true,
+    },
 }
 
 class Tile {
@@ -961,7 +984,7 @@ class Flag {
         this.parts = [];
 
         this.parts.push(new Tile(this, this.x, this.y, this.theme, "flagTop", false, true));
-        for (let i = 0; i < this.h; i++) {
+        for (let i = 0; i < this.h - 2; i++) {
             this.parts.push(new Tile(this, this.x, this.y + (i + 1) *  this.blocksize, this.theme, "flagPole", false, true));
         }
         this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, this.theme, "solid", false, true));
@@ -1089,6 +1112,7 @@ class World {
     constructor(parent, worldID) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
         this.end = worldData[worldID].width;
         this.levelEndLine = worldData[worldID].levelEndLine;
         this.backgroundColor = worldData[worldID].bg;
@@ -1143,6 +1167,13 @@ class World {
             });
         }
 
+        this.enemies = [];
+        if (worldData[worldID].enemies) {
+            worldData[worldID].enemies.forEach(enemy => {
+                this.enemies.push(new Enemy(this, enemy.x, enemy.y, enemy.theme, enemy.type, enemy.facingRight, enemy.stompable, enemy.shootable));
+            });
+        }
+
         if (worldData[worldID].flag) {
             const flagData = worldData[worldID].flag;
             this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.nextLevel);
@@ -1150,11 +1181,16 @@ class World {
     }
 
     update() {
-        if (this.tiles) {
-            this.tiles.forEach(tile => {
-                tile.update();
-            });
-        }
+        if (this.parent.transition || this.parent.character.growing > 0 || this.parent.character.shrinking > 0) return;
+
+        this.tiles.forEach(tile => {
+            tile.update();
+        });
+
+        this.enemies.forEach(enemy => {
+            enemy.update();
+        });
+
         if (this.flag) {
             this.flag.update();
         }
@@ -1164,35 +1200,30 @@ class World {
         this.end -= deltaX;
         this.levelEndLine -= deltaX;
 
-        // Rectangles
         this.rectangles.forEach(rectangle => {
             rectangle.scroll(deltaX);
         });
-        // Steps
         this.steps.forEach(step => {
             step.scroll(deltaX);
         });
-        // Tiles
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
-        // Hills
         this.hills.forEach(hill => {
             hill.scroll(deltaX);
         });
-        // Clouds
         this.clouds.forEach(cloud => {
             cloud.scroll(deltaX);
         });
-        // Bushes
         this.bushes.forEach(bush => {
             bush.scroll(deltaX);
         });
-        // Castles
         this.castles.forEach(castle => {
             castle.scroll(deltaX);
         });
-        // Flag
+        this.enemies.forEach(enemy => {
+            enemy.scroll(deltaX);
+        });
         this.flag.scroll(deltaX);
     }
 
@@ -1200,43 +1231,39 @@ class World {
         // Background
         ctx.fillStyle = this.backgroundColor;
         ctx.fillRect(0, 0, cvs.width, cvs.height);
-        // Hills
+
         this.hills.forEach(hill => {
             hill.draw();
         });
-        // Clouds
         this.clouds.forEach(cloud => {
             cloud.draw();
         });
-        // Bushes
         this.bushes.forEach(bush => {
             bush.draw();
         });
-        // Flag
-        if (this.flag) {
-            this.flag.draw();
-        }
-        // Castle
         this.castles.forEach(castle => {
             castle.draw();
         });
-        // Rectangles
         this.rectangles.forEach(rectangle => {
             rectangle.draw();
         });
-        // Steps
         this.steps.forEach(step => {
             step.draw();
         });
-        // Tiles
         this.tiles.forEach(tile => {
             tile.draw();
         });
+        this.enemies.forEach(enemy => {
+            enemy.draw();
+        });
+        if (this.flag) {
+            this.flag.draw();
+        }
     }
 }
 
 class Character {
-    constructor(parent, spawnLocationX, spawnLocationY) {
+    constructor(parent, spawnLocationX, spawnLocationY, height=80, state="normal") {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.frame = 0;
@@ -1245,7 +1272,7 @@ class Character {
         this.y = spawnLocationY;
         this.yOld = this.y;
         this.w = 80;
-        this.h = 80;
+        this.h = height;
 
         this.hitboxOffsetX = 4;
         this.hitboxOffsetTop = 5;
@@ -1267,7 +1294,7 @@ class Character {
         this.xAccelSprint = 9;
         this.xAccelWalk = 6;
         this.state = {
-            current: "normal",
+            current: state,
             last: "normal",
             normal: "normal",
             flower: "flower",
@@ -1293,11 +1320,23 @@ class Character {
                 {sX: 0, sY: 0, h: 160},
                 {sX: 1200, sY: 0, h: 160},
                 {sX: 0, sY: 160, h: 80},
-            ]
+            ],
+            shrinking: [
+                {sX: 0, sY: 160, h: 80},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 0, h: 160},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 0, h: 160},
+                {sX: 1200, sY: 0, h: 160},
+                {sX: 0, sY: 160, h: 80},
+            ],
         }
         this.visible = true;
         this.invincibility = 0;
+        this.starTime = 0;
         this.growing = 0;
+        this.shrinking = 0;
+        this.dying = 0;
     }
 
     jump() {
@@ -1308,10 +1347,36 @@ class Character {
         soundJumpSmall.play();
     }
 
-    die() {
-        console.log("You died")
-        soundMarioDie.currentTime = 0;
-        soundMarioDie.play();
+    grow() {
+        if (this.growing > 0) {
+            if (this.parent.frame % 5 == 0) {
+                this.sX = this.frames.growing[this.growing - 1].sX;
+                this.sY = this.frames.growing[this.growing - 1].sY;
+                this.setHeight(this.frames.growing[this.growing - 1].h);
+
+                // In which direction is the player looking
+                if (!this.facingRight) {
+                    this.sY += this.facingLeftYOffset;
+                }
+                this.growing--;
+            }
+        }
+    }
+
+    shrink() {
+        if (this.shrinking > 0) {
+            if (this.parent.frame % 5 == 0) {
+                this.sX = this.frames.shrinking[this.shrinking - 1].sX;
+                this.sY = this.frames.shrinking[this.shrinking - 1].sY;
+                this.setHeight(this.frames.shrinking[this.shrinking - 1].h);
+
+                // In which direction is the player looking
+                if (!this.facingRight) {
+                    this.sY += this.facingLeftYOffset;
+                }
+                this.shrinking--;
+            }
+        }
     }
 
     setHeight(height) {
@@ -1329,7 +1394,7 @@ class Character {
     }
 
     setVelocities() {
-        if (this.parent.transition || this.growing > 0) return;
+        if (this.parent.transition || this.growing > 0 || this.shrinking > 0) return;
 
         // User wants to move right
         if (this.parent.keyStates.right && !this.parent.keyStates.left) {
@@ -1384,7 +1449,8 @@ class Character {
     }
 
     updatePosition() {
-        if (this.growing > 0) return;
+        //TODO: move all transition code into separate transition() function
+        if (this.growing > 0 || this.shrinking > 0) return;
 
         if (this.parent.transitionType === "flagReached" && this.y + this.h < 920) {
             this.yVel = 5;
@@ -1397,13 +1463,13 @@ class Character {
             this.visible = false;
 
             if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo);
+                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
             }
 
             this.parent.transitionTimer--;
         } else if (this.parent.transitionType === "pipeEnterTop") {
             if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo);
+                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
             }
             this.xVel = 0;
             this.yVel = 3;
@@ -1412,11 +1478,21 @@ class Character {
             this.parent.transitionTimer--;
         } else if (this.parent.transitionType === "pipeEnterLeft") {
             if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo);
+                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
             }
             this.xVel = 3;
             this.yVel = 0;
             this.movement.current = this.movement.walking;
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "dying") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.parent.currentWorld);
+            }
+            this.xVel = 0;
+            this.yVel += this.gravity;
+            this.sX = 480;
+            this.sY = 160;
 
             this.parent.transitionTimer--;
         }
@@ -1428,7 +1504,9 @@ class Character {
         this.y += this.yVel;
     }
 
-    collision() {
+    collisionCheck() {
+        if (this.growing > 0 || this.shrinking > 0 || this.parent.transitionType === "dying") return;
+
         // Left screen edge
         if (this.x - this.hitboxOffsetX <= 0) {
             this.x = 0 - this.hitboxOffsetX;
@@ -1638,7 +1716,7 @@ class Character {
                         if (pipe.canEnter &&
                             this.parent.keyStates.right && !this.parent.keyStates.left && 
                             this.y + this.h > pipe.y + this.blocksize * 1.25) {
-                            this.y = pipe.y + this.blocksize / 2;
+                            this.y = pipe.y + 2* this.blocksize - this.h;
                             pipe.collision = false;
                             this.parent.transition = true;
                             this.parent.transitionType = "pipeEnterLeft";
@@ -1673,6 +1751,48 @@ class Character {
             }
         });
 
+        // Enemies
+        this.parent.world.enemies.forEach(enemy => {
+            if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && 
+                this.y + this.hitboxOffsetTop < enemy.y + enemy.h - enemy.hitboxOffsetBottom && 
+                this.x + this.hitboxOffsetX < enemy.x + enemy.w - enemy.hitboxOffsetX && 
+                this.x + this.w - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX) {
+                
+                // Character is in star form
+                if (this.state.current === this.state.star) {
+                    enemy.destroy();
+                    soundStomp.currentTime = 0;
+                    soundStomp.play();
+                } else {
+                    // Character entered enemy from the top
+                    if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && this.yOld + this.h <= enemy.y + enemy.hitboxOffsetTop) {
+                        this.y = enemy.y - this.h;
+                        this.yOld = this.y;
+                        this.yVel = -20;
+                        enemy.destroy();
+                        soundStomp.currentTime = 0;
+                        soundStomp.play();
+                    // Character entered enemy from other sides
+                    } else if (this.invincibility === 0) {
+                        if (this.h != 80) {
+                            this.shrinking = this.frames.shrinking.length;
+                            this.invincibility = 75;
+                            soundPipe.currentTime = 0;
+                            soundPipe.play();
+                        } else {
+                            this.yVel = -40;
+                            this.parent.transition = true;
+                            this.parent.transitionType = "dying";
+                            this.parent.transitionTimer = this.parent.transitionTimers.dying;
+                            this.parent.music.pause();
+                            soundMarioDie.currentTime = 0;
+                            soundMarioDie.play();
+                        }
+                    }
+                }
+            }
+        });
+
         // Flag
         if (this.parent.world.flag) {
             if (this.x + this.w - this.hitboxOffsetX > this.parent.world.flag.x && this.parent.transitionType !== "flagReached") {
@@ -1703,7 +1823,7 @@ class Character {
     }
 
     setMovement() {
-        if (this.growing > 0 || this.parent.transition) return;
+        if (this.growing > 0 || this.shrinking > 0 || this.parent.transition) return;
 
         if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
             this.movement.current = this.movement.standing;
@@ -1719,21 +1839,7 @@ class Character {
     }
 
     setSprite() {
-        if (this.growing > 0) {
-            if (this.parent.frame % 5 == 0) {
-                this.sX = this.frames.growing[this.growing - 1].sX;
-                this.sY = this.frames.growing[this.growing - 1].sY;
-                this.setHeight(this.frames.growing[this.growing - 1].h);
-
-                // In which direction is the player looking
-                if (!this.facingRight) {
-                    this.sY += this.facingLeftYOffset;
-                }
-                this.growing--;
-            }
-
-            return;
-        }
+        if (this.growing > 0 || this.shrinking > 0 || this.parent.transitionType === "dying") return;
 
         if (this.state.current === this.state.normal) {
             if (this.h == 80) {
@@ -1749,8 +1855,8 @@ class Character {
             }
         } else if (this.state.current === this.state.star) {
             if (this.parent.frame % 10 == 0) {
-                this.invincibility--;
-                if (this.invincibility == 0) {
+                this.starTime--;
+                if (this.starTime == 0) {
                     this.state.current = this.state.last;
                     musicInvincible.pause();
                     this.parent.music.currentTime = 0;
@@ -1758,9 +1864,9 @@ class Character {
                 }
             }
             if (this.h == 80) {
-                this.sY = 1600 + this.invincibility % 3 * 480;
+                this.sY = 1600 + this.starTime % 3 * 480;
             } else {
-                this.sY = 1440 + this.invincibility % 3 * 480;
+                this.sY = 1440 + this.starTime % 3 * 480;
             }
         }
 
@@ -1790,9 +1896,12 @@ class Character {
     }
 
     update() {
+        if (this.invincibility > 0) this.invincibility--;
+        this.grow();
+        this.shrink();
         this.setVelocities();
         this.updatePosition();
-        this.collision();
+        this.collisionCheck();
         this.setMovement();
         this.setSprite();
     }
@@ -1809,7 +1918,203 @@ class Character {
 }
 
 class Enemy {
-    
+    constructor(parent, x, y, theme="overworld", type="goomba", facingRight=false, stompable=true, shootable=true) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
+        this.frame = 0;
+        this.x = x;
+        this.xOld = this.x;
+        this.y = y;
+        this.yOld = this.y;
+        this.theme = theme;
+        this.type = type;
+        this.stompable = stompable;
+        this.shootable = shootable
+        this.sprites = enemySprites;
+        this.facingLeftYOffset = 160;
+        this.facingRight = facingRight;
+        this.sX = enemyProperties[this.type].sX;
+        this.sY = enemyProperties[this.type].sY;
+        this.w = enemyProperties[this.type].w;
+        this.h = enemyProperties[this.type].h;
+        this.xVel = enemyProperties[this.type].xVel;
+        this.yVel = enemyProperties[this.type].yVel;
+        this.hitboxOffsetTop = enemyProperties[this.type].hitboxOffsetTop;
+        this.hitboxOffsetBottom = enemyProperties[this.type].hitboxOffsetBottom;
+        this.hitboxOffsetX = enemyProperties[this.type].hitboxOffsetX;
+        if (enemyProperties[this.type].frames) this.frames = enemyProperties[this.type].frames;
+        if (!this.facingRight) this.xVel *= -1;
+        if (this.x < this.parent.parent.screensize.width) {
+            this.onScreen = true;
+        } else {
+            this.onScreen = false;
+        }
+        console.log(this.frames)
+    }
+
+    destroy() {
+        // Spawn dead body object (item?) in location with 2sec timer to disappear
+        const enemyIndex = this.parent.enemies.indexOf(this);
+        this.parent.enemies.splice(enemyIndex, 1);
+    }
+
+    updatePosition() {
+        this.yVel += this.gravity;
+        
+        this.xOld = this.x;
+        this.x += this.xVel;
+        this.yOld = this.y;
+        this.y += this.yVel;
+    }
+
+    collisionCheck() {
+        // Screen edges
+        if (this.x + this.w + 2 * this.blocksize < 0 || this.x - 2 * this.blocksize > this.parent.parent.screensize.width || this.y - 2 * this.blocksize > this.parent.parent.screensize.height) {
+            this.destroy();
+        }
+        
+        // Rectangles
+        this.parent.rectangles.forEach(rectangle => {
+            if (this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
+                // Enemy entered rectangle from the top
+                if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
+                    this.y = rectangle.top - this.h;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                // Enemy entered rectangle from the left
+                } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
+                    this.x = rectangle.left - this.w;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                    this.facingRight = !this.facingRight;
+                // Enemy entered rectangle from the right
+                } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
+                    this.x = rectangle.right;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                    this.facingRight = !this.facingRight;
+                // Enemy entered rectangle from the bottom
+                } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
+                    this.y = rectangle.bottom;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            }
+        });
+        
+        // Steps
+        this.parent.steps.forEach(step => {
+            // Check for each rectangle of the step
+            step.rectangles.forEach(rectangle => {
+                if (this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
+                    // Item entered rectangle from the top
+                    if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
+                        this.y = rectangle.top - this.h;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    // Item entered rectangle from the left
+                    } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
+                        this.x = rectangle.left - this.w;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Item entered rectangle from the right
+                    } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
+                        this.x = rectangle.right;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Item entered rectangle from the bottom
+                    } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
+                        this.y = rectangle.bottom;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            });
+        });
+        
+        // Tiles
+        this.parent.tiles.forEach(tile => {
+            if (this.y + this.h > tile.top && this.y < tile.bottom && this.x < tile.right && this.x + this.w > tile.left) {
+                // Item entered tile from the top
+                if (this.y + this.h > tile.top && this.yOld + this.h <= tile.top) {
+                    this.y = tile.top - this.h;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                // Item entered tile from the left
+                } else if (this.x + this.w > tile.left && this.xOld + this.w <= tile.left) {
+                    this.x = tile.left - this.w;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered tile from the right
+                } else if (this.x < tile.right && this.xOld >= tile.right) {
+                    this.x = tile.right;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                // Item entered tile from the bottom
+                } else if (this.y < tile.bottom && this.yOld >= tile.bottom) {
+                    this.y = tile.bottom;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            }
+        });
+
+        // Pipes
+        this.parent.parent.pipes.forEach(pipe => {
+            if (pipe.opening === "top") {
+                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
+                    // Character entered pipe from the top
+                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
+                        this.y = pipe.y - this.h;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    // Character entered pipe from the left
+                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
+                        this.x = pipe.x - this.w;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Character entered pipe from the right
+                    } else if (this.x < pipe.x + 2 * this.blocksize && this.xOld >= pipe.x + 2 * this.blocksize) {
+                        this.x = pipe.x + 2 * this.blocksize;
+                        this.xOld = this.x;
+                        this.xVel *= -1;
+                    // Character entered pipe from the bottom
+                    } else if (this.y < pipe.y + pipe.size * this.blocksize && this.yOld >= pipe.y + pipe.size * this.blocksize) {
+                        this.y = pipe.y + pipe.size * this.blocksize;
+                        this.yOld = this.y;
+                        this.yVel = 0;
+                    }
+                }
+            }
+        });
+
+        //TODO: Reflect off other enemies
+        //TODO: Reflect off items
+    }
+
+    setSprite() {
+        if (this.frames && this.parent.parent.frame % 10 === 0) {
+            this.frame = (this.frame + 1) % this.frames.length;
+            this.sX = this.frames[this.frame];
+        }
+    }
+
+    update() {
+        if (!this.onScreen) return;
+        this.updatePosition();
+        this.collisionCheck();
+        this.setSprite();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        if (this.x <= this.parent.parent.screensize.width) this.onScreen = true;
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+    }
 }
 
 class Item {
@@ -1844,7 +2149,7 @@ class Item {
             soundPowerup.currentTime = 0;
             soundPowerup.play()
         } else if (this.type === "flower" && this.parent.character.h === 160) {
-            this.parent.character.state.current = this.parent.character.state.flower;
+            this.parent.character.state.last = this.parent.character.state.flower;
             soundPowerup.currentTime = 0;
             soundPowerup.play()
         } else if (this.type === "1up") {
@@ -1854,7 +2159,7 @@ class Item {
         } else if (this.type === "star") {
             this.parent.character.state.last = this.parent.character.state.current;
             this.parent.character.state.current = this.parent.character.state.star;
-            this.parent.character.invincibility = 60;
+            this.parent.character.starTime = 61;
             this.parent.music.pause();
             musicInvincible.currentTime = 0;
             musicInvincible.play();
@@ -1875,32 +2180,13 @@ class Item {
         this.y += this.yVel;
     }
 
-    update() {
-        // Update sprite
-        if (this.animate) {
-            if (this.type === "coinItem") {
-                this.lifetime--;
-    
-                if (this.lifetime < 0) {
-                    this.destroy();
-                }
-            }
-
-            if (this.parent.frame % 10 === 0) {
-                this.frame = (this.frame + 1) % this.sequence.length;
-                this.sX = this.sequence[this.frame];
-            }
-        }
-
-        this.updatePosition();
-
-        // Collision
+    collisionCheck() {
         // Screen edges
         if (this.x + this.blocksize < 0 || this.x > this.parent.screensize.width || this.y > this.parent.screensize.height) {
             this.destroy();
         }
 
-        if (!this.collision) return
+        if (!this.collision) return;
         
         // Rectangles
         this.parent.world.rectangles.forEach(rectangle => {
@@ -2017,6 +2303,30 @@ class Item {
         });
     }
 
+    setSprite() {
+        if (this.animate) {
+            if (this.type === "coinItem") {
+                this.lifetime--;
+    
+                if (this.lifetime < 0) {
+                    this.destroy();
+                }
+            }
+
+            if (this.parent.frame % 10 === 0) {
+                this.frame = (this.frame + 1) % this.sequence.length;
+                this.sX = this.sequence[this.frame];
+            }
+        }
+    }
+
+    update() {
+        if (this.parent.character.growing > 0 || this.parent.character.shrinking > 0) return;
+        this.updatePosition();
+        this.collisionCheck();
+        this.setSprite();
+    }
+
     scroll(deltaX) {
         this.x -= deltaX;
     }
@@ -2050,6 +2360,7 @@ class Game {
         this.transitionTimers = {
             pipe: 60,
             levelEnd: 480,
+            dying: 240,
         }
         this.warpTo = null;
 
@@ -2072,13 +2383,13 @@ class Game {
         this.loadWorld(this.currentWorld);
     }
 
-    loadWorld(worldID) {
+    loadWorld(worldID, height, state) {
         this.frame = 0;
         this.currentWorld = worldID;
         this.music = worldData[this.currentWorld].music;
         this.gravity = worldData[this.currentWorld].gravity;
         //TODO: Keep state/size between warps
-        this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y);
+        this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y, height, state);
         this.world = new World(this, this.currentWorld);
 
         this.pipes = [];
@@ -2093,7 +2404,8 @@ class Game {
         this.warpTo = null;
 
         this.items = [];
-        //TODO: Play music
+        this.enemies = [];
+
         if (this.music) {
             this.music.currentTime = 0;
             this.music.play();
