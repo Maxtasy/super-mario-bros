@@ -1,6 +1,7 @@
-- Pipe enter
-- Add enemies
-- block bounce up animation
+- Add flag to flagPole
+- Pipe enter right, bottom
+- Enemy properties: greenKoopaTroopa
+- Block bounce up animation
 - Only do collision detection on objects on the screen, push/pop others
 - Tweak friction, acceleration, maybe add air friction
 

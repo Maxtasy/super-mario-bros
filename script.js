@@ -390,7 +390,7 @@ const worldData = {
     11: {
         spawnLocation: {
             x: 160,
-            y: 760
+            y: 680
         },
         bg: "#63adfe",
         width: 16960,
@@ -521,11 +521,28 @@ const worldData = {
             {x: 2240, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3040, y: 760, size: 3, theme: "overworld", opening: "top", canEnter: false, destination: null},
             {x: 3680, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: false, destination: null},
-            {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: 111},
+            {x: 4560, y: 680, size: 4, theme: "overworld", opening: "top", canEnter: true, destination: {worldID: 111, scrollOffset: null, spawnLocation: null, transitionType: null}},
             {x: 13040, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
+            {x: 14320, y: 840, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
         ],
         enemies: [
             {x: 1760, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 3200, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 4080, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 4160, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 6400, y: 280, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 6480, y: 280, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 7760, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 7840, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            // {x: 8560, y: 840, theme: "overworld", type: "greenKoopaTroopa", facingRight: false, stompable: true, shootable: true},
+            {x: 9120, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 9200, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 9920, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 10000, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 10240, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 10320, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 13920, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
+            {x: 14000, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
         ],
         flag: {
             x: 15840,
@@ -533,13 +550,12 @@ const worldData = {
             w: 1,
             h: 11,
             theme: "overworld",
-            nextLevel: 111
+            destination: { worldID: 11 }
         },
         castles: [
             {x: 16160, y: 600, theme: "overworld", name: "small"}
         ]
     },
-    // Sub level of 11 (underworld)
     111: {
         spawnLocation: {
             x: 480,
@@ -566,10 +582,43 @@ const worldData = {
 
         ],
         pipes: [
-            {x: 1360, y: 840, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: 11},
-        ]
+            {x: 1360, y: 840, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 11, scrollOffset: 12400, spawnLocation: {x: 680, y: 1000}, transitionType: "pipeOutTop"}},
+        ],
+        coins: [
+            {x: 720,y: 340, theme: "underworld"},
+            {x: 800,y: 340, theme: "underworld"},
+            {x: 880,y: 340, theme: "underworld"},
+            {x: 960,y: 340, theme: "underworld"},
+            {x: 1040,y: 340, theme: "underworld"},
+            
+            {x: 640,y: 420, theme: "underworld"},
+            {x: 720,y: 420, theme: "underworld"},
+            {x: 800,y: 420, theme: "underworld"},
+            {x: 880,y: 420, theme: "underworld"},
+            {x: 960,y: 420, theme: "underworld"},
+            {x: 1040,y: 420, theme: "underworld"},
+            {x: 1120,y: 420, theme: "underworld"},
+            
+            {x: 640,y: 500, theme: "underworld"},
+            {x: 720,y: 500, theme: "underworld"},
+            {x: 800,y: 500, theme: "underworld"},
+            {x: 880,y: 500, theme: "underworld"},
+            {x: 960,y: 500, theme: "underworld"},
+            {x: 1040,y: 500, theme: "underworld"},
+            {x: 1120,y: 500, theme: "underworld"},
+        ],
     },
-    12: "#6b8cff",
+    12: {
+        spawnLocation: {
+            x: 160,
+            y: 160
+        },
+        bg: "#000000",
+        width: 16960,
+        levelEndLine: 16400,
+        gravity: 2.15,
+        music: musicUnderworld,
+    },
     13: "#6b8cff",
     14: "#000000",
     21: "#6b8cff",
@@ -971,7 +1020,7 @@ class Step {
 }
 
 class Flag {
-    constructor(parent, x, y, w, h, theme, nextLevel) {
+    constructor(parent, x, y, w, h, theme, destination) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
@@ -979,7 +1028,7 @@ class Flag {
         this.w = w;
         this.h = h;
         this.theme = theme;
-        this.nextLevel = nextLevel;
+        this.destination = destination;
 
         this.parts = [];
 
@@ -1176,7 +1225,7 @@ class World {
 
         if (worldData[worldID].flag) {
             const flagData = worldData[worldID].flag;
-            this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.nextLevel);
+            this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.destination);
         }
     }
 
@@ -1340,6 +1389,7 @@ class Character {
     }
 
     jump() {
+        if (this.parent.transition || this.growing > 0 || this.shrinking > 0) return;
         this.yVel -= this.jumpForce;
         this.inAir = true;
         this.movement.current = this.movement.jumping;
@@ -1348,34 +1398,30 @@ class Character {
     }
 
     grow() {
-        if (this.growing > 0) {
-            if (this.parent.frame % 5 == 0) {
-                this.sX = this.frames.growing[this.growing - 1].sX;
-                this.sY = this.frames.growing[this.growing - 1].sY;
-                this.setHeight(this.frames.growing[this.growing - 1].h);
+        if (this.parent.frame % 5 == 0) {
+            this.sX = this.frames.growing[this.growing - 1].sX;
+            this.sY = this.frames.growing[this.growing - 1].sY;
+            this.setHeight(this.frames.growing[this.growing - 1].h);
 
-                // In which direction is the player looking
-                if (!this.facingRight) {
-                    this.sY += this.facingLeftYOffset;
-                }
-                this.growing--;
+            // In which direction is the player looking
+            if (!this.facingRight) {
+                this.sY += this.facingLeftYOffset;
             }
+            this.growing--;
         }
     }
 
     shrink() {
-        if (this.shrinking > 0) {
-            if (this.parent.frame % 5 == 0) {
-                this.sX = this.frames.shrinking[this.shrinking - 1].sX;
-                this.sY = this.frames.shrinking[this.shrinking - 1].sY;
-                this.setHeight(this.frames.shrinking[this.shrinking - 1].h);
+        if (this.parent.frame % 5 == 0) {
+            this.sX = this.frames.shrinking[this.shrinking - 1].sX;
+            this.sY = this.frames.shrinking[this.shrinking - 1].sY;
+            this.setHeight(this.frames.shrinking[this.shrinking - 1].h);
 
-                // In which direction is the player looking
-                if (!this.facingRight) {
-                    this.sY += this.facingLeftYOffset;
-                }
-                this.shrinking--;
+            // In which direction is the player looking
+            if (!this.facingRight) {
+                this.sY += this.facingLeftYOffset;
             }
+            this.shrinking--;
         }
     }
 
@@ -1390,6 +1436,63 @@ class Character {
             this.hitboxOffsetTop = 8;
             this.y -= 80;
             this.h = 160;
+        }
+    }
+
+    runTransition() {
+        if (this.parent.transitionType === "flagReached" && this.y + this.h < 920) {
+            this.yVel = 5;
+            this.xVel = 0;
+            this.movement.current = this.movement.crappling;
+        } else if (this.parent.transitionType === "flagReached" && this.y + this.h >= 1000) {
+            this.xVel = 5;
+            this.movement.current = this.movement.walking;
+        } else if (this.parent.transitionType === "levelEnd") {
+            this.visible = false;
+
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.h, this.state.current);
+            }
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "pipeEnterTop") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.h, this.state.current);
+            }
+            this.xVel = 0;
+            this.yVel = 3;
+            this.movement.current = this.movement.standing;
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "pipeOutTop") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.transition = false;
+                this.parent.transitionType = null;
+            }
+            this.xVel = 0;
+            this.yVel = -3;
+            this.movement.current = this.movement.standing;
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "pipeEnterLeft") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld(this.h, this.state.current);
+            }
+            this.xVel = 3;
+            this.yVel = 0;
+            this.movement.current = this.movement.walking;
+
+            this.parent.transitionTimer--;
+        } else if (this.parent.transitionType === "dying") {
+            if (this.parent.transitionTimer == 0) {
+                this.parent.loadWorld();
+            }
+            this.xVel = 0;
+            this.yVel += this.gravity;
+            this.sX = 480;
+            this.sY = 160;
+
+            this.parent.transitionTimer--;
         }
     }
 
@@ -1449,55 +1552,8 @@ class Character {
     }
 
     updatePosition() {
-        //TODO: move all transition code into separate transition() function
         if (this.growing > 0 || this.shrinking > 0) return;
 
-        if (this.parent.transitionType === "flagReached" && this.y + this.h < 920) {
-            this.yVel = 5;
-            this.xVel = 0;
-            this.movement.current = this.movement.crappling;
-        } else if (this.parent.transitionType === "flagReached" && this.y + this.h >= 1000) {
-            this.xVel = 5;
-            this.movement.current = this.movement.walking;
-        } else if (this.parent.transitionType === "levelEnd") {
-            this.visible = false;
-
-            if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
-            }
-
-            this.parent.transitionTimer--;
-        } else if (this.parent.transitionType === "pipeEnterTop") {
-            if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
-            }
-            this.xVel = 0;
-            this.yVel = 3;
-            this.movement.current = this.movement.standing;
-
-            this.parent.transitionTimer--;
-        } else if (this.parent.transitionType === "pipeEnterLeft") {
-            if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.warpTo, this.h, this.state.current);
-            }
-            this.xVel = 3;
-            this.yVel = 0;
-            this.movement.current = this.movement.walking;
-
-            this.parent.transitionTimer--;
-        } else if (this.parent.transitionType === "dying") {
-            if (this.parent.transitionTimer == 0) {
-                this.parent.loadWorld(this.parent.currentWorld);
-            }
-            this.xVel = 0;
-            this.yVel += this.gravity;
-            this.sX = 480;
-            this.sY = 160;
-
-            this.parent.transitionTimer--;
-        }
-
-        // Calculate new position and store old position
         this.xOld = this.x;
         this.x += this.xVel;
         this.yOld = this.y;
@@ -1678,7 +1734,7 @@ class Character {
                             this.parent.transition = true;
                             this.parent.transitionType = "pipeEnterTop";
                             this.parent.transitionTimer = this.parent.transitionTimers.pipe;
-                            this.parent.warpTo = pipe.destination;
+                            this.parent.destination = pipe.destination;
                             soundPipe.currentTime = 0;
                             soundPipe.play();
                         }
@@ -1721,7 +1777,7 @@ class Character {
                             this.parent.transition = true;
                             this.parent.transitionType = "pipeEnterLeft";
                             this.parent.transitionTimer = this.parent.transitionTimers.pipe;
-                            this.parent.warpTo = pipe.destination;
+                            this.parent.destination = pipe.destination;
                             soundPipe.currentTime = 0;
                             soundPipe.play();
                         }
@@ -1823,7 +1879,7 @@ class Character {
     }
 
     setMovement() {
-        if (this.growing > 0 || this.shrinking > 0 || this.parent.transition) return;
+        if (this.parent.transition || this.growing > 0 || this.shrinking > 0) return;
 
         if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
             this.movement.current = this.movement.standing;
@@ -1897,8 +1953,9 @@ class Character {
 
     update() {
         if (this.invincibility > 0) this.invincibility--;
-        this.grow();
-        this.shrink();
+        if (this.growing > 0) this.grow();
+        if (this.shrinking > 0) this.shrink();
+        if (this.parent.transition) this.runTransition();
         this.setVelocities();
         this.updatePosition();
         this.collisionCheck();
@@ -1950,7 +2007,6 @@ class Enemy {
         } else {
             this.onScreen = false;
         }
-        console.log(this.frames)
     }
 
     destroy() {
@@ -2361,8 +2417,13 @@ class Game {
             pipe: 60,
             levelEnd: 480,
             dying: 240,
-        }
-        this.warpTo = null;
+        };
+        this.spawnLocation = {
+            x: null,
+            y: null
+        };
+
+        this.destination = null;
 
         this.gameState = {
             current: "menu",
@@ -2380,31 +2441,68 @@ class Game {
     }
 
     startGame() {
-        this.loadWorld(this.currentWorld);
+        this.loadWorld();
     }
 
-    loadWorld(worldID, height, state) {
+    loadWorld(characterHeight=80, characterState="normal") {
         this.frame = 0;
-        this.currentWorld = worldID;
+
+        if (this.destination) {
+            this.currentWorld = this.destination.worldID;
+
+            if (this.destination.spawnLocation) {
+                this.spawnLocation.x = this.destination.spawnLocation.x;
+                this.spawnLocation.y = this.destination.spawnLocation.y;
+            } else {
+                this.spawnLocation.x = worldData[this.currentWorld].spawnLocation.x;
+                this.spawnLocation.y = worldData[this.currentWorld].spawnLocation.y;
+            }
+
+            if (this.destination.scrollOffset) {
+                this.scrollOffset = this.destination.scrollOffset;
+            } else {
+                this.scrollOffset = 0;
+            }
+
+            if (this.destination.transitionType) {
+                this.transition = true;
+                this.transitionType = "pipeOutTop";
+                this.transitionTimer = this.transitionTimers.pipe;
+            } else {
+                this.transition = false;
+                this.transitionType = null;
+            }
+        } else {
+            this.spawnLocation.x = worldData[this.currentWorld].spawnLocation.x;
+            this.spawnLocation.y = worldData[this.currentWorld].spawnLocation.y;
+            this.scrollOffset = 0;
+            this.transition = false;
+            this.transitionType = null;
+        }
+
         this.music = worldData[this.currentWorld].music;
         this.gravity = worldData[this.currentWorld].gravity;
-        //TODO: Keep state/size between warps
-        this.character = new Character(this, worldData[this.currentWorld].spawnLocation.x, worldData[this.currentWorld].spawnLocation.y, height, state);
         this.world = new World(this, this.currentWorld);
 
         this.pipes = [];
-        if (worldData[worldID].pipes) {
-            worldData[worldID].pipes.forEach(pipe => {
-                this.pipes.push(new Pipe(this, pipe.x, pipe.y, pipe.size, pipe.theme, pipe.opening, pipe.canEnter, pipe.destination));
+        if (worldData[this.currentWorld].pipes) {
+            worldData[this.currentWorld].pipes.forEach(pipe => {
+                this.pipes.push(new Pipe(this, pipe.x, pipe.y, pipe.size, pipe.theme, pipe.opening, pipe.canEnter, pipe.destination, pipe.scrollOffset));
             });
         }
 
-        this.transition = false;
-        this.transitionType = null;
-        this.warpTo = null;
+        if (this.scrollOffset) {
+            this.world.scroll(this.scrollOffset);
+            // this.character.scroll(scrollOffset);
+            this.pipes.forEach(pipe => {
+                pipe.scroll(this.scrollOffset);
+            });
+        }
+
+        this.character = new Character(this, this.spawnLocation.x, this.spawnLocation.y - characterHeight, characterHeight, characterState);
 
         this.items = [];
-        this.enemies = [];
+        this.destination = null;
 
         if (this.music) {
             this.music.currentTime = 0;
@@ -2482,7 +2580,7 @@ function handleKeydown(e) {
         spawn();
     } else if (e.keyCode === 13 && game.gameState.current === game.gameState.menu) {
         game.gameState.current = game.gameState.play;
-        game.loadWorld(game.currentWorld);
+        game.loadWorld();
     }
 }
 
