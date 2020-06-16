@@ -1,8 +1,7 @@
 - Cutscenes
-- Add flag to flagPole
+- Elevators
 - Pipe enter right, bottom
-- Enemy properties: greenKoopaTroopa
-- Block bounce up animation
+- Update mushroom/flower/star/1up hitboxes
 - Only do collision detection on objects on the screen, push/pop others
 - Tweak friction, acceleration, maybe add air friction
 
