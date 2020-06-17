@@ -514,7 +514,7 @@ const enemyProperties = {
 }
 
 const worldData = {
-    0: {
+    "test": {
         theme: "overworld",
         spawnLocation: {
             x: 160,
@@ -672,8 +672,12 @@ const worldData = {
             {x: 13920, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
             {x: 14000, y: 920, theme: "overworld", type: "goomba", facingRight: false, stompable: true, shootable: true},
         ],
-        flag: {x: 400, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
-        // flag: {x: 15840, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
+        elevatorPlatforms: [
+            {x: 240, y: 520, w: 3, movementType: "down"},
+            {x: 640, y: 40, w: 3, movementType: "up"},
+        ],
+        // flag: {x: 400, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
+        flag: {x: 15840, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
         castles: [
             {x: 16160, y: 600, theme: "overworld", name: "small"}
         ]
@@ -902,8 +906,8 @@ const worldData = {
             y: 160
         },
         bg: "#000000",
-        width: 16960,
-        levelEndLine: 16000,
+        width: 15360,
+        levelEndLine: null,
         gravity: 2.15,
         music: musicUnderworld,
         rectangles: [
@@ -951,7 +955,7 @@ const worldData = {
             {x: 12800, y: 760, w: 10, h: 3, theme: "underworld", type: "breakable", collision: true},
             {x: 13600, y: 120, w: 7, h: 11, theme: "underworld", type: "breakable", collision: true},
             {x: 14160, y: 120, w: 10, h: 1, theme: "underworld", type: "breakable", collision: true},
-            {x: 15200, y: 120, w: 1, h: 11, theme: "underworld", type: "breakable", collision: true},
+            {x: 15200, y: 120, w: 2, h: 11, theme: "underworld", type: "breakable", collision: true},
             
             {x: 13440, y: 120, w: 1, h: 6, type: "pipeVerticalLeft", collision: true},
             {x: 13520, y: 120, w: 1, h: 8, type: "pipeVerticalRight", collision: true},
@@ -1007,9 +1011,9 @@ const worldData = {
             {x: 8720, y: 680, size: 4, theme: "underworld", opening: "top", canEnter: false},
             {x: 9200, y: 840, size: 2, theme: "underworld", opening: "top", canEnter: false},
             {x: 13280, y: 600, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 123}},
-            {x: 14240, y: 600, size: 3, opening: "top", canEnter: true, destination: {worldID: 41}},
-            {x: 14560, y: 600, size: 3, opening: "top", canEnter: true, destination: {worldID: 31}},
-            {x: 14880, y: 600, size: 3, opening: "top", canEnter: true, destination: {worldID: 21}},
+            {x: 14240, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 41}},
+            {x: 14560, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 31}},
+            {x: 14880, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 21}},
         ],
         coins: [
             {x: 3200, y: 600},
@@ -1032,6 +1036,12 @@ const worldData = {
             {x: 6960, y: 360},
             {x: 7040, y: 360},
             {x: 7120, y: 360},
+        ],
+        elevatorPlatforms: [
+            {x: 11200, y: 520, w: 3, movementType: "down"},
+            {x: 11200, y: 1000, w: 3, movementType: "down"},
+            {x: 12400, y: 40, w: 3, movementType: "up"},
+            {x: 12400, y: 680, w: 3, movementType: "up"},
         ],
         enemies: [
             {x: 1280, y: 920},
@@ -1530,7 +1540,6 @@ class Flag {
     }
 
     update() {
-        console.log(this.movingDown)
         if (!this.movingDown) return;
         if (this.movingPiece.y >= this.y + (this.h - 2) * this.blocksize) {
             this.movingDown = false;
@@ -1694,6 +1703,82 @@ class Coin {
     }
 }
 
+class ElevatorPlatform {
+    constructor(parent, x, y, w, movementType="falling") {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
+        this.x = x;
+        this.y = y;
+        this.yOld = this.y;
+        this.w = w;
+        this.sprites = objectSprites;
+        this.sX = 320;
+        this.sY = 640;
+        this.movementType = movementType;
+        this.weightApplied = false;
+        if (this.x < this.parent.parent.screensize.width) {
+            this.onScreen = true;
+        } else {
+            this.onScreen = false;
+        }
+        if (this.movementType === "up") {
+            this.yVel = -5;
+        } else if (this.movementType === "down") {
+            this.yVel = 5;
+        } else {
+            this.yVel = 0;
+        }
+    }
+
+    destroy() {
+        const elevattorIndex = this.parent.elevators.indexOf(this);
+        this.parent.elevators.splice(elevattorIndex, 1);
+    }
+
+    updateVelocities() {
+        if (this.movementType === "falling" && this.weightApplied) this.yVel += this.gravity;
+    }
+
+    updatePosition() {
+        this.yOld = this.y;
+        this.y += this.yVel;
+        if (this.movementType === "up" && this.y + this.blocksize < 0) this.y = this.parent.parent.screensize.height;
+        else if (this.movementType === "down" && this.y > this.parent.parent.screensize.height) this.y = 0 - this.blocksize;
+        else if (this.movementType === "falling" && this.y > this.parent.parent.screensize.height) this.destroy();
+    }
+
+    collisionCheck() {
+        if (this.movementType != "up") return;
+        if (!this.parent.parent.character.inAir && this.parent.parent.character.x + this.parent.parent.character.w > this.x && this.parent.parent.character.x < this.x + this.w * this.blocksize) {
+            if (this.y < this.parent.parent.character.y + this.parent.parent.character.h && this.yOld >= this.parent.parent.character.y + this.parent.parent.character.h) {
+                this.parent.parent.character.y = this.y - this.parent.parent.character.h;
+                this.parent.parent.character.yOld = this.parent.parent.character.y;
+                this.parent.parent.character.yVel = 0;
+                this.parent.parent.character.inAir = false;
+            }
+        }
+    }
+
+    update() {
+        if (!this.onScreen) return;
+        this.updateVelocities();
+        this.updatePosition();
+        this.collisionCheck();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        if (this.x <= this.parent.parent.screensize.width) this.onScreen = true;
+    }
+
+    draw() {
+        for (let i = 0; i < this.w; i++) {
+            ctx.drawImage(this.sprites, this.sX, this.sY, this.blocksize, this.blocksize, this.x + i * this.blocksize, this.y, this.blocksize, this.blocksize);
+        }
+    }
+}
+
 class World {
     constructor(parent, worldID) {
         this.parent = parent;
@@ -1768,6 +1853,13 @@ class World {
             });
         }
 
+        this.elevatorPlatforms = [];
+        if (worldData[worldID].elevatorPlatforms) {
+            worldData[worldID].elevatorPlatforms.forEach(elevatorPlatform => {
+                this.elevatorPlatforms.push(new ElevatorPlatform(this, elevatorPlatform.x, elevatorPlatform.y, elevatorPlatform.w, elevatorPlatform.movementType));
+            });
+        }
+
         if (worldData[worldID].flag) {
             const flagData = worldData[worldID].flag;
             this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.destination);
@@ -1795,6 +1887,10 @@ class World {
 
         this.coins.forEach(coin => {
             coin.update();
+        });
+
+        this.elevatorPlatforms.forEach(elevatorPlatform => {
+            elevatorPlatform.update();
         });
     }
 
@@ -1828,6 +1924,9 @@ class World {
         });
         this.coins.forEach(coin => {
             coin.scroll(deltaX);
+        });
+        this.elevatorPlatforms.forEach(elevatorPlatform => {
+            elevatorPlatform.scroll(deltaX);
         });
         if (this.flag)this.flag.scroll(deltaX);
     }
@@ -1863,6 +1962,9 @@ class World {
         });
         this.coins.forEach(coin => {
             coin.draw();
+        });
+        this.elevatorPlatforms.forEach(elevatorPlatform => {
+            elevatorPlatform.draw();
         });
         if (this.flag) {
             this.flag.draw();
@@ -2137,9 +2239,10 @@ class Character {
 
         // Calculate new y velocity
         this.yVel += this.gravity;
+        if (this.yVel >= this.yVelMax) this.yVel = this.yVelMax;
 
         // When falling off ledge prevent jumping midair
-        if (this.yVel > 0) {
+        if (this.yVel > 8) {
             this.inAir = true;
         }
     }
@@ -2151,6 +2254,19 @@ class Character {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
+    }
+
+    collisionCheckLeftScreenEdge() {
+        if (this.x - this.hitboxOffsetX <= 0) {
+            this.x = 0 - this.hitboxOffsetX;
+        }
+    }
+
+    collisionCheckFallingToDeath() {
+        if (this.y > this.parent.screensize.height) {
+            this.y = this.parent.screensize.height / 2;
+            this.x = 80;
+        }
     }
 
     collisionCheckTiles(tileList) {
@@ -2236,20 +2352,7 @@ class Character {
         });
     }
 
-    collisionCheck() {
-        if (this.parent.transition || !this.collision) return;
-
-        // Left screen edge
-        if (this.x - this.hitboxOffsetX <= 0) {
-            this.x = 0 - this.hitboxOffsetX;
-        } 
-
-        // Respawn if falling to death (for testing)
-        if (this.y > this.parent.screensize.height) {
-            this.y = this.parent.screensize.height / 2;
-            this.x = 80;
-        }
-
+    collisionCheckRectangles() {
         this.parent.world.rectangles.forEach(rectangle => {
             if (rectangle.collision && rectangle.individualCheck) {
                 this.collisionCheckTiles(rectangle.tiles);
@@ -2281,7 +2384,9 @@ class Character {
                     }
             }
         });
+    }
 
+    collisionCheckSteps() {
         this.parent.world.steps.forEach(step => {
             // Check for each rectangle of the step
             step.rectangles.forEach(rectangle => {
@@ -2311,9 +2416,9 @@ class Character {
                 }
             });
         });
+    }
 
-        this.collisionCheckTiles(this.parent.world.tiles);
-
+    collisionCheckPipes() {
         this.parent.pipes.forEach(pipe => {
             if (pipe.collision && pipe.opening === "top") {
                 if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
@@ -2392,14 +2497,22 @@ class Character {
                 }
             }
         });
+    }
 
+    collisionCheckItems() {
         this.parent.items.forEach(item => {
-            if (item.collision && this.y + this.h > item.y && this.y < item.y + this.blocksize && this.x < item.x + this.blocksize && this.x + this.w > item.x) {
+            if (item.collision 
+                && this.y + this.h > item.y + item.hitboxOffsetTop 
+                && this.y + this.hitboxOffsetTop < item.y + this.blocksize - item.hitboxOffsetBottom 
+                && this.x + this.hitboxOffsetX < item.x + this.blocksize - item.hitboxOffsetX 
+                && this.x + this.w - this.hitboxOffsetX > item.x + item.hitboxOffsetX) {
                 item.activate();
                 item.destroy();
             }
         });
+    }
 
+    collisionCheckEnemies() {
         this.parent.world.enemies.forEach(enemy => {
             if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && 
                 this.y + this.hitboxOffsetTop < enemy.y + enemy.h - enemy.hitboxOffsetBottom && 
@@ -2413,7 +2526,7 @@ class Character {
                     soundStomp.play();
                 } else {
                     // Character entered enemy from the top
-                    if (this.invincibility === 0 && this.y + this.h > enemy.y + enemy.hitboxOffsetTop && this.yOld + this.h <= enemy.y + enemy.hitboxOffsetTop) {
+                    if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && this.yOld + this.h <= enemy.y + enemy.hitboxOffsetTop) {
                         this.y = enemy.y - this.h;
                         this.yOld = this.y;
                         this.yVel = -20;
@@ -2473,13 +2586,17 @@ class Character {
                 }
             }
         });
+    }
 
+    collisionCheckCoins() {
         this.parent.world.coins.forEach(coin => {
             if (this.y + this.h > coin.y && this.y < coin.y + this.blocksize && this.x < coin.x + this.blocksize && this.x + this.w > coin.x) {
                 coin.destroy();
             }
         });
+    }
 
+    collisionCheckFlag() {
         if (this.parent.world.flag) {
             if (this.x + this.w - this.hitboxOffsetX > this.parent.world.flag.x && this.parent.transitionType !== "flagReached") {
                 if (this.y + this.h >= 920) {
@@ -2501,19 +2618,45 @@ class Character {
         }
     }
 
+    collisionCheckElevatorPlatforms() {
+        this.parent.world.elevatorPlatforms.forEach(elevatorPlatform => {
+            if (this.x + this.w > elevatorPlatform.x && this.x < elevatorPlatform.x + elevatorPlatform.w * elevatorPlatform.blocksize) {
+                if (this.y + this.h > elevatorPlatform.y && this.yOld + this.h <= elevatorPlatform.y) {
+                    this.y = elevatorPlatform.y - this.h;
+                    this.yOld = this.y;
+                    if (elevatorPlatform.movementType === "down") this.yVel = elevatorPlatform.yVel;
+                    this.inAir = false;
+                }
+            }
+        });
+    }
+
+    collisionCheck() {
+        if (this.parent.transition || !this.collision) return;
+        this.collisionCheckLeftScreenEdge();
+        this.collisionCheckFallingToDeath();
+        this.collisionCheckRectangles();
+        this.collisionCheckSteps();
+        this.collisionCheckTiles(this.parent.world.tiles);
+        this.collisionCheckPipes();
+        this.collisionCheckItems();
+        this.collisionCheckEnemies();
+        this.collisionCheckCoins();
+        this.collisionCheckFlag();
+        this.collisionCheckElevatorPlatforms();
+    }
+
     setMovement() {
         if (this.parent.transition || this.growing > 0 || this.shrinking > 0) return;
-
-        if (this.xVel === 0 && this.yVel === 0 && !this.inAir) {
+        if (this.inAir) this.movement.current = this.movement.jumping;
+        else if (this.xVel === 0 && !this.inAir) {
             this.movement.current = this.movement.standing;
-        } else if (this.xVel !== 0 && this.yVel === 0 && !this.inAir) {
+        } else if (this.xVel !== 0 && !this.inAir) {
             if (this.parent.keyStates.sprint) {
                 this.movement.current = this.movement.running;
             } else {
                 this.movement.current = this.movement.walking;
             }
-        } else {
-            this.movement.current = this.movement.jumping;
         }
     }
 
@@ -2832,6 +2975,9 @@ class Item {
         this.yOld = this.y;
         this.theme = theme;
         this.type = type;
+        this.hitboxOffsetX = 10;
+        this.hitboxOffsetTop = 10;
+        this.hitboxOffsetBottom = 15;
         this.collision = collision;
         this.sprites = objectSprites;
         this.sX = objectThemeOffsetMap[this.theme] + objectTypeOffsetMap[this.type].x;

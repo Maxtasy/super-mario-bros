@@ -1,9 +1,10 @@
 - Cutscenes
-- Elevators
+- Shell destroying enemies
+- Shell respawning Koopa Troopa after x seconds
 - Pipe enter right, bottom
-- Update mushroom/flower/star/1up hitboxes
 - Only do collision detection on objects on the screen, push/pop others
-- Tweak friction, acceleration, maybe add air friction
+- Maybe tweak friction, acceleration, maybe add air friction
+- Major cleanups
 
 Game logic:
 
