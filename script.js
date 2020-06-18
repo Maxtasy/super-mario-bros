@@ -144,6 +144,10 @@ const typeOffsetMap = {
         x: 0,
         y: 80
     },
+    "treeStump": {
+        x: 400,
+        y: 80
+    },
     "cannonBottom": {
         x: 720,
         y: 80
@@ -466,6 +470,67 @@ const castles = {
         {x: 160, y: 320, type: "castleDoorBottom"},
         {x: 240, y: 320, type: "castleWall"},
         {x: 320, y: 320, type: "castleWall"},
+    ],
+    "rectangle5doors": [
+        {x: 0, y: 0, type: "castleTop"},
+        {x: 80, y: 0, type: "castleTop"},
+        {x: 160, y: 0, type: "castleSemiTop"},
+        {x: 240, y: 0, type: "castleSemiTop"},
+        {x: 320, y: 0, type: "castleSemiTop"},
+        {x: 400, y: 0, type: "castleSemiTop"},
+        {x: 480, y: 0, type: "castleSemiTop"},
+        {x: 560, y: 0, type: "castleTop"},
+        {x: 640, y: 0, type: "castleTop"},
+
+        {x: 0, y: 80, type: "castleWall"},
+        {x: 80, y: 80, type: "castleWall"},
+        {x: 160, y: 80, type: "castleWall"},
+        {x: 240, y: 80, type: "castleDoorTop"},
+        {x: 320, y: 80, type: "castleWall"},
+        {x: 400, y: 80, type: "castleDoorTop"},
+        {x: 480, y: 80, type: "castleWall"},
+        {x: 560, y: 80, type: "castleWall"},
+        {x: 640, y: 80, type: "castleWall"},
+
+        {x: 0, y: 160, type: "castleWall"},
+        {x: 80, y: 160, type: "castleWall"},
+        {x: 160, y: 160, type: "castleWall"},
+        {x: 240, y: 160, type: "castleDoorBottom"},
+        {x: 320, y: 160, type: "castleWall"},
+        {x: 400, y: 160, type: "castleDoorBottom"},
+        {x: 480, y: 160, type: "castleWall"},
+        {x: 560, y: 160, type: "castleWall"},
+        {x: 640, y: 160, type: "castleWall"},
+
+        {x: 0, y: 240, type: "castleWall"},
+        {x: 80, y: 240, type: "castleWall"},
+        {x: 160, y: 240, type: "castleWall"},
+        {x: 240, y: 240, type: "castleWall"},
+        {x: 320, y: 240, type: "castleWall"},
+        {x: 400, y: 240, type: "castleWall"},
+        {x: 480, y: 240, type: "castleWall"},
+        {x: 560, y: 240, type: "castleWall"},
+        {x: 640, y: 240, type: "castleWall"},
+
+        {x: 0, y: 320, type: "castleWall"},
+        {x: 80, y: 320, type: "castleWall"},
+        {x: 160, y: 320, type: "castleDoorTop"},
+        {x: 240, y: 320, type: "castleWall"},
+        {x: 320, y: 320, type: "castleDoorTop"},
+        {x: 400, y: 320, type: "castleWall"},
+        {x: 480, y: 320, type: "castleDoorTop"},
+        {x: 560, y: 320, type: "castleWall"},
+        {x: 640, y: 320, type: "castleWall"},
+
+        {x: 0, y: 400, type: "castleWall"},
+        {x: 80, y: 400, type: "castleWall"},
+        {x: 160, y: 400, type: "castleDoorBottom"},
+        {x: 240, y: 400, type: "castleWall"},
+        {x: 320, y: 400, type: "castleDoorBottom"},
+        {x: 400, y: 400, type: "castleWall"},
+        {x: 480, y: 400, type: "castleDoorBottom"},
+        {x: 560, y: 400, type: "castleWall"},
+        {x: 640, y: 400, type: "castleWall"},
     ]
 }
 
@@ -495,6 +560,20 @@ const enemyProperties = {
         frames: [0, 80],
         xVel: 5,
         yVel: 0,
+        stompable: true,
+        shootable: true,
+    },
+    "koopaParatroopa": {
+        sX: 640,
+        sY: 0,
+        w: 80,
+        h: 160,
+        hitboxOffsetX: 15,
+        hitboxOffsetTop: 85,
+        hitboxOffsetBottom: 20,
+        frames: [0, 80],
+        xVel: 3,
+        yVel: 5,
         stompable: true,
         shootable: true,
     },
@@ -677,11 +756,12 @@ const worldData = {
             {x: 640, y: 40, w: 3, movementType: "up"},
         ],
         // flag: {x: 400, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
-        flag: {x: 15840, y: 120, w: 1, h: 11, theme: "overworld", destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
+        flag: {x: 15840, y: 120, h: 11, destination: { worldID: 121, scrollOffset: null, spawnLocation: {x: 480, y: 1000}, transitionType: "cutscene1" }},
         castles: [
-            {x: 16160, y: 600, theme: "overworld", name: "small"}
+            {x: 16160, y: 600, name: "small"}
         ]
     },
+    //TODO: Add piranha
     11: {
         theme: "overworld",
         spawnLocation: {
@@ -899,6 +979,7 @@ const worldData = {
             {x: 1120, y: 660, theme: "underworld"},
         ],
     },
+    //TODO: Add piranhas
     12: {
         theme: "underworld",
         spawnLocation: {
@@ -1010,7 +1091,7 @@ const worldData = {
             {x: 8240, y: 760, size: 3, theme: "underworld", opening: "top", canEnter: true, destination: {worldID: 122}},
             {x: 8720, y: 680, size: 4, theme: "underworld", opening: "top", canEnter: false},
             {x: 9200, y: 840, size: 2, theme: "underworld", opening: "top", canEnter: false},
-            {x: 13280, y: 600, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 123}},
+            {x: 13280, y: 600, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 123, transitionType: "pipeOutTop"}},
             {x: 14240, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 41}},
             {x: 14560, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 31}},
             {x: 14880, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 21}},
@@ -1142,36 +1223,191 @@ const worldData = {
             {x: 1200, y: 920},
         ]
     },
-    13: "#6b8cff",
-    14: "#000000",
-    21: "#6b8cff",
-    22: "#6b8cff",
-    23: "#6b8cff",
-    24: "#000000",
-    31: "#000000",
-    32: "#000000",
-    33: "#000000",
-    34: "#000000",
-    41: "#6b8cff",
-    42: "#6b8cff",
-    43: "#6b8cff",
-    44: "#000000",
-    51: "#6b8cff",
-    52: "#6b8cff",
-    53: "#6b8cff",
-    54: "#000000",
-    61: "#000000",
-    62: "#000000",
-    63: "#000000",
-    64: "#000000",
-    71: "#6b8cff",
-    72: "#6b8cff",
-    73: "#6b8cff",
-    74: "#000000",
-    81: "#6b8cff",
-    82: "#6b8cff",
-    83: "#6b8cff",
-    84: "#000000",
+    //TODO: Add piranhas
+    123: {
+        theme: "overworld",
+        spawnLocation: {
+            x: 280,
+            y: 1000
+        },
+        bg: "#63adfe",
+        width: 2560,
+        levelEndLine: 2320,
+        gravity: 2.15,
+        music: musicOverworld,
+        rectangles: [
+            {x: 0, y: 1000, w: 32, h: 1},
+            {x: 1040, y: 360, w: 1, h: 8, type: "solid"},
+        ],
+        steps: [
+            {x: 400, y: 360, w: 8, h: 8}
+        ],
+        hills: [
+            {x: 1280, y: 760, w: 5, h: 3}
+        ],
+        clouds: [
+            {x: 320, y: 120, amount: 2},
+            {x: 1920, y: 200, amount: 1},
+        ],
+        castles: [
+            {x: 2080, y: 600, name: "small"}
+        ],
+        flag: {x: 1760, y: 120, h: 11, destination: {worldID: 13}},
+    },
+    13: {
+        theme: "overworld",
+        spawnLocation: {
+            x: 160,
+            y: 1000
+        },
+        bg: "#63adfe",
+        width: 13120,
+        levelEndLine: 12800,
+        gravity: 2.15,
+        music: musicOverworld,
+        rectangles: [
+            {x: 0, y: 1000, w: 16},
+            {x: 10320, y: 1000, w: 35},
+            {x: 1520, y: 1000, w: 2, type: "treeStump"},
+            {x: 2160, y: 440, w: 3, h: 3, type: "treeStump"},
+            {x: 2000, y: 760, w: 6, h: 4, type: "treeStump"},
+            {x: 2880, y: 680, w: 3, h: 5, type: "treeStump"},
+            {x: 3280, y: 360, w: 5, h: 9, type: "treeStump"},
+            {x: 4880, y: 440, w: 2, h: 7, type: "treeStump"},
+            {x: 5680, y: 760, h: 4, type: "treeStump"},
+            {x: 6160, y: 520, w: 4, h: 7, type: "treeStump"},
+            {x: 7920, y: 920, w: 2, h: 2, type: "treeStump"},
+            {x: 8400, y: 600, w: 6, h: 6, type: "treeStump"},
+            {x: 9360, y: 760, w: 2, h: 4, type: "treeStump"},
+            {x: 9840, y: 760, w: 2, h: 4, type: "treeStump"},
+            {x: 11040, y: 680, w: 6, h: 4, type: "solid", collision: true},
+            {x: 11200, y: 520, w: 4, h: 2, type: "solid", collision: true},
+            {x: 11360, y: 360, w: 2, h: 2, type: "solid", collision: true},
+        ],
+        tiles: [
+            {x: 2640, y: 1000, type: "treeStump"},
+            {x: 4720, y: 760, type: "blank", collision: true, itemTheme: "overworld", itemType: "mushroom", secret: true},
+        ],
+        clouds: [
+            {x: 240, y: 200, amount: 2},
+            {x: 720, y: 520, amount: 1},
+            {x: 1440, y: 120, amount: 2},
+            {x: 2800, y: 520, amount: 1},
+            {x: 3040, y: 440, amount: 1},
+            {x: 3680, y: 840, amount: 1},
+            {x: 4080, y: 200, amount: 2},
+            {x: 4560, y: 520, amount: 1},
+            {x: 5280, y: 120, amount: 2},
+            {x: 6080, y: 840, amount: 1},
+            {x: 6640, y: 520, amount: 1},
+            {x: 6880, y: 440, amount: 1},
+            {x: 7520, y: 840, amount: 1},
+            {x: 7920, y: 200, amount: 2},
+            {x: 9120, y: 120, amount: 2},
+            {x: 9920, y: 840, amount: 1},
+            {x: 10480, y: 520, amount: 1},
+            {x: 10720, y: 440, amount: 1},
+            {x: 11360, y: 840, amount: 1},
+            {x: 11760, y: 200, amount: 2},
+            {x: 12240, y: 520, amount: 1},
+            {x: 12960, y: 120, amount: 1},
+        ],
+        platforms: [
+            {x: 1440, y: 920, w: 4},
+            {x: 1920, y: 680, w: 8},
+            {x: 2080, y: 360, w: 5},
+            {x: 2560, y: 920, w: 3},
+            {x: 2800, y: 600, w: 5},
+            {x: 3200, y: 280, w: 7},
+            {x: 4000, y: 1000, w: 4},
+            {x: 4720, y: 1000, w: 5},
+            {x: 5200, y: 1000, w: 5},
+            {x: 4800, y: 360, w: 4},
+            {x: 5600, y: 680, w: 3},
+            {x: 6080, y: 440, w: 6},
+            {x: 7840, y: 840, w: 4},
+            {x: 8320, y: 520, w: 8},
+            {x: 9040, y: 1000, w: 3},
+            {x: 9280, y: 680, w: 4},
+            {x: 9760, y: 680, w: 4},
+        ],
+        coins: [
+            {x: 2160, y: 280},
+            {x: 2240, y: 280},
+            {x: 2320, y: 280},
+            {x: 2640, y: 840},
+            {x: 2960, y: 120},
+            {x: 3040, y: 120},
+            {x: 4000, y: 440},
+            {x: 4080, y: 440},
+            {x: 4800, y: 280},
+            {x: 4880, y: 280},
+            {x: 4960, y: 280},
+            {x: 5040, y: 280},
+            {x: 6800, y: 360},
+            {x: 6880, y: 360},
+            {x: 7440, y: 180},
+            {x: 7520, y: 180},
+            {x: 7760, y: 180},
+            {x: 7840, y: 180},
+            {x: 9040, y: 920},
+            {x: 9120, y: 920},
+            {x: 9200, y: 920},
+            {x: 9600, y: 360},
+            {x: 9680, y: 360},
+        ],
+        elevatorPlatforms: [
+            {x: 4400, y: 440, w: 3, movementType: "upDown"},
+            {x: 6880, y: 600, w: 3, movementType: "leftRight"},
+            {x: 7520, y: 680, w: 3, movementType: "leftRight"},
+            {x: 10480, y: 440, w: 3, movementType: "leftRight"},
+        ],
+        enemies: [
+            {x: 2400, y: 200, theme: "castle", type: "koopaTroopa"},
+            {x: 3520, y: 200},
+            {x: 3680, y: 200},
+            {x: 5920, y: 200, theme: "castle", type: "koopaParatroopa"},
+            {x: 6400, y: 280},
+            {x: 8800, y: 360, theme: "castle", type: "koopaTroopa"},
+            {x: 9120, y: 280, theme: "castle", type: "koopaParatroopa"},
+            {x: 10640, y: 840, theme: "castle", type: "koopaTroopa"},
+        ],
+        castles: [
+            {x: 0, y: 600, name: "small"},
+            {x: 12560, y: 120, name: "small"},
+            {x: 12400, y: 520, name: "rectangle5doors"},
+        ],
+        flag: {x: 12160, y: 120, h: 11, destination: {worldID: 14}}
+    },
+    14: {},
+    21: {},
+    22: {},
+    23: {},
+    24: {},
+    31: {},
+    32: {},
+    33: {},
+    34: {},
+    41: {},
+    42: {},
+    43: {},
+    44: {},
+    51: {},
+    52: {},
+    53: {},
+    54: {},
+    61: {},
+    62: {},
+    63: {},
+    64: {},
+    71: {},
+    72: {},
+    73: {},
+    74: {},
+    81: {},
+    82: {},
+    83: {},
+    84: {},
 }
 
 class Tile {
@@ -1186,8 +1422,7 @@ class Tile {
         this.right = this.x + this.blocksize;
         this.top = this.y;
         this.bottom = this.y + this.blocksize;
-        this.theme = theme;
-        if (!this.theme) this.theme = this.parent.theme;
+        this.theme = theme || this.parent.theme;
         this.type = type;
         this.animate = animate;
         this.collision = collision;
@@ -1266,21 +1501,22 @@ class Tile {
 }
 
 class Rectangle {
-    constructor(parent, x, y, w, h, theme="overworld", type="floor", animate=false, collision=false, individualCheck=null) {
+    constructor(parent, x, y, w, h, theme, type="floor", animate=false, collision=false, individualCheck=null) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.w = w;
-        this.h = h;
+        this.w = w || 1;
+        this.h = h || 1;
         this.left = this.x;
         this.right = this.x + this.w * this.blocksize;
         this.top = this.y;
         this.bottom = this.y + this.h * this.blocksize;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.type = type;
         this.animate = animate;
         this.collision = collision;
+        if (this.type === "floor") this.collision = true;
         this.individualCheck = individualCheck;
         this.sX = typeOffsetMap[this.type].x;
         this.sY = themeOffsetMap[this.theme] + typeOffsetMap[this.type].y;
@@ -1332,15 +1568,51 @@ class Rectangle {
     }
 }
 
+class Platform {
+    constructor(parent, x, y, w, theme, variant) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.theme = theme || this.parent.theme;
+        this.variant = variant || "Leaf";
+
+        this.tiles = [];
+
+        for (let i = 0; i < this.w; i++) {
+            let typeName;
+            if (i === 0) typeName = `platform${this.variant}Left`;
+            else if (i === this.w - 1) typeName = `platform${this.variant}Right`;
+            else typeName = `platform${this.variant}`;
+
+            this.tiles.push(new Tile(this, this.x + i * this.blocksize, this.y, this.theme, typeName, false, true));
+        }
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        this.tiles.forEach(tile => {
+            tile.scroll(deltaX);
+        });
+    }
+
+    draw() {
+        this.tiles.forEach(tile => {
+            tile.draw();
+        });
+    }
+}
+
 class Hill {
-    constructor(parent, x, y, w, h, theme="overworld", type="") {
+    constructor(parent, x, y, w, h, theme, type="") {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.type = type;
 
         this.tiles = [];
@@ -1387,12 +1659,12 @@ class Hill {
 }
 
 class Cloud {
-    constructor(parent, x, y, theme="overworld", amount=1) {
+    constructor(parent, x, y, theme, amount=1) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.amount = amount;
 
         this.tiles = [];
@@ -1434,12 +1706,12 @@ class Cloud {
 }
 
 class Bush {
-    constructor(parent, x, y, theme="overworld", amount=1) {
+    constructor(parent, x, y, theme, amount=1) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.amount = amount;
 
         this.tiles = [];
@@ -1473,14 +1745,14 @@ class Bush {
 }
 
 class Step {
-    constructor(parent, x, y, w, h, theme="overworld", type="solid", animate=false, collision=true, reversed=false) {
+    constructor(parent, x, y, w, h, theme, type="solid", animate=false, collision=true, reversed=false) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.type = type;
         this.animate = animate;
         this.collision = collision;
@@ -1513,14 +1785,14 @@ class Step {
 }
 
 class Flag {
-    constructor(parent, x, y, w, h, theme, destination) {
+    constructor(parent, x, y, h, theme, destination) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.w = w;
         this.h = h;
         this.theme = theme;
+        if (!this.theme) this.theme = this.parent.theme;
         this.destination = destination;
 
         this.movingPiece = new Tile(this, this.x - this.blocksize / 2, this.y + this.blocksize, this.theme, "flagMovingPiece");
@@ -1564,13 +1836,13 @@ class Flag {
 }
 
 class Pipe {
-    constructor(parent, x, y, size=2, theme="overworld", opening="top", canEnter=false, destination=null) {
+    constructor(parent, x, y, size=2, theme, opening="top", canEnter=false, destination=null) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
         this.size = size;
-        this.theme = theme;
+        this.theme = theme || this.parent.world.theme;
         this.opening = opening;
         this.canEnter = canEnter;
         this.destination = destination;
@@ -1637,7 +1909,7 @@ class Castle {
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.theme = theme;
+        this.theme = theme || this.parent.theme;
         this.name = name;
 
         this.tiles = [];
@@ -1668,8 +1940,7 @@ class Coin {
         this.frame = 0;
         this.x = x;
         this.y = y;
-        this.theme = theme;
-        if (!this.theme) this.theme = this.parent.theme;
+        this.theme = theme || this.parent.theme;
         this.sX = objectThemeOffsetMap[this.theme];
         this.sY = 480;
         this.sprites = objectSprites;
@@ -1709,7 +1980,10 @@ class ElevatorPlatform {
         this.blocksize = this.parent.blocksize;
         this.gravity = this.parent.gravity;
         this.x = x;
+        this.xOld = this.x;
+        this.xInitial = this.x;
         this.y = y;
+        this.yInitial = this.y;
         this.yOld = this.y;
         this.w = w;
         this.sprites = objectSprites;
@@ -1723,11 +1997,20 @@ class ElevatorPlatform {
             this.onScreen = false;
         }
         if (this.movementType === "up") {
+            this.xVel = 0;
             this.yVel = -5;
         } else if (this.movementType === "down") {
+            this.xVel = 0;
             this.yVel = 5;
+        } else if (this.movementType === "leftRight") {
+            this.xVel = 5;
+            this.yVel = 0;
+        } else if (this.movementType === "upDown") {
+            this.xVel = 0;
+            this.yVel = -5;
         } else {
             this.yVel = 0;
+            this.xVel = 0;
         }
     }
 
@@ -1743,20 +2026,29 @@ class ElevatorPlatform {
     updatePosition() {
         this.yOld = this.y;
         this.y += this.yVel;
+        this.xOld = this.x;
+        this.x += this.xVel;
         if (this.movementType === "up" && this.y + this.blocksize < 0) this.y = this.parent.parent.screensize.height;
         else if (this.movementType === "down" && this.y > this.parent.parent.screensize.height) this.y = 0 - this.blocksize;
         else if (this.movementType === "falling" && this.y > this.parent.parent.screensize.height) this.destroy();
+        else if (this.movementType === "leftRight" && this.x + this.w * this.blocksize >= this.xInitial + this.w * this.blocksize + 3 * this.blocksize || this.x <= this.xInitial - 3 * this.blocksize) this.xVel *= -1;
+        else if (this.movementType === "upDown" && this.y > this.yInitial + 6 * this.blocksize || this.y + this.blocksize < this.yInitial + this.blocksize - 6 * this.blocksize) this.yVel *= -1;
     }
 
     collisionCheck() {
-        if (this.movementType != "up") return;
-        if (!this.parent.parent.character.inAir && this.parent.parent.character.x + this.parent.parent.character.w > this.x && this.parent.parent.character.x < this.x + this.w * this.blocksize) {
+        if (this.yVel < 0 && !this.parent.parent.character.inAir && this.parent.parent.character.x + this.parent.parent.character.w > this.x && this.parent.parent.character.x < this.x + this.w * this.blocksize) {
             if (this.y < this.parent.parent.character.y + this.parent.parent.character.h && this.yOld >= this.parent.parent.character.y + this.parent.parent.character.h) {
                 this.parent.parent.character.y = this.y - this.parent.parent.character.h;
                 this.parent.parent.character.yOld = this.parent.parent.character.y;
                 this.parent.parent.character.yVel = 0;
                 this.parent.parent.character.inAir = false;
             }
+        } else if (this.movementType === "leftRight" 
+            && this.parent.parent.character.y + this.parent.parent.character.h == this.y 
+            && this.parent.parent.character.xOld + this.parent.parent.character.w > this.xOld && this.parent.parent.character.x < this.xOld + this.w * this.blocksize)
+        {
+            const deltaX = this.x - this.xOld;
+            this.parent.parent.character.x += deltaX;
         }
     }
 
@@ -1769,6 +2061,7 @@ class ElevatorPlatform {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.xInitial -= deltaX;
         if (this.x <= this.parent.parent.screensize.width) this.onScreen = true;
     }
 
@@ -1793,6 +2086,13 @@ class World {
         if (worldData[worldID].rectangles) {
             worldData[worldID].rectangles.forEach(rectangle => {
                 this.rectangles.push(new Rectangle(this, rectangle.x, rectangle.y, rectangle.w, rectangle.h, rectangle.theme, rectangle.type, rectangle.animate, rectangle.collision, rectangle.individualCheck));
+            });
+        }
+
+        this.platforms = [];
+        if (worldData[worldID].platforms) {
+            worldData[worldID].platforms.forEach(platform => {
+                this.platforms.push(new Platform(this, platform.x, platform.y, platform.w, platform.theme, platform.variant));
             });
         }
 
@@ -1862,7 +2162,7 @@ class World {
 
         if (worldData[worldID].flag) {
             const flagData = worldData[worldID].flag;
-            this.flag = new Flag(this, flagData.x, flagData.y, flagData.w, flagData.h, flagData.theme, flagData.destination);
+            this.flag = new Flag(this, flagData.x, flagData.y, flagData.h, flagData.theme, flagData.destination);
         }
     }
 
@@ -1900,6 +2200,9 @@ class World {
 
         this.rectangles.forEach(rectangle => {
             rectangle.scroll(deltaX);
+        });
+        this.platforms.forEach(platform => {
+            platform.scroll(deltaX);
         });
         this.steps.forEach(step => {
             step.scroll(deltaX);
@@ -1950,6 +2253,9 @@ class World {
         });
         this.rectangles.forEach(rectangle => {
             rectangle.draw();
+        });
+        this.platforms.forEach(platform => {
+            platform.draw();
         });
         this.steps.forEach(step => {
             step.draw();
@@ -2264,7 +2570,7 @@ class Character {
 
     collisionCheckFallingToDeath() {
         if (this.y > this.parent.screensize.height) {
-            this.y = this.parent.screensize.height / 2;
+            this.y = 160;
             this.x = 80;
         }
     }
@@ -2356,32 +2662,67 @@ class Character {
         this.parent.world.rectangles.forEach(rectangle => {
             if (rectangle.collision && rectangle.individualCheck) {
                 this.collisionCheckTiles(rectangle.tiles);
-            } else if (this.y + this.h > rectangle.top && 
-                this.y + this.hitboxOffsetTop < rectangle.bottom && 
-                this.x + this.hitboxOffsetX < rectangle.right && 
-                this.x + this.w - this.hitboxOffsetX > rectangle.left) {
-                    // Character entered rectangle from the top
-                    if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
-                        this.y = rectangle.top - this.h;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                        this.inAir = false;
-                    // Character entered rectangle from the left
-                    } else if (this.x + this.w - this.hitboxOffsetX > rectangle.left && this.xOld + this.w - this.hitboxOffsetX <= rectangle.left) {
-                        this.x = rectangle.left - this.w + this.hitboxOffsetX;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered rectangle from the right
-                    } else if (this.x + this.hitboxOffsetX < rectangle.right && this.xOld + this.hitboxOffsetX >= rectangle.right) {
-                        this.x = rectangle.right - this.hitboxOffsetX;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered rectangle from the bottom
-                    } else if (this.y + this.hitboxOffsetTop < rectangle.bottom && this.yOld + this.hitboxOffsetTop >= rectangle.bottom) {
-                        this.y = rectangle.bottom - this.hitboxOffsetTop;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
+            } else if (rectangle.collision 
+                && this.y + this.h > rectangle.top 
+                && this.y + this.hitboxOffsetTop < rectangle.bottom 
+                && this.x + this.hitboxOffsetX < rectangle.right
+                && this.x + this.w - this.hitboxOffsetX > rectangle.left) 
+                {
+                // Character entered rectangle from the top
+                if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
+                    this.y = rectangle.top - this.h;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                    this.inAir = false;
+                // Character entered rectangle from the left
+                } else if (this.x + this.w - this.hitboxOffsetX > rectangle.left && this.xOld + this.w - this.hitboxOffsetX <= rectangle.left) {
+                    this.x = rectangle.left - this.w + this.hitboxOffsetX;
+                    this.xOld = this.x;
+                    this.xVel = 0;
+                // Character entered rectangle from the right
+                } else if (this.x + this.hitboxOffsetX < rectangle.right && this.xOld + this.hitboxOffsetX >= rectangle.right) {
+                    this.x = rectangle.right - this.hitboxOffsetX;
+                    this.xOld = this.x;
+                    this.xVel = 0;
+                // Character entered rectangle from the bottom
+                } else if (this.y + this.hitboxOffsetTop < rectangle.bottom && this.yOld + this.hitboxOffsetTop >= rectangle.bottom) {
+                    this.y = rectangle.bottom - this.hitboxOffsetTop;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            }
+        });
+    }
+
+    collisionCheckPlatforms() {
+        this.parent.world.platforms.forEach(platform => {
+            if (this.y + this.h > platform.y && 
+                this.y + this.hitboxOffsetTop < platform.y + platform.blocksize && 
+                this.x + this.hitboxOffsetX < platform.x + platform.w * platform.blocksize && 
+                this.x + this.w - this.hitboxOffsetX > platform.x) 
+                {
+                // Character entered platform from the top
+                if (this.y + this.h > platform.y && this.yOld + this.h <= platform.y) {
+                    this.y = platform.y - this.h;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                    this.inAir = false;
+                // Character entered platform from the left
+                } else if (this.x + this.w - this.hitboxOffsetX > platform.x && this.xOld + this.w - this.hitboxOffsetX <= platform.x) {
+                    this.x = platform.x - this.w + this.hitboxOffsetX;
+                    this.xOld = this.x;
+                    this.xVel = 0;
+                // Character entered platform from the right
+                } else if (this.x + this.hitboxOffsetX < platform.x + platform.w * platform.blocksize && this.xOld + this.hitboxOffsetX >= platform.x + platform.w * platform.blocksize) {
+                    this.x = platform.x + platform.w * platform.blocksize - this.hitboxOffsetX;
+                    this.xOld = this.x;
+                    this.xVel = 0;
+                // Character entered platform from the bottom
+                } else if (this.y + this.hitboxOffsetTop < platform.y + platform.blocksize && this.yOld + this.hitboxOffsetTop >= platform.y + platform.blocksize) {
+                    this.y = platform.y + platform.blocksize - this.hitboxOffsetTop;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
             }
         });
     }
@@ -2532,14 +2873,21 @@ class Character {
                         this.yVel = -20;
                         soundStomp.currentTime = 0;
                         soundStomp.play();
-                        if (enemy.type === "koopaTroopa") {
+                        if (enemy.type === "koopaParatroopa") {
+                            enemy.type = "koopaTroopa";
+                            enemy.setProperties();
+                        } else if (enemy.type === "koopaTroopa") {
                             enemy.frame = 0;
                             enemy.type = "shell";
                             enemy.y += 80;
                             enemy.setProperties();
                         } else if (enemy.type === "shell") {
                             if (enemy.xVel == 0) {
-                                enemy.xVel = 20;
+                                if (this.x >= enemy.x) {
+                                    enemy.xVel = -20;
+                                } else {
+                                    enemy.xVel = 20;
+                                }
                             } else {
                                 enemy.xVel = 0;
                             }
@@ -2552,13 +2900,13 @@ class Character {
                     } else if (this.invincibility === 0) {
                         if (enemy.type === "shell" && enemy.xVel == 0) {
                             // Character entered shell from the left
-                            if (this.x + this.w > enemy.x + enemy.hitboxOffsetX && this.xOld + this.w <= enemy.x + enemy.hitboxOffsetX) {
+                            if (this.x + this.w - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX && this.xOld + this.w - this.hitboxOffsetX <= enemy.x + enemy.hitboxOffsetX) {
                                 enemy.xVel = 20;
                                 this.x = enemy.x - this.w;
                                 soundKick.currentTime = 0;
                                 soundKick.play();
                             // Character entered shell from the right
-                            } else if (this.x < enemy.x + enemy.w - enemy.hitboxOffsetX && this.xOld >= enemy.x + enemy.w - enemy.hitboxOffsetX) {
+                            } else if (this.x + this.hitboxOffsetX < enemy.x + enemy.w - enemy.hitboxOffsetX && this.xOld + this.hitboxOffsetX >= enemy.x + enemy.w - enemy.hitboxOffsetX) {
                                 enemy.xVel = -20;
                                 this.x = enemy.x + enemy.w;
                                 soundKick.currentTime = 0;
@@ -2625,6 +2973,7 @@ class Character {
                     this.y = elevatorPlatform.y - this.h;
                     this.yOld = this.y;
                     if (elevatorPlatform.movementType === "down") this.yVel = elevatorPlatform.yVel;
+                    else this.yVel = 0;
                     this.inAir = false;
                 }
             }
@@ -2636,6 +2985,7 @@ class Character {
         this.collisionCheckLeftScreenEdge();
         this.collisionCheckFallingToDeath();
         this.collisionCheckRectangles();
+        this.collisionCheckPlatforms()
         this.collisionCheckSteps();
         this.collisionCheckTiles(this.parent.world.tiles);
         this.collisionCheckPipes();
@@ -2747,6 +3097,7 @@ class Enemy {
         this.x = x;
         this.xOld = this.x;
         this.y = y;
+        this.yInitial = this.y;
         this.yOld = this.y;
         this.theme = theme;
         if (!this.theme) this.theme = this.parent.theme;
@@ -2789,7 +3140,7 @@ class Enemy {
     }
 
     updatePosition() {
-        this.yVel += this.gravity;
+        if (this.type != "koopaParatroopa") this.yVel += this.gravity;
         
         this.xOld = this.x;
         this.x += this.xVel;
@@ -2805,12 +3156,16 @@ class Enemy {
         
         // Rectangles
         this.parent.rectangles.forEach(rectangle => {
-            if (this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
+            if (rectangle.collision && this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
                 // Enemy entered rectangle from the top
                 if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
                     this.y = rectangle.top - this.h;
                     this.yOld = this.y;
-                    this.yVel = 0;
+                    if (this.type === "koopaParatroopa") {
+                        this.yVel *= -1;
+                    } else {
+                        this.yVel = 0;
+                    }
                 // Enemy entered rectangle from the left
                 } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
                     this.x = rectangle.left - this.w;
@@ -2834,6 +3189,47 @@ class Enemy {
                     && this.y + this.h == 1000
                     && this.y + this.h <= rectangle.top
                     && ((this.x < rectangle.left && this.xOld >= rectangle.left) || (this.x + this.w > rectangle.right && this.xOld + this.w <= rectangle.right)) 
+                ) {
+                this.xVel *= -1;
+                this.facingRight = !this.facingRight;
+            }
+        });
+        
+        // Platforms
+        this.parent.platforms.forEach(platform => {
+            if (this.y + this.h > platform.y && this.y < platform.y + platform.blocksize && this.x < platform.x + platform.w * platform.blocksize && this.x + this.w > platform.x) {
+                // Enemy entered platform from the top
+                if (this.y + this.h > platform.y && this.yOld + this.h <= platform.y) {
+                    this.y = platform.y - this.h;
+                    this.yOld = this.y;
+                    if (this.type === "koopaParatroopa") {
+                        this.yVel *= -1;
+                    } else {
+                        this.yVel = 0;
+                    }
+                // Enemy entered platform from the left
+                } else if (this.x + this.w > platform.x && this.xOld + this.w <= platform.x) {
+                    this.x = platform.x - this.w;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                    this.facingRight = !this.facingRight;
+                // Enemy entered platform from the right
+                } else if (this.x < platform.x + platform.w * platform.blocksize && this.xOld >= platform.x + platform.w * platform.blocksize) {
+                    this.x = platform.x + platform.w * platform.blocksize;
+                    this.xOld = this.x;
+                    this.xVel *= -1;
+                    this.facingRight = !this.facingRight;
+                // Enemy entered platform from the bottom
+                } else if (this.y < platform.y + platform.blocksize && this.yOld >= platform.y + platform.blocksize) {
+                    this.y = platform.y + platform.blocksize;
+                    this.yOld = this.y;
+                    this.yVel = 0;
+                }
+            } 
+            if (this.type != "shell"
+                    && ((this.type === "goomba" && this.y + this.h == 1000) || (this.type === "koopaTroopa" && this.y + this.h == platform.y))
+                    && this.y + this.h <= platform.y
+                    && ((this.x < platform.x && this.xOld >= platform.x) || (this.x + this.w > platform.x + platform.w * platform.blocksize && this.xOld + this.w <= platform.x + platform.w * platform.blocksize)) 
                 ) {
                 this.xVel *= -1;
                 this.facingRight = !this.facingRight;
@@ -2931,6 +3327,9 @@ class Enemy {
                 }
             }
         });
+
+        // KoopaParatroopa up-down-movement
+        if (this.type === "koopaParatroopa" && this.y + this.h > this.yInitial + 3 * this.blocksize || this.y < this.yInitial - 3 * this.blocksize) this.yVel *= -1;
 
         //TODO: Reflect off other enemies
         //TODO: Reflect off items
@@ -3205,7 +3604,7 @@ class Game {
             down: false
         };
         this.lives = 3;
-        this.currentWorld = 12;
+        this.currentWorld = 13;
 
         this.transition = false;
         this.transitionType = null;
