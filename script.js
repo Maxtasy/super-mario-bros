@@ -329,10 +329,10 @@ const worldData = {
         music: "overworld",
         worldElements: {
             rectangles: [
-                {x: 0, y: 1000, w: 69, collision: true},
-                {x: 5680, y: 1000, w: 15, collision: true},
-                {x: 7120, y: 1000, w: 64, collision: true},
-                {x: 12400, y: 1000, w: 57, collision: true},
+                {x: 0, y: 1000, w: 69},
+                {x: 5680, y: 1000, w: 15},
+                {x: 7120, y: 1000, w: 64},
+                {x: 12400, y: 1000, w: 57},
                 {x: 6400, y: 360, w: 8, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 7280, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 9680, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
@@ -466,47 +466,49 @@ const worldData = {
         width: 1920,
         gravity: 2.15,
         //TODO: Which music is playing here?
-        rectangles: [
-            {x: 0, y: 1000, w: 24},
-            {x: 0, y: 120, w: 5, h: 11, type: "block", collision: true},
-            {x: 640, y: 120, w: 7, type: "block", collision: true},
-            {x: 640, y: 760, w: 7, h: 3, type: "block", collision: true},
-            
-            {x: 1520, y: 120, w: 1, h: 9, type: "pipeVerticalLeft", collision: true},
-            {x: 1600, y: 120, w: 1, h: 11, type: "pipeVerticalRight", collision: true},
-            
-            {x: 1680, y: 120, w: 3, h: 11, type: "block", collision: true},
-        ],
-        tiles: [
-            {x: 1520, y: 840, type: "pipeConnectorTopLeft"},
-            {x: 1520, y: 920, type: "pipeConnectorBottomLeft"},
-        ],
-        pipes: [
-            {x: 1360, y: 840, opening: "left", destination: {worldID: 11, scrollOffset: 12400, spawnLocation: {x: 680, y: 1000}, transitionType: "pipeOutTop"}},
-        ],
-        coins: [
-            {x: 720, y: 340},
-            {x: 800, y: 340},
-            {x: 880, y: 340},
-            {x: 960, y: 340},
-            {x: 1040, y: 340},
-            
-            {x: 640, y: 500},
-            {x: 720, y: 500},
-            {x: 800, y: 500},
-            {x: 880, y: 500},
-            {x: 960, y: 500},
-            {x: 1040, y: 500},
-            {x: 1120, y: 500},
-            
-            {x: 640, y: 660},
-            {x: 720, y: 660},
-            {x: 800, y: 660},
-            {x: 880, y: 660},
-            {x: 960, y: 660},
-            {x: 1040, y: 660},
-            {x: 1120, y: 660},
-        ],
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 24},
+                {x: 0, y: 120, w: 5, h: 11, type: "block", collision: true},
+                {x: 640, y: 120, w: 7, type: "block", collision: true},
+                {x: 640, y: 760, w: 7, h: 3, type: "block", collision: true},
+                
+                {x: 1520, y: 120, w: 1, h: 9, type: "pipeVerticalLeft", collision: true},
+                {x: 1600, y: 120, w: 1, h: 11, type: "pipeVerticalRight", collision: true},
+                
+                {x: 1680, y: 120, w: 3, h: 11, type: "block", collision: true},
+            ],
+            tiles: [
+                {x: 1520, y: 840, type: "pipeConnectorTopLeft"},
+                {x: 1520, y: 920, type: "pipeConnectorBottomLeft"},
+            ],
+            pipes: [
+                {x: 1360, y: 840, opening: "left", destination: {worldID: 11, scrollOffset: 12400, spawnLocation: {x: 680, y: 1000}, transitionType: "pipeOutTop"}},
+            ],
+            coins: [
+                {x: 720, y: 340},
+                {x: 800, y: 340},
+                {x: 880, y: 340},
+                {x: 960, y: 340},
+                {x: 1040, y: 340},
+                
+                {x: 640, y: 500},
+                {x: 720, y: 500},
+                {x: 800, y: 500},
+                {x: 880, y: 500},
+                {x: 960, y: 500},
+                {x: 1040, y: 500},
+                {x: 1120, y: 500},
+                
+                {x: 640, y: 660},
+                {x: 720, y: 660},
+                {x: 800, y: 660},
+                {x: 880, y: 660},
+                {x: 960, y: 660},
+                {x: 1040, y: 660},
+                {x: 1120, y: 660},
+            ],
+        }
     },
     //TODO: Add piranhas
     12: {
@@ -520,159 +522,161 @@ const worldData = {
         levelEndLine: null,
         gravity: 2.15,
         music: "underworld",
-        rectangles: [
-            // Floor
-            {x: 0, y: 1000, w: 81, h: 1, theme: "underworld", type: "floor", collision: true},
-            {x: 6640, y: 1000, w: 37, h: 1, theme: "underworld", type: "floor", collision: true},
-            {x: 9760, y: 1000, w: 2, h: 1, theme: "underworld", type: "floor", collision: true},
-            {x: 10080, y: 1000, w: 12, h: 1, theme: "underworld", type: "floor", collision: true},
-            {x: 11600, y: 1000, w: 8, h: 1, theme: "underworld", type: "floor", collision: true},
-            {x: 12800, y: 1000, w: 32, h: 1, theme: "underworld", type: "floor", collision: true},
-            // Roof
-            {x: 480, y: 120, w: 83, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 7200, y: 120, w: 48, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 12880, y: 120, w: 7, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            // Left Wall
-            {x: 0, y: 120, w: 1, h: 11, theme: "underworld", type: "breakable", collision: true},
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 81},
+                {x: 6640, y: 1000, w: 37},
+                {x: 9760, y: 1000, w: 2},
+                {x: 10080, y: 1000, w: 12},
+                {x: 11600, y: 1000, w: 8},
+                {x: 12800, y: 1000, w: 32},
+                // Roof
+                {x: 480, y: 120, w: 83, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 7200, y: 120, w: 48, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 12880, y: 120, w: 7, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                // Left Wall
+                {x: 0, y: 120, w: 1, h: 11, theme: "underworld", type: "breakable", collision: true},
+    
+                {x: 1360, y: 920, w: 1, h: 1, theme: "underworld", type: "solid", collision: true},
+                {x: 1520, y: 840, w: 1, h: 2, theme: "underworld", type: "solid", collision: true},
+                {x: 1680, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
+                {x: 1840, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
+                {x: 2000, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
+                {x: 2160, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
+                {x: 2480, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
+                {x: 2640, y: 840, w: 1, h: 2, theme: "underworld", type: "solid", collision: true},
+                {x: 10960, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
+                
+                {x: 4160, y: 360, w: 2, h: 5, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 4320, y: 200, w: 2, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 4320, y: 680, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 4640, y: 200, w: 6, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 4960, y: 360, w: 2, h: 4, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 4640, y: 680, w: 6, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 5280, y: 200, w: 4, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 5360, y: 360, w: 1, h: 4, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 5360, y: 680, w: 3, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 5760, y: 360, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 5760, y: 680, w: 2, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 6080, y: 200, w: 4, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 6080, y: 680, w: 4, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 6720, y: 520, w: 6, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+                {x: 9760, y: 760, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true},
+                {x: 11600, y: 600, w: 5, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
+    
+                {x: 12800, y: 760, w: 10, h: 3, theme: "underworld", type: "breakable", collision: true},
+                {x: 13600, y: 120, w: 7, h: 11, theme: "underworld", type: "breakable", collision: true},
+                {x: 14160, y: 120, w: 10, h: 1, theme: "underworld", type: "breakable", collision: true},
+                {x: 15200, y: 120, w: 2, h: 11, theme: "underworld", type: "breakable", collision: true},
+                
+                {x: 13440, y: 120, w: 1, h: 6, type: "pipeVerticalLeft", collision: true},
+                {x: 13520, y: 120, w: 1, h: 8, type: "pipeVerticalRight", collision: true},
+            ],
+            steps: [
+                {x: 10640, y: 680, w: 4, h: 4, theme: "underworld", type: "solid"},
+            ],
+            tiles: [
+                {x: 800, y: 680, type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "mushroom"},
+                {x: 880, y: 680, type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                {x: 960, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                {x: 1040, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                {x: 1120, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                
+                {x: 2320, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                
+                {x: 3120, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3120, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3120, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+    
+                {x: 3200, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 3280, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3280, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3280, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 3360, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3440, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 3520, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3520, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3520, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 3600, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 3680, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "star"},
+                {x: 3680, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 3680, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
+                
+                {x: 5520, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "mushroom"},
+                {x: 5760, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
+                {x: 5840, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "coinItem"},
+                
+                {x: 7120, y: 120, type: "breakable", collision: true, itemTheme: "underworld", itemType: "1up"},
+                
+                {x: 12000, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "mushroom"},
+    
+                {x: 13440, y: 600, type: "pipeConnectorTopLeft"},
+                {x: 13440, y: 680, type: "pipeConnectorBottomLeft"},
+            ],
+            pipes: [
+                {x: 8240, y: 760, size: 3, theme: "underworld", opening: "top", canEnter: true, destination: {worldID: 122}},
+                {x: 8720, y: 680, size: 4, theme: "underworld", opening: "top", canEnter: false},
+                {x: 9200, y: 840, size: 2, theme: "underworld", opening: "top", canEnter: false},
+                {x: 13280, y: 600, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 123, transitionType: "pipeOutTop"}},
+                {x: 14240, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 41}},
+                {x: 14560, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 31}},
+                {x: 14880, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 21}},
+            ],
+            coins: [
+                {x: 3200, y: 600},
+                {x: 3280, y: 360},
+                {x: 3360, y: 360},
+                {x: 3440, y: 360},
+                {x: 3520, y: 360},
+                {x: 3600, y: 600},
+                
+                {x: 4640, y: 600},
+                {x: 4720, y: 600},
+                {x: 4800, y: 600},
+                {x: 4880, y: 600},
+                
+                {x: 5440, y: 600},
+                
+                {x: 6720, y: 360},
+                {x: 6800, y: 360},
+                {x: 6880, y: 360},
+                {x: 6960, y: 360},
+                {x: 7040, y: 360},
+                {x: 7120, y: 360},
+            ],
+            elevatorPlatforms: [
+                {x: 11200, y: 520, w: 3, movementType: "down"},
+                {x: 11200, y: 1000, w: 3, movementType: "down"},
+                {x: 12400, y: 40, w: 3, movementType: "up"},
+                {x: 12400, y: 680, w: 3, movementType: "up"},
+            ],
+            enemies: [
+                {x: 1280, y: 920},
+                {x: 1360, y: 840},
+                {x: 2320, y: 920},
+                {x: 3520, y: 840, type: "koopaTroopa"},
+                {x: 3640, y: 840, type: "koopaTroopa"},
+                {x: 4720, y: 840, type: "koopaTroopa"},
+                {x: 4960, y: 920},
+                {x: 5120, y: 920},
+                {x: 5840, y: 280},
+                {x: 6080, y: 600},
+                {x: 6200, y: 600},
+                {x: 7920, y: 920},
+                {x: 8040, y: 920},
+                {x: 8160, y: 920},
+                {x: 9040, y: 920},
+                {x: 10800, y: 600},
+                {x: 10920, y: 600},
+                {x: 11680, y: 840, theme: "castle", type: "koopaTroopa"},
+            ]
 
-            {x: 1360, y: 920, w: 1, h: 1, theme: "underworld", type: "solid", collision: true},
-            {x: 1520, y: 840, w: 1, h: 2, theme: "underworld", type: "solid", collision: true},
-            {x: 1680, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
-            {x: 1840, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
-            {x: 2000, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
-            {x: 2160, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
-            {x: 2480, y: 760, w: 1, h: 3, theme: "underworld", type: "solid", collision: true},
-            {x: 2640, y: 840, w: 1, h: 2, theme: "underworld", type: "solid", collision: true},
-            {x: 10960, y: 680, w: 1, h: 4, theme: "underworld", type: "solid", collision: true},
-            
-            {x: 4160, y: 360, w: 2, h: 5, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 4320, y: 200, w: 2, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 4320, y: 680, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 4640, y: 200, w: 6, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 4960, y: 360, w: 2, h: 4, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 4640, y: 680, w: 6, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 5280, y: 200, w: 4, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 5360, y: 360, w: 1, h: 4, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 5360, y: 680, w: 3, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 5760, y: 360, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 5760, y: 680, w: 2, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 6080, y: 200, w: 4, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 6080, y: 680, w: 4, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 6720, y: 520, w: 6, h: 2, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-            {x: 9760, y: 760, w: 2, h: 3, theme: "underworld", type: "breakable", collision: true},
-            {x: 11600, y: 600, w: 5, h: 1, theme: "underworld", type: "breakable", collision: true, individualCheck: true},
-
-            {x: 12800, y: 760, w: 10, h: 3, theme: "underworld", type: "breakable", collision: true},
-            {x: 13600, y: 120, w: 7, h: 11, theme: "underworld", type: "breakable", collision: true},
-            {x: 14160, y: 120, w: 10, h: 1, theme: "underworld", type: "breakable", collision: true},
-            {x: 15200, y: 120, w: 2, h: 11, theme: "underworld", type: "breakable", collision: true},
-            
-            {x: 13440, y: 120, w: 1, h: 6, type: "pipeVerticalLeft", collision: true},
-            {x: 13520, y: 120, w: 1, h: 8, type: "pipeVerticalRight", collision: true},
-        ],
-        steps: [
-            {x: 10640, y: 680, w: 4, h: 4, theme: "underworld", type: "solid"},
-        ],
-        tiles: [
-            {x: 800, y: 680, type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "mushroom"},
-            {x: 880, y: 680, type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            {x: 960, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            {x: 1040, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            {x: 1120, y: 680, theme: "underworld", type: "questionMark", animate: true, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            
-            {x: 2320, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            
-            {x: 3120, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3120, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3120, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-
-            {x: 3200, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 3280, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3280, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3280, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 3360, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3440, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 3520, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3520, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3520, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 3600, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 3680, y: 520, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "star"},
-            {x: 3680, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 3680, y: 680, theme: "underworld", type: "breakable", animate: false, collision: true},
-            
-            {x: 5520, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "mushroom"},
-            {x: 5760, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true},
-            {x: 5840, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "coinItem"},
-            
-            {x: 7120, y: 120, type: "breakable", collision: true, itemTheme: "underworld", itemType: "1up"},
-            
-            {x: 12000, y: 600, theme: "underworld", type: "breakable", animate: false, collision: true, itemTheme: "underworld", itemType: "mushroom"},
-
-            {x: 13440, y: 600, type: "pipeConnectorTopLeft"},
-            {x: 13440, y: 680, type: "pipeConnectorBottomLeft"},
-        ],
-        pipes: [
-            {x: 8240, y: 760, size: 3, theme: "underworld", opening: "top", canEnter: true, destination: {worldID: 122}},
-            {x: 8720, y: 680, size: 4, theme: "underworld", opening: "top", canEnter: false},
-            {x: 9200, y: 840, size: 2, theme: "underworld", opening: "top", canEnter: false},
-            {x: 13280, y: 600, size: 2, theme: "underworld", opening: "left", canEnter: true, destination: {worldID: 123, transitionType: "pipeOutTop"}},
-            {x: 14240, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 41}},
-            {x: 14560, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 31}},
-            {x: 14880, y: 760, size: 3, opening: "top", canEnter: true, destination: {worldID: 21}},
-        ],
-        coins: [
-            {x: 3200, y: 600},
-            {x: 3280, y: 360},
-            {x: 3360, y: 360},
-            {x: 3440, y: 360},
-            {x: 3520, y: 360},
-            {x: 3600, y: 600},
-            
-            {x: 4640, y: 600},
-            {x: 4720, y: 600},
-            {x: 4800, y: 600},
-            {x: 4880, y: 600},
-            
-            {x: 5440, y: 600},
-            
-            {x: 6720, y: 360},
-            {x: 6800, y: 360},
-            {x: 6880, y: 360},
-            {x: 6960, y: 360},
-            {x: 7040, y: 360},
-            {x: 7120, y: 360},
-        ],
-        elevatorPlatforms: [
-            {x: 11200, y: 520, w: 3, movementType: "down"},
-            {x: 11200, y: 1000, w: 3, movementType: "down"},
-            {x: 12400, y: 40, w: 3, movementType: "up"},
-            {x: 12400, y: 680, w: 3, movementType: "up"},
-        ],
-        enemies: [
-            {x: 1280, y: 920},
-            {x: 1360, y: 840},
-            {x: 2320, y: 920},
-            {x: 3520, y: 840, type: "koopaTroopa"},
-            {x: 3640, y: 840, type: "koopaTroopa"},
-            {x: 4720, y: 840, type: "koopaTroopa"},
-            {x: 4960, y: 920},
-            {x: 5120, y: 920},
-            {x: 5840, y: 280},
-            {x: 6080, y: 600},
-            {x: 6200, y: 600},
-            {x: 7920, y: 920},
-            {x: 8040, y: 920},
-            {x: 8160, y: 920},
-            {x: 9040, y: 920},
-            {x: 10800, y: 600},
-            {x: 10920, y: 600},
-            {x: 11680, y: 840, theme: "castle", type: "koopaTroopa"},
-        ]
+        }
     },
     121: {
         theme: "overworld",
@@ -684,25 +688,27 @@ const worldData = {
         width: 1920,
         gravity: 2.15,
         music: "overworld",
-        clouds: [
-            {x: 560, y: 200, theme: "overworld", amount: 2},
-            {x: 1040, y: 520, theme: "overworld", amount: 1},
-        ],
-        rectangles: [
-            {x: 0, y: 1000, w: 24, h: 1, theme: "overworld", type: "floor", animation: false, collision: true},
-            {x: 1360, y: 840, w: 1, h: 2, theme: "overworld", type: "pipeVerticalRight", animation: false, collision: false}
-        ],
-        tiles: [
-            {x: 1280, y: 840, theme: "overworld", type: "pipeConnectorTopLeft", collision: true},
-            {x: 1280, y: 920, theme: "overworld", type: "pipeConnectorBottomLeft", collision: true},
-        ],
-        pipes: [
-            {x: 1120, y: 840, size: 2, theme: "overworld", opening: "left", canEnter: false, destination: null},
-            {x: 1280, y: 680, size: 2, theme: "overworld", opening: "top", canEnter: false, destination: null},
-        ],
-        castles: [
-            {x: 320, y: 600, theme: "overworld", name: "small"}
-        ]
+        worldElements: {
+            clouds: [
+                {x: 560, y: 200, amount: 2},
+                {x: 1040, y: 520},
+            ],
+            rectangles: [
+                {x: 0, y: 1000, w: 24},
+                {x: 1360, y: 840, h: 2, type: "pipeVerticalRight"}
+            ],
+            tiles: [
+                {x: 1280, y: 840, type: "pipeConnectorTopLeft"},
+                {x: 1280, y: 920, type: "pipeConnectorBottomLeft"},
+            ],
+            pipes: [
+                {x: 1120, y: 840, opening: "left"},
+                {x: 1280, y: 680, opening: "top"},
+            ],
+            castles: [
+                {x: 320, y: 600}
+            ]
+        }
     },
     122: {
         theme: "underworld",
@@ -1653,8 +1659,10 @@ class Coin {
     destroy() {
         this.parent.parent.audioFiles.sounds.coin.currentTime = 0;
         this.parent.parent.audioFiles.sounds.coin.play();
-        const coinIndex = this.parent.coins.indexOf(this);
-        this.parent.coins.splice(coinIndex, 1);
+        const coinIndex = this.parent.worldElements.coins.indexOf(this);
+        this.parent.worldElements.coins.splice(coinIndex, 1);
+        const index = this.parent.onScreenElements.coins.indexOf(this);
+        this.parent.onScreenElements.coins.splice(index, 1);
     }
 
     update() {
@@ -2530,7 +2538,7 @@ class Character {
                 this.parent.parent.transition = false;
                 this.parent.parent.transitionType = null;
                 this.invincibility = 60;
-            } else if (this.parent.frame % 5 == 0) {
+            } else if (this.parent.parent.frame % 5 == 0) {
                 this.sX = this.frames.shrinking[this.parent.parent.transitionTimer - 1].sX;
                 this.sY = this.frames.shrinking[this.parent.parent.transitionTimer - 1].sY;
                 this.setHeight(this.frames.shrinking[this.parent.parent.transitionTimer - 1].h);
@@ -2562,7 +2570,7 @@ class Character {
                 this.parent.parent.audioFiles.sounds.pipe.play();
                 this.parent.parent.destination = {worldID: 12};
                 this.parent.parent.transitionType = "pipeEnterLeft";
-                this.parent.parent.transitionTimer = this.parent.transitionTimers[this.parent.transitionType];
+                this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
             }
             this.movement.current = this.movement.walking;
             this.collision = false;
@@ -2628,7 +2636,7 @@ class Character {
     }
 
     updatePosition() {
-        if (this.parent.transitionType === "growing" || this.parent.transitionType === "shrinking") return;
+        if (this.parent.parent.transitionType === "growing" || this.parent.parent.transitionType === "shrinking") return;
 
         this.xOld = this.x;
         this.x += this.xVel;
@@ -2853,16 +2861,16 @@ class Character {
                     // Character entered pipe from the top
                     if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
                         if (pipe.destination &&
-                            this.parent.keyStates.down && !this.parent.keyStates.up && 
+                            this.parent.parent.keyStates.down && !this.parent.parent.keyStates.up && 
                             this.x > pipe.x + pipe.blocksize * .25 && 
                             this.x + this.w < pipe.x + 2 * pipe.blocksize - pipe.blocksize * .25) {
                             this.x = pipe.x + pipe.blocksize / 2;
-                            this.parent.transition = true;
-                            this.parent.transitionType = "pipeEnterTop";
-                            this.parent.transitionTimer = this.parent.transitionTimers[this.parent.transitionType];
-                            this.parent.destination = pipe.destination;
-                            this.parent.audioFiles.sounds.pipe.currentTime = 0;
-                            this.parent.audioFiles.sounds.pipe.play();
+                            this.parent.parent.transition = true;
+                            this.parent.parent.transitionType = "pipeEnterTop";
+                            this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
+                            this.parent.parent.destination = pipe.destination;
+                            this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
+                            this.parent.parent.audioFiles.sounds.pipe.play();
                         }
                         this.y = pipe.y - this.h;
                         this.yOld = this.y;
@@ -2896,16 +2904,15 @@ class Character {
                     // Character entered pipe from the left
                     } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
                         if (pipe.destination &&
-                            this.parent.keyStates.right && !this.parent.keyStates.left && 
+                            this.parent.parent.keyStates.right && !this.parent.parent.keyStates.left && 
                             this.y + this.h > pipe.y + pipe.blocksize * 1.25) {
                             this.y = pipe.y + 2 * pipe.blocksize - this.h;
-                            this.collision = false;
-                            this.parent.transition = true;
-                            this.parent.transitionType = "pipeEnterLeft";
-                            this.parent.transitionTimer = this.parent.transitionTimers[this.parent.transitionType];
-                            this.parent.destination = pipe.destination;
-                            this.parent.audioFiles.sounds.pipe.currentTime = 0;
-                            this.parent.audioFiles.sounds.pipe.play();
+                            this.parent.parent.transition = true;
+                            this.parent.parent.transitionType = "pipeEnterLeft";
+                            this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
+                            this.parent.parent.destination = pipe.destination;
+                            this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
+                            this.parent.parent.audioFiles.sounds.pipe.play();
                         }
                         this.x = pipe.x - this.w;
                         this.xOld = this.x;
@@ -3038,14 +3045,14 @@ class Character {
                     this.xOld = this.x;
                     this.xVel = 0;
                 } else {
-                    this.parent.transitionType = "flagReached";
-                    this.parent.transitionTimer = this.parent.transitionTimers[this.parent.transitionType];
-                    this.parent.transition = true;
+                    this.parent.parent.transitionType = "flagReached";
+                    this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
+                    this.parent.parent.transition = true;
                     this.x = flag.x;
-                    this.parent.destination = flag.destination;
-                    this.parent.audioFiles.sounds.flagpole.currentTime = 0;
-                    this.parent.audioFiles.sounds.flagpole.play();
-                    this.parent.music.pause();
+                    this.parent.parent.destination = flag.destination;
+                    this.parent.parent.audioFiles.sounds.flagpole.currentTime = 0;
+                    this.parent.parent.audioFiles.sounds.flagpole.play();
+                    this.parent.parent.music.pause();
                     flag.pullDown();
                 }
             }
@@ -3097,7 +3104,7 @@ class Character {
     }
 
     setSprite() {
-        if (this.growing > 0 || this.shrinking > 0 || this.parent.transitionType === "dying") return;
+        if (this.parent.parent.transitionType === "dying") return;
 
         if (this.state.current === this.state.normal) {
             if (this.h == 80) {
@@ -3112,13 +3119,13 @@ class Character {
                 this.sY = 960;
             }
         } else if (this.state.current === this.state.star) {
-            if (this.parent.frame % 10 == 0) {
+            if (this.parent.parent.frame % 10 == 0) {
                 this.starTime--;
                 if (this.starTime == 0) {
                     this.state.current = this.state.last;
-                    this.parent.audioFiles.music.starman.pause();
-                    this.parent.music.currentTime = 0;
-                    this.parent.music.play();
+                    this.parent.parent.audioFiles.music.starman.pause();
+                    this.parent.parent.music.currentTime = 0;
+                    this.parent.parent.music.play();
                 }
             }
             if (this.h == 80) {
@@ -3132,12 +3139,12 @@ class Character {
         if (this.movement.current === this.movement.standing) {
             this.sX = 0;
         } else if (this.movement.current === this.movement.running) {
-            if (this.parent.frame % 5 === 0) {
+            if (this.parent.parent.frame % 5 === 0) {
                 this.frame++;
             }
             this.sX = this.frames.running[this.frame % this.frames.running.length];
         } else if (this.movement.current === this.movement.walking) {
-            if (this.parent.frame % 10 === 0) {
+            if (this.parent.parent.frame % 10 === 0) {
                 this.frame++;
             }
             this.sX = this.frames.running[this.frame % this.frames.running.length];
@@ -3155,7 +3162,9 @@ class Character {
 
     update() {
         if (this.invincibility > 0) this.invincibility--;
-        if (this.parent.transition) this.runTransition();
+        if (this.parent.parent.transition) {
+            this.runTransition();
+        }
         this.setVelocities();
         this.updatePosition();
         this.collisionCheck();
@@ -3175,11 +3184,12 @@ class Character {
 }
 
 class World {
-    constructor(parent, worldID) {
+    constructor(parent, destination) {
         this.objectName = "World";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
-        this.worldID = worldID;
+        this.destination = destination;
+        this.worldID = this.destination.worldID;
         this.gravity = worldData[this.worldID].gravity;
         this.end = worldData[this.worldID].width;
         this.levelEndLine = worldData[this.worldID].levelEndLine;
@@ -3189,7 +3199,22 @@ class World {
         this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "coins", "items"]
 
         this.buildWorld(this.worldID);
-        this.spawnCharacter(this.spawnLocation.x, this.spawnLocation.y);
+
+        if (this.destination.scrollOffset) {
+            this.scroll(this.destination.scrollOffset);
+        }
+
+        if (this.destination.spawnLocation) {
+            this.spawnCharacter(this.destination.spawnLocation.x, this.destination.spawnLocation.y);
+        } else {
+            this.spawnCharacter(this.spawnLocation.x, this.spawnLocation.y);
+        }
+
+        if (this.destination.transitionType) {
+            this.parent.transition = true;
+            this.parent.transitionType = this.destination.transitionType;
+            this.parent.transitionTimer = this.parent.transitionTimers[this.parent.transitionType];
+        }
     }
 
     buildWorld(worldID) {
@@ -3217,7 +3242,7 @@ class World {
         }
     }
 
-    spawnCharacter(x, y, h) {
+    spawnCharacter(x, y) {
         this.character = new Character(this, x, y - this.parent.currentHeight, this.parent.currentHeight, this.parent.currentCharacterState);
     }
 
@@ -3228,9 +3253,12 @@ class World {
 
     update() {
         if (this.parent.transition) {
-            this.worldElements.flags.forEach(flag => {
-                flag.update();
-            });
+            if (this.worldElements.flags) {
+                this.worldElements.flags.forEach(flag => {
+                    flag.update();
+                });
+            }
+            if (this.character) this.character.update();
             return;
         } else {
             for (let key in this.worldElements) {
@@ -3240,8 +3268,8 @@ class World {
                     });
                 }
             }
+            if (this.character) this.character.update();
         }
-        if (this.character) this.character.update();
     }
 
     scroll(deltaX) {
@@ -3364,8 +3392,7 @@ class Game {
         this.currentHeight = 80;
         this.currentCharacterState = "normal";
         this.lives = 3;
-        this.currentWorld = 11;
-        this.destination = null;
+        this.destination = {worldID: 12};
 
         this.transition = false;
         this.transitionType = null;
@@ -3476,22 +3503,18 @@ class Game {
         this.loadWorld();
     }
 
-    loadWorld() {
+    loadWorld(height, state) {
         this.frame = 0;
+        this.currentHeight = height || 80;
+        this.currentCharacterState = state || "normal";
+        this.currentWorld = this.destination.worldID;
 
-        this.music = this.audioFiles.music[worldData[this.currentWorld].music];
+        this.music = this.audioFiles.music[worldData[this.currentWorld].music] || this.audioFiles.music.overworld;
+        this.music.currentTime = 0;
+        this.music.loop = true;
+        this.music.play();
 
-        if (this.music) {
-            this.music.currentTime = 0;
-            this.music.play();
-            this.music.loop = true;
-        }
-
-        this.world = new World(this, this.currentWorld);
-
-        if (this.scrollOffset) {
-            this.world.scroll(this.scrollOffset);
-        }
+        this.world = new World(this, this.destination);
     }
 
     // Runs each frame
