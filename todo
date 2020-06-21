@@ -1,9 +1,27 @@
+- Add crouch, which halves height and will reduce ground friction if character is big
+- fireBar (object)
 - Cutscenes
 - Pyranhas
+- Piranha on warp pipes
+- Add fireBall for fieryMario
+- only red koopas dont walk off ledges, unless they were red koopa paratroopers before
+- Shrinking mario = 8sec invis + flashing animation
+- Starman 30sec, bounce animation after spawning
+- koopatroopa.state = "hidden" instead of spawning shell, respawning KoopaTroopa after 13 seconds
 - Shell destroying enemies
-- Shell respawning Koopa Troopa after x seconds
-- Only do collision detection on objects on the screen, push/pop others
+- Damage enemy/collect coin uptop block if hit/bounced
+- ½ block away from pipe = no piranha, same with cannons
+- bowser has 5 hp, each fireball takes 1 away
+- show lives, points, time, coins on top of screen
+- levels have different time limits, add to world data
+- 1Up mushroom appearance is actually is a bit more limited (read reference)
+- 100 coins = 1 + life
 - Maybe tweak friction, acceleration, maybe add air friction
+- Credit pixel art scaler, reference picture websites
+- Flagpole point regions
+- becoming big / uncrouching under narrow space = moonwalk to right until unstuck
+- If we die after clearing 50% of the level, we spawn in the middle, except 4-4
+- If jump is held character jumps a little bit higher, set gravity -.05 or something (bonus yaccel?)
 - Major cleanups
 
 Game logic:
