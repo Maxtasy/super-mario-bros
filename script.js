@@ -29,13 +29,13 @@ const spriteOffsets = {
             floor: {x: 0, y: 0},
             blockShiny: {x: 80, y: 0},
             block: {x: 160, y: 0},
-            disabled: {x: 240, y: 0},
             cannonTop: {x: 720, y: 0},
             castleTop: {x: 880, y: 0},
             castleWindowsLeft: {x: 960, y: 0},
             castleWall: {x: 1040, y: 0},
             castleWindowsRight: {x: 1120, y: 0},
             questionBlock: {x: 1920, y: 0},
+            disabled: {x: 2160, y: 0},
             flagSail: {x: 2240, y: 0},
             multiCoinBlock: {x: 2320, y: 0},
             secret: {x: 2400, y: 0},
@@ -2500,8 +2500,9 @@ class Character {
         this.w = 80;
         this.h = h || 80;
 
-        this.hitboxOffsetX = 4;
-        this.hitboxOffsetTop = 5;
+        this.hitboxOffsetX = 20;
+        this.hitboxOffsetTop = 25;
+        this.hitboxOffsetCrouchExtra = 60;
 
         this.facingLeftYOffset = 240;
         this.xVel = 0;
@@ -2515,10 +2516,10 @@ class Character {
         this.inAir = true;
         this.facingRight = true;
         this.friction = 0;
-        this.frictionGround = 5;
+        this.frictionGround = .5;
         this.xAccel = 0;
-        this.xAccelSprint = 9;
-        this.xAccelWalk = 6;
+        this.xAccelSprint = 1;
+        this.xAccelWalk = 1;
         this.state = {
             current: state,
             last: "normal",
@@ -2529,12 +2530,13 @@ class Character {
         this.movement = {
             current: "standing",
             standing: "standing",
+            crouching: "crouching",
             walking: "walking",
             running: "running",
             jumping: "jumping",
             swimming: "swimming",
-            ducking: "ducking",
-            crappling: "crappling"
+            crappling: "crappling",
+            sliding: "sliding"
         }
         this.frames = {
             running: [80, 160, 240],
@@ -2575,13 +2577,13 @@ class Character {
 
     setHeight(height) {
         if (height == 80 && this.h != 80) {
-            this.hitboxOffsetX = 4;
-            this.hitboxOffsetTop = 5;
+            this.hitboxOffsetX = 20;
+            this.hitboxOffsetTop = 25;
             this.y += 80;
             this.h = 80;
         } else if (height == 160 && this.h != 160) {
-            this.hitboxOffsetX = 3;
-            this.hitboxOffsetTop = 8;
+            this.hitboxOffsetX = 15;
+            this.hitboxOffsetTop = 40;
             this.y -= 80;
             this.h = 160;
         }
@@ -2712,28 +2714,45 @@ class Character {
         if (this.parent.parent.transition) return;
 
         // User wants to move right
-        if (this.parent.parent.keyStates.right && !this.parent.parent.keyStates.left) {
+        if (this.parent.parent.keyStates.right && !this.parent.parent.keyStates.left && !this.parent.parent.keyStates.down) {
             this.facingRight = true;
-            if (this.parent.parent.keyStates.sprint) {
-                this.xAccel = this.xAccelSprint;
-                this.xVelMax = this.xVelMaxSprint;
+            if (this.xVel >= 0) {
+                if (this.parent.parent.keyStates.sprint) {
+                    this.xAccel = this.xAccelSprint;
+                    this.xVelMax = this.xVelMaxSprint;
+                    if (!this.inAir) this.movement.current = this.movement.running;
+                } else {
+                    this.xAccel = this.xAccelWalk;
+                    this.xVelMax = this.xVelMaxWalk;
+                    if (!this.inAir) this.movement.current = this.movement.walking;
+                }
             } else {
-                this.xAccel = this.xAccelWalk;
-                this.xVelMax = this.xVelMaxWalk;
+                this.xAccel = 0;
+                if (!this.inAir) this.movement.current = this.movement.sliding;
             }
         // User wants to move left
-        } else if (this.parent.parent.keyStates.left && !this.parent.parent.keyStates.right) {
+        } else if (this.parent.parent.keyStates.left && !this.parent.parent.keyStates.right && !this.parent.parent.keyStates.down) {
             this.facingRight = false;
-            if (this.parent.parent.keyStates.sprint) {
-                this.xAccel = -this.xAccelSprint;
-                this.xVelMax = -this.xVelMaxSprint;
+            if (this.xVel <= 0) {
+                if (this.parent.parent.keyStates.sprint) {
+                    this.xAccel = -this.xAccelSprint;
+                    this.xVelMax = -this.xVelMaxSprint;
+                    if (!this.inAir) this.movement.current = this.movement.running;
+                } else {
+                    this.xAccel = -this.xAccelWalk;
+                    this.xVelMax = -this.xVelMaxWalk;
+                    if (!this.inAir) this.movement.current = this.movement.walking;
+                }
             } else {
-                this.xAccel = -this.xAccelWalk;
-                this.xVelMax = -this.xVelMaxWalk;
+                this.xAccel = 0;
+                if (!this.inAir) this.movement.current = this.movement.sliding;
             }
         } else {
             this.xAccel = 0;
         }
+
+        // Less xAccel if in air
+        if (this.inAir) this.xAccel / 2;
 
         // Add friction
         if (this.xVel > 0) {
@@ -2745,7 +2764,9 @@ class Character {
         }
 
         // Calculate new x velocity
-        this.xVel += this.xAccel - this.friction;
+        this.xVel = this.xVel + this.xAccel - this.friction;
+
+        console.log(this.xVel,this.friction)
 
         // Cap x velocity at max value
         if (this.xVel > 0) {
@@ -2774,8 +2795,9 @@ class Character {
     }
 
     collisionCheckLeftScreenEdge() {
-        if (this.x - this.hitboxOffsetX <= 0) {
-            this.x = 0 - this.hitboxOffsetX;
+        if (this.x < 0) {
+            this.x = 0;
+            this.xOld = this.x;
         }
     }
 
@@ -2883,12 +2905,13 @@ class Character {
     }
 
     collisionCheckRectangles(rectangleList) {
+        const hitboxOffsetTop = (this.movement.current === this.movement.crouching) ? this.hitboxOffsetTop + this.hitboxOffsetCrouchExtra : this.hitboxOffsetTop;
         rectangleList.forEach(rectangle => {
             if (rectangle.collision && rectangle.individualCheck) {
                 this.collisionCheckTiles(rectangle.tiles);
             } else if (rectangle.collision 
                 && this.y + this.h > rectangle.top 
-                && this.y + this.hitboxOffsetTop < rectangle.bottom 
+                && this.y + hitboxOffsetTop < rectangle.bottom 
                 && this.x + this.hitboxOffsetX < rectangle.right
                 && this.x + this.w - this.hitboxOffsetX > rectangle.left) 
                 {
@@ -2909,8 +2932,8 @@ class Character {
                     this.xOld = this.x;
                     this.xVel = 0;
                 // Character entered rectangle from the bottom
-                } else if (this.y + this.hitboxOffsetTop < rectangle.bottom && this.yOld + this.hitboxOffsetTop >= rectangle.bottom) {
-                    this.y = rectangle.bottom - this.hitboxOffsetTop;
+                } else if (this.y + hitboxOffsetTop < rectangle.bottom && this.yOld + hitboxOffsetTop >= rectangle.bottom) {
+                    this.y = rectangle.bottom - hitboxOffsetTop;
                     this.yOld = this.y;
                     this.yVel = 0;
                 }
@@ -2921,9 +2944,9 @@ class Character {
     collisionCheckPlatforms(platformList) {
         platformList.forEach(platform => {
             if (this.y + this.h > platform.y && 
-                this.y + this.hitboxOffsetTop < platform.y + platform.blocksize && 
-                this.x + this.hitboxOffsetX < platform.x + platform.w * platform.blocksize && 
-                this.x + this.w - this.hitboxOffsetX > platform.x) 
+                this.y < platform.y + platform.blocksize && 
+                this.x < platform.x + platform.w * platform.blocksize && 
+                this.x + this.w > platform.x) 
                 {
                 // Character entered platform from the top
                 if (this.y + this.h > platform.y && this.yOld + this.h <= platform.y) {
@@ -2932,18 +2955,18 @@ class Character {
                     this.yVel = 0;
                     this.inAir = false;
                 // Character entered platform from the left
-                } else if (this.x + this.w - this.hitboxOffsetX > platform.x && this.xOld + this.w - this.hitboxOffsetX <= platform.x) {
-                    this.x = platform.x - this.w + this.hitboxOffsetX;
+                } else if (this.x + this.w > platform.x && this.xOld + this.w <= platform.x) {
+                    this.x = platform.x - this.w;
                     this.xOld = this.x;
                     this.xVel = 0;
                 // Character entered platform from the right
-                } else if (this.x + this.hitboxOffsetX < platform.x + platform.w * platform.blocksize && this.xOld + this.hitboxOffsetX >= platform.x + platform.w * platform.blocksize) {
-                    this.x = platform.x + platform.w * platform.blocksize - this.hitboxOffsetX;
+                } else if (this.x < platform.x + platform.w * platform.blocksize && this.xOld >= platform.x + platform.w * platform.blocksize) {
+                    this.x = platform.x + platform.w * platform.blocksize;
                     this.xOld = this.x;
                     this.xVel = 0;
                 // Character entered platform from the bottom
-                } else if (this.y + this.hitboxOffsetTop < platform.y + platform.blocksize && this.yOld + this.hitboxOffsetTop >= platform.y + platform.blocksize) {
-                    this.y = platform.y + platform.blocksize - this.hitboxOffsetTop;
+                } else if (this.y < platform.y + platform.blocksize && this.yOld >= platform.y + platform.blocksize) {
+                    this.y = platform.y + platform.blocksize;
                     this.yOld = this.y;
                     this.yVel = 0;
                 }
@@ -3208,8 +3231,9 @@ class Character {
         if (this.parent.parent.transition || !this.collision) return;
         this.collisionCheckLeftScreenEdge();
         this.collisionCheckFallingToDeath();
-        if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
+        if (this.parent.onScreenElements.elevatorPlatforms) this.collisionCheckElevatorPlatforms(this.parent.onScreenElements.elevatorPlatforms);
         if (this.parent.onScreenElements.platforms) this.collisionCheckPlatforms(this.parent.onScreenElements.platforms);
+        if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
         if (this.parent.onScreenElements.steps) this.collisionCheckSteps(this.parent.onScreenElements.steps);
         if (this.parent.onScreenElements.tiles) this.collisionCheckTiles(this.parent.onScreenElements.tiles);
         if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
@@ -3217,21 +3241,16 @@ class Character {
         if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
         if (this.parent.onScreenElements.coins) this.collisionCheckCoins(this.parent.onScreenElements.coins);
         if (this.parent.onScreenElements.flags) this.collisionCheckFlags(this.parent.onScreenElements.flags);
-        if (this.parent.onScreenElements.elevatorPlatforms) this.collisionCheckElevatorPlatforms(this.parent.onScreenElements.elevatorPlatforms);
     }
 
     setMovement() {
         if (this.parent.parent.transition) return;
-        if (this.inAir) this.movement.current = this.movement.jumping;
-        else if (this.xVel === 0 && !this.inAir) {
-            this.movement.current = this.movement.standing;
-        } else if (this.xVel !== 0 && !this.inAir) {
-            if (this.parent.parent.keyStates.sprint) {
-                this.movement.current = this.movement.running;
-            } else {
-                this.movement.current = this.movement.walking;
-            }
-        }
+        if (this.movement.current === this.movement.sliding && this.xVel == 0) this.movement.current = this.movement.standing;
+        else if (this.movement.current === this.movement.running && this.xVel == 0) this.movement.current = this.movement.standing;
+        else if (this.movement.current === this.movement.walking && this.xVel == 0) this.movement.current = this.movement.standing;
+        else if (this.parent.parent.keyStates.down && !this.parent.parent.keyStates.up && this.h == 160) this.movement.current = this.movement.crouching;
+        else if (this.inAir) this.movement.current = this.movement.jumping;
+        else if (this.movement.current != this.movement.running && this.movement.current != this.movement.walking && this.movement.current != this.movement.sliding) this.movement.current = this.movement.standing;
     }
 
     setSprite() {
@@ -3269,6 +3288,8 @@ class Character {
         // Standing/Walking/Jumping/Ducking/Swimming/etc
         if (this.movement.current === this.movement.standing) {
             this.sX = 0;
+        } else if (this.movement.current === this.movement.sliding) {
+            this.sX = 320;
         } else if (this.movement.current === this.movement.running) {
             if (this.parent.parent.frame % 5 === 0) {
                 this.frame++;
@@ -3283,6 +3304,8 @@ class Character {
             this.sX = 400;
         } else if (this.movement.current === this.movement.crappling) {
             this.sX = 640;
+        } else if (this.movement.current === this.movement.crouching) {
+            this.sX = 480
         }
 
         // In which direction is the player looking
@@ -3545,6 +3568,8 @@ class Game {
         }
 
         this.fullScreen = false;
+        this.mainMenuImage = new Image();
+        this.mainMenuImage.src = "img/mainMenu.png";
         this.audioFiles = {
             music: {
                 overworld: new Audio("audio/music_overworld.wav"),
@@ -3625,9 +3650,11 @@ class Game {
 
     showMenu() {
         if (this.gameState.current !== this.gameState.menu) return;
+        ctx.clearRect(0, 0, this.screensize.width, this.screensize.height);
+        ctx.drawImage(this.mainMenuImage, 0, 0, this.screensize.width, this.screensize.height);
         ctx.fillStyle = "red"
-        ctx.font = "30px Arial";
-        ctx.fillText("Press enter to play", 50, 50)
+        ctx.font = "72px Arial";
+        ctx.fillText("MTC 999999", 940, 820);
     }
 
     startGame() {
