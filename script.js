@@ -144,6 +144,10 @@ const spriteOffsets = {
             flagMovingPiece: {
                 x: 640,
                 y: 160
+            },
+            fireball: {
+                x: 480,
+                y: 720
             }
         }
     },
@@ -158,7 +162,8 @@ const spriteOffsets = {
             goomba: {x: 0, y: 80},
             koopaTroopa: {x: 480, y: 0},
             koopaParatroopa: {x: 640, y: 0},
-            shell: {x: 800, y: 80}
+            shell: {x: 800, y: 80},
+            piranha: {x: 960, y: 0}
         }
     }
 }
@@ -321,6 +326,146 @@ const enemyProperties = {
 
 //TODO: Add piranha to all levels
 const worldData = {
+    "test": {
+        theme: "overworld",
+        spawnLocation: {
+            x: 160,
+            y: 680
+        },
+        bg: "#63adfe",
+        width: 16960,
+        levelEndLine: 16400,
+        gravity: 2.15,
+        music: "overworld",
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 69},
+                {x: 5680, y: 1000, w: 15},
+                {x: 7120, y: 1000, w: 64},
+                {x: 12400, y: 1000, w: 57},
+                {x: 6400, y: 360, w: 8, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 7280, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 9680, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 10320, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 12160, y: 680, h: 4, type: "stair", collision: true},
+                {x: 13440, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 15120, y: 360, h: 8, type: "stair", collision: true},
+            ],
+            steps : [
+                {x: 10720, y: 680, w: 4},
+                {x: 11200, y: 680, w: 4, reversed: true},
+                {x: 11840, y: 680, w: 4},
+                {x: 12400, y: 680, w: 4, reversed: true},
+                {x: 14480, y: 360, w: 8},
+            ],
+            tiles: [
+                {x: 1280, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 1600, y: 680, type: "blockShiny", collision: true},
+                {x: 1680, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 1760, y: 360, type: "questionBlock"},
+                {x: 1760, y: 680, type: "blockShiny", collision: true},
+                {x: 1840, y: 680, type: "questionBlock"},
+                {x: 1920, y: 680, type: "blockShiny", collision: true},
+                {x: 5120, y: 600, type: "secret", item: {type: "oneUp"}},
+                {x: 6160, y: 680, type: "blockShiny", collision: true},
+                {x: 6240, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 6320, y: 680, type: "blockShiny", collision: true},
+                {x: 7520, y: 360, type: "questionBlock"},
+                {x: 7520, y: 680, type: "multiCoinBlock"},
+                {x: 8000, y: 680, type: "blockShiny", collision: true},
+                {x: 8080, y: 680, type: "blockShiny", collision: true, item: {type: "starman"}},
+                {x: 8480, y: 680, type: "questionBlock"},
+                {x: 8720, y: 680, type: "questionBlock"},
+                {x: 8720, y: 360, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 8960, y: 680, type: "questionBlock"},
+                {x: 9440, y: 680, type: "blockShiny", collision: true},
+                {x: 10240, y: 360, type: "blockShiny", collision: true},
+                {x: 10320, y: 360, type: "questionBlock"},
+                {x: 10400, y: 360, type: "questionBlock"},
+                {x: 10480, y: 360, type: "blockShiny", collision: true},
+                {x: 13600, y: 680, type: "questionBlock"},
+                {x: 13680, y: 680, type: "blockShiny", collision: true},
+            ],
+            hills: [
+                {x: 0, y: 760, h: 3}, 
+                {x: 1280, y: 840, h: 2}, 
+                {x: 3840, y: 760, h: 3}, 
+                {x: 5120, y: 840, h: 2}, 
+                {x: 7680, y: 760, h: 3}, 
+                {x: 8960, y: 840, h: 2}, 
+                {x: 11520, y: 760, h: 3}, 
+                {x: 12800, y: 840, h: 2}, 
+                {x: 15360, y: 760, h: 3}, 
+                {x: 16640, y: 840, h: 2}
+            ],
+            clouds: [
+                {x: 640, y: 200},
+                {x: 1520, y: 120},
+                {x: 2160, y: 200, amount: 3},
+                {x: 2880, y: 120, amount: 2},
+                {x: 4480, y: 200},
+                {x: 5360, y: 120},
+                {x: 6000, y: 200, amount: 3},
+                {x: 6720, y: 120, amount: 2},
+                {x: 8320, y: 200},
+                {x: 9200, y: 120},
+                {x: 9840, y: 200, amount: 3},
+                {x: 10560, y: 120, amount: 2},
+                {x: 12160, y: 200},
+                {x: 13040, y: 120},
+                {x: 13680, y: 200, amount: 3},
+                {x: 14400, y: 120, amount: 2},
+                {x: 16000, y: 200},
+            ],
+            bushes: [
+                {x: 880, y: 920, amount: 3},
+                {x: 1840, y: 920},
+                {x: 3280, y: 920, amount: 2},
+                {x: 4720, y: 920, amount: 3},
+                {x: 5680, y: 920},
+                {x: 7120, y: 920, amount: 2},
+                {x: 8560, y: 920, amount: 3},
+                {x: 9520, y: 920},
+                {x: 10960, y: 920, amount: 2},
+                {x: 12560, y: 920},
+                {x: 13360, y: 920},
+                {x: 16400, y: 920},
+            ],
+            pipes: [
+                {x: 2240, y: 840},
+                {x: 3040, y: 760, size: 3},
+                {x: 3680, y: 680, size: 4},
+                {x: 4560, y: 680, size: 4, destination: {worldID: 111, scrollOffset: null, spawnLocation: null, transitionType: null}},
+                {x: 13040, y: 840},
+                {x: 14320, y: 840},
+            ],
+            enemies: [
+                {x: 1760, y: 920},
+                {x: 3200, y: 920},
+                {x: 4080, y: 920},
+                {x: 4200, y: 920},
+                {x: 6400, y: 280},
+                {x: 6560, y: 280},
+                {x: 7760, y: 920},
+                {x: 7880, y: 920},
+                {x: 8560, y: 840, type: "koopaTroopa"},
+                {x: 9120, y: 920},
+                {x: 9240, y: 920},
+                {x: 9920, y: 920},
+                {x: 10040, y: 920},
+                {x: 10240, y: 920},
+                {x: 10360, y: 920},
+                {x: 13920, y: 920},
+                {x: 14040, y: 920},
+            ],
+            castles: [
+                {x: 16160, y: 600}
+            ],
+            flags: [
+                {x: 15840, y: 120, destination: {worldID: 121, scrollOffset: null, transitionType: "cutscene1"}},
+            ],
+        }
+    },
     11: {
         theme: "overworld",
         spawnLocation: {
@@ -458,7 +603,7 @@ const worldData = {
             ],
             flags: [
                 {x: 15840, y: 120, destination: {worldID: 121, scrollOffset: null, transitionType: "cutscene1"}},
-            ]
+            ],
         }
     },
     111: {
@@ -678,8 +823,15 @@ const worldData = {
                 {x: 10800, y: 600},
                 {x: 10920, y: 600},
                 {x: 11680, y: 840, theme: "castle", type: "koopaTroopa"},
+            ],
+            piranhas: [
+                {x: 8280, y: 600},
+                {x: 8760, y: 520},
+                {x: 9240, y: 680},
+                {x: 14280, y: 600, once: true},
+                {x: 14600, y: 600, once: true},
+                {x: 14920, y: 600, once: true},
             ]
-
         }
     },
     121: {
@@ -1162,7 +1314,7 @@ class Rectangle {
         this.sX = spriteOffsets.tiles.type[this.type].x;
         this.sY = spriteOffsets.tiles.theme[this.theme].y + spriteOffsets.tiles.type[this.type].y;
         this.sprites = tileSprites;
-        this.onScreen = false;
+
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
@@ -1736,6 +1888,7 @@ class Coin {
         this.frame = 0;
         this.x = x;
         this.y = y;
+        this.w = 80;
         this.theme = theme || this.parent.theme;
         this.sX = spriteOffsets.objects.theme[this.theme].x;
         this.sY = 480;
@@ -1805,11 +1958,6 @@ class Enemy {
         this.sprites = enemySprites;
         this.facingLeftYOffset = 160;
         this.facingRight = false;
-        if (this.x < this.parent.parent.screensize.width) {
-            this.onScreen = true;
-        } else {
-            this.onScreen = false;
-        }
         this.animateSequences = {
             goomba: [0, 80],
             koopaTroopa: [0, 80],
@@ -2058,6 +2206,17 @@ class Enemy {
         });
     }
 
+    collisionCheckEnemies(list) {
+        list.forEach(item => {
+            if (item === this) return;
+            else if (this.type === "shell" && this.xVel != 0 && ((this.x + this.w > item.x && this.xOld + this.w <= item.x) || (this.x < item.x + item.w && this.xOld >= item.x + item.w))) {
+                item.destroy();
+                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+                this.parent.parent.audioFiles.sounds.kick.play();
+            }
+        });
+    }
+
     collisionCheck() {
         // Screen edges
         if (this.x + this.w + 2 * this.blocksize < 0 || this.x - 2 * this.blocksize > this.parent.parent.screensize.width || this.y - 2 * this.blocksize > this.parent.parent.screensize.height) {
@@ -2069,6 +2228,7 @@ class Enemy {
         if (this.parent.onScreenElements.steps) this.collisionCheckSteps(this.parent.onScreenElements.steps);
         if (this.parent.onScreenElements.tiles) this.collisionCheckTiles(this.parent.onScreenElements.tiles);
         if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
+        if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
 
         // KoopaParatroopa up-down-movement
         if (this.type === "koopaParatroopa" && this.y + this.h > this.yInitial + 3 * this.blocksize || this.y < this.yInitial - 3 * this.blocksize) this.yVel *= -1;
@@ -2097,6 +2257,95 @@ class Enemy {
 
     scroll(deltaX) {
         this.x -= deltaX;
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+    }
+}
+
+class Piranha {
+    constructor(parent, x, y, theme, once) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.frame = 0;
+        this.x = x;
+        this.y = y;
+        this.yInitial = y;
+        this.h = 160;
+        this.w = 80;
+        this.hitboxOffsetTop = 105;
+        this.hitboxOffsetBottom = 15;
+        this.hitboxOffsetX = 20;
+        this.theme = theme || this.parent.theme;
+        this.once = once;
+        this.sprites = enemySprites;
+        this.sX = spriteOffsets.enemies.type.piranha.x;
+        this.sY = spriteOffsets.enemies.theme[this.theme].y + spriteOffsets.enemies.type.piranha.y;
+        this.yVel = 3;
+        this.sequence = [0, 80];
+        this.timeOut = 0;
+        this.canMove = true;
+
+        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+    }
+
+    addToOnScreen() {
+        this.onScreen = true;
+        this.parent.onScreenElements.piranhas.push(this);
+    }
+
+    removeFromOnScreen() {
+        this.onScreen = false;
+        const index = this.parent.onScreenElements.piranhas.indexOf(this);
+        this.parent.onScreenElements.piranhas.splice(index, 1);
+    }
+
+    destroy() {
+        const worldIndex = this.parent.worldElements.piranhas.indexOf(this);
+        this.parent.worldElements.piranhas.splice(worldIndex, 1);
+
+        const onScreenIndex = this.parent.onScreenElements.piranhas.indexOf(this);
+        this.parent.onScreenElements.piranhas.splice(onScreenIndex, 1);
+    }
+
+    updatePosition() {
+        if (!this.canMove && this.y === this.yInitial + this.h) return;
+        if (this.timeOut > 0) {
+            this.timeOut--;
+            return;
+        }
+
+        this.y += this.yVel;
+        if (this.y <= this.yInitial || this.y >= this.yInitial + this.h) {
+            if (this.once) this.destroy();
+            this.yVel *= -1;
+            this.timeOut = 90;
+        }
+    }
+
+    setSprite() {
+        if (this.parent.parent.frame % 20 === 0) {
+            this.frame = (this.frame + 1) % this.sequence.length;
+            this.sX = spriteOffsets.enemies.type.piranha.x + this.sequence[this.frame]
+        }
+    }
+
+    update() {
+        this.updatePosition();
+        this.setSprite();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        if (this.parent.destination.spawnLocation.x + 80 > this.x && this.parent.destination.spawnLocation.x < this.x + 80) {
+            this.y += this.h
+            this.timeOut = 90;
+            this.yVel = -this.yVel;
+            this.canMove = false;
+        }
     }
 
     draw() {
@@ -2189,10 +2438,12 @@ class ElevatorPlatform {
         this.xOld = this.x;
         this.x += this.xVel;
         if (this.movementType === "up" && this.y + this.blocksize < 0) this.y = this.parent.parent.screensize.height;
-        else if (this.movementType === "down" && this.y > this.parent.parent.screensize.height) this.y = 0 - this.blocksize;
+        else if (this.movementType === "down" && this.y > this.parent.parent.screensize.height) {
+            this.y = 0 - this.blocksize;
+        }
         else if (this.movementType === "falling" && this.y > this.parent.parent.screensize.height) this.destroy();
-        else if (this.movementType === "leftRight" && this.x + this.w * this.blocksize >= this.xInitial + this.w * this.blocksize + 3 * this.blocksize || this.x <= this.xInitial - 3 * this.blocksize) this.xVel *= -1;
-        else if (this.movementType === "upDown" && this.y > this.yInitial + 6 * this.blocksize || this.y + this.blocksize < this.yInitial + this.blocksize - 6 * this.blocksize) this.yVel *= -1;
+        else if (this.movementType === "leftRight" && (this.x + this.w * this.blocksize >= this.xInitial + this.w * this.blocksize + 3 * this.blocksize || this.x <= this.xInitial - 3 * this.blocksize)) this.xVel *= -1;
+        else if (this.movementType === "upDown" && (this.y > this.yInitial + 6 * this.blocksize || this.y + this.blocksize < this.yInitial + this.blocksize - 6 * this.blocksize)) this.yVel *= -1;
     }
 
     collisionCheck() {
@@ -2301,7 +2552,7 @@ class Item {
             this.parent.parent.audioFiles.sounds.oneUp.play()
         } else if (this.type === "starman") {
             this.parent.character.state.last = this.parent.character.state.current;
-            this.parent.character.state.current = this.parent.character.state.star;
+            this.parent.character.state.current = this.parent.character.state.starman;
             this.parent.character.starTime = 61;
             this.parent.parent.music.pause();
             this.parent.parent.audioFiles.music.starman.currentTime = 0;
@@ -2525,7 +2776,7 @@ class Character {
             last: "normal",
             normal: "normal",
             flower: "flower",
-            star: "star",
+            starman: "starman",
         }
         this.movement = {
             current: "standing",
@@ -2564,6 +2815,7 @@ class Character {
         this.starTime = 0;
         this.dying = 0;
         this.collision = true;
+        this.fireballCooldown = 0;
     }
 
     jump() {
@@ -2573,6 +2825,28 @@ class Character {
         this.movement.current = this.movement.jumping;
         this.parent.parent.audioFiles.sounds.jumpSmall.currentTime = 0;
         this.parent.parent.audioFiles.sounds.jumpSmall.play();
+    }
+
+    shoot() {
+        if (this.state.current !== this.state.flower || this.fireballCooldown !== 0) return;
+        this.parent.spawnFireBall(this.x + this.w / 2, this.y + this.h * .25);
+        this.fireballCooldown = 15;
+    }
+
+    gotInjured() {
+        if (this.h === 160) {
+            this.parent.parent.setTransition("shrinking");
+            this.invincibility = 480;
+            this.state.current = this.state.normal;
+            this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.pipe.play();
+        } else {
+            this.yVel = -40;
+            this.parent.parent.setTransition("dying");
+            this.parent.parent.audioFiles.sounds.marioDie.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.marioDie.play();
+            this.parent.parent.music.pause();
+        }
     }
 
     setHeight(height) {
@@ -2765,8 +3039,6 @@ class Character {
 
         // Calculate new x velocity
         this.xVel = this.xVel + this.xAccel - this.friction;
-
-        console.log(this.xVel,this.friction)
 
         // Cap x velocity at max value
         if (this.xVel > 0) {
@@ -3098,87 +3370,124 @@ class Character {
         });
     }
 
-    collisionCheckEnemies(enemyList) {
-        enemyList.forEach(enemy => {
-            if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && 
-                this.y + this.hitboxOffsetTop < enemy.y + enemy.h - enemy.hitboxOffsetBottom && 
-                this.x + this.hitboxOffsetX < enemy.x + enemy.w - enemy.hitboxOffsetX && 
-                this.x + this.w - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX) {
-                
-                // Character is in star form
-                if (this.state.current === this.state.star) {
-                    enemy.destroy();
-                    this.parent.parent.audioFiles.sounds.stomp.currentTime = 0;
-                    this.parent.parent.audioFiles.sounds.stomp.play();
+    collisionCheckEnemies(list) {
+        const character = this;
+        const game = character.parent.parent;
+        const c = {
+            top: this.y + this.hitboxOffsetTop,
+            topOld: this.yOld + this.hitboxOffsetTop,
+            bottom: this.y + this.h,
+            bottomOld: this.yOld + this.h,
+            left: this.x + this.hitboxOffsetX,
+            leftOld: this.xOld + this.hitboxOffsetX,
+            right: this.x + this.w - this.hitboxOffsetX,
+            rightOld: this.xOld + this.w - this.hitboxOffsetX
+        };
+
+        list.forEach(item => {
+            const i = {
+                top: item.y + item.hitboxOffsetTop,
+                bottom: item.y + item.h - item.hitboxOffsetBottom,
+                left: item.x + item.hitboxOffsetX,
+                right: item.x + item.w - item.hitboxOffsetX
+            }
+
+            if (c.bottom > i.top && 
+                c.top < i.bottom && 
+                c.left < i.right && 
+                c.right > i.left) 
+            {
+                if (character.state.current === character.state.starman) {
+                    item.destroy();
+                    game.audioFiles.sounds.stomp.currentTime = 0;
+                    game.audioFiles.sounds.stomp.play();
                 } else {
                     // Character entered enemy from the top
-                    if (this.y + this.h > enemy.y + enemy.hitboxOffsetTop && this.yOld + this.h <= enemy.y + enemy.hitboxOffsetTop) {
-                        this.y = enemy.y - this.h;
-                        this.yOld = this.y;
-                        this.yVel = -20;
-                        this.parent.parent.audioFiles.sounds.stomp.currentTime = 0;
-                        this.parent.parent.audioFiles.sounds.stomp.play();
-                        if (enemy.type === "koopaParatroopa") {
-                            enemy.type = "koopaTroopa";
-                            enemy.setSpriteOffsets();
-                            enemy.setProperties();
-                        } else if (enemy.type === "koopaTroopa") {
-                            enemy.frame = 0;
-                            enemy.type = "shell";
-                            enemy.y += 80;
-                            enemy.setSpriteOffsets();
-                            enemy.setProperties();
-                        } else if (enemy.type === "shell") {
-                            if (enemy.xVel == 0) {
-                                if (this.x >= enemy.x) {
-                                    enemy.xVel = -20;
+                    if (c.bottom > i.top && c.bottomOld <= i.top) {
+                        character.y = i.top - character.h;
+                        character.yOld = character.y;
+                        character.yVel = -20;
+                        game.audioFiles.sounds.stomp.currentTime = 0;
+                        game.audioFiles.sounds.stomp.play();
+                        if (item.type === "koopaParatroopa") {
+                            item.type = "koopaTroopa";
+                            item.setSpriteOffsets();
+                            item.setProperties();
+                        } else if (item.type === "koopaTroopa") {
+                            item.frame = 0;
+                            item.type = "shell";
+                            item.y += 80;
+                            item.setSpriteOffsets();
+                            item.setProperties();
+                        } else if (item.type === "shell") {
+                            if (item.xVel === 0) {
+                                if (character.x >= item.x) {
+                                    item.xVel = -20;
                                 } else {
-                                    enemy.xVel = 20;
+                                    item.xVel = 20;
                                 }
                             } else {
-                                enemy.xVel = 0;
+                                item.xVel = 0;
                             }
-                            this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.kick.play();
+                            game.audioFiles.sounds.kick.currentTime = 0;
+                            game.audioFiles.sounds.kick.play();
                         } else {
-                            enemy.destroy();
+                            item.destroy();
                         }
                     // Character entered enemy from other sides
-                    } else if (this.invincibility === 0) {
-                        if (enemy.type === "shell" && enemy.xVel == 0) {
+                    } else if (character.invincibility === 0) {
+                        if (item.type === "shell" && item.xVel === 0) {
                             // Character entered shell from the left
-                            if (this.x + this.w - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX && this.xOld + this.w - this.hitboxOffsetX <= enemy.x + enemy.hitboxOffsetX) {
-                                enemy.xVel = 20;
-                                this.x = enemy.x - this.w;
-                                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
-                                this.parent.parent.audioFiles.sounds.kick.play();
+                            if (c.right > i.left && c.rightOld <= i.left) {
+                                item.xVel = 15;
+                                character.x = i.left - character.w;
                             // Character entered shell from the right
-                            } else if (this.x + this.hitboxOffsetX < enemy.x + enemy.w - enemy.hitboxOffsetX && this.xOld + this.hitboxOffsetX >= enemy.x + enemy.w - enemy.hitboxOffsetX) {
-                                enemy.xVel = -20;
-                                this.x = enemy.x + enemy.w;
-                                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
-                                this.parent.parent.audioFiles.sounds.kick.play();
+                            } else if (c.left < i.right && c.leftOld >= i.right) {
+                                item.xVel = -15;
+                                character.x = i.right;
                             }
+                            game.audioFiles.sounds.kick.currentTime = 0;
+                            game.audioFiles.sounds.kick.play();
                         } else {
-                            if (this.h != 80) {
-                                this.parent.parent.transitionTimer = this.frames.shrinking.length;
-                                this.parent.parent.transition = true;
-                                this.parent.parent.transitionType = "shrinking";
-                                this.state.current = this.state.normal;
-                                this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
-                                this.parent.parent.audioFiles.sounds.pipe.play();
-                            } else {
-                                this.yVel = -40;
-                                this.parent.parent.transition = true;
-                                this.parent.parent.transitionType = "dying";
-                                this.parent.parent.transitionTimer = this.parent.parent.transitionTimers.dying;
-                                this.parent.parent.music.pause();
-                                this.parent.parent.audioFiles.sounds.marioDie.currentTime = 0;
-                                this.parent.parent.audioFiles.sounds.marioDie.play();
-                            }
+                            character.gotInjured();
                         }
                     }
                 }
+            }
+        });
+    }
+
+    collisionCheckPiranhas(list) {
+        const c = {
+            top: this.y + this.hitboxOffsetTop,
+            bottom: this.y + this.h,
+            left: this.x + this.hitboxOffsetX,
+            leftOld: this.xOld + this.hitboxOffsetX,
+            right: this.x + this.w - this.hitboxOffsetX,
+            rightOld: this.xOld + this.w - this.hitboxOffsetX
+        };
+
+        list.forEach(item => {
+            const threshold = 1.5 * item.blocksize;
+            const i = {
+                top: item.y + item.hitboxOffsetTop,
+                bottom: item.y + item.h - item.hitboxOffsetBottom,
+                left: item.x + item.hitboxOffsetX,
+                right: item.x + item.w - item.hitboxOffsetX
+            }
+            if (c.bottom > i.top && 
+                c.top < i.bottom && 
+                c.left < i.right && 
+                c.right > i.left) 
+            {
+                this.gotInjured();
+            } else if (c.left > i.right + threshold && c.leftOld <= i.right + threshold || c.right < i.left - threshold && c.rightOld >= i.left - threshold) {
+                item.canMove = true;
+                item.timeOut = 90;
+            } 
+            else if (c.left < i.right + threshold && c.leftOld >= i.right + threshold || c.right > i.left - threshold && c.rightOld <= i.left - threshold) {
+                item.canMove = false;
+                item.timeOut = 90;
             }
         });
     }
@@ -3241,6 +3550,7 @@ class Character {
         if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
         if (this.parent.onScreenElements.coins) this.collisionCheckCoins(this.parent.onScreenElements.coins);
         if (this.parent.onScreenElements.flags) this.collisionCheckFlags(this.parent.onScreenElements.flags);
+        if (this.parent.onScreenElements.piranhas) this.collisionCheckPiranhas(this.parent.onScreenElements.piranhas);
     }
 
     setMovement() {
@@ -3316,6 +3626,7 @@ class Character {
 
     update() {
         if (this.invincibility > 0) this.invincibility--;
+        if (this.fireballCooldown > 0) this.fireballCooldown--;
         if (this.parent.parent.transition) {
             this.runTransition();
         }
@@ -3337,6 +3648,130 @@ class Character {
     }
 }
 
+class FireBall {
+    constructor(parent, x, y) {
+        this.parent = parent;
+        this.gravity = this.parent.gravity;
+        this.x = x;
+        this.xOld = x;
+        this.y = y;
+        this.yOld = y;
+        this.w = 40;
+        this.h = 40;
+        this.yVel = 0;
+        if (this.parent.character.facingRight) {
+            this.xVel = 15;
+        } else {
+            this.xVel = -15;
+        }
+        this.sprites = objectSprites;
+        this.sX = spriteOffsets.objects.theme.overworld.x + spriteOffsets.objects.type.fireball.x;
+        this.sY = spriteOffsets.objects.type.fireball.y;
+    }
+
+    destroy() {
+        const index = this.parent.onScreenElements.fireballs.indexOf(this);
+        this.parent.onScreenElements.fireballs.splice(index, 1);
+    }
+
+    updateVelocities() {
+        this.yVel += this.gravity;
+    }
+
+    updatePosition() {
+        this.xOld = this.x;
+        this.x += this.xVel;
+        this.yOld = this.y;
+        this.y += this.yVel;
+    }
+
+    collisionCheckRectangles(list) {
+        const f = {
+            left: this.x,
+            leftOld: this.xOld,
+            right: this.x + this.w,
+            rightOld: this.xOld + this.w,
+            top: this.y,
+            topOld: this.yOld,
+            bottom: this.y + this.h,
+            bottomOld: this.yOld + this.h
+        }
+
+        list.forEach(item => {
+            if (item.collision &&
+                f.left < item.right &&
+                f.right > item.left &&
+                f.top < item.bottom &&
+                f.bottom > item.top)
+            {
+                if (f.bottom > item.top && f.bottomOld <= item.top) {
+                    this.y = item.top - this.h;
+                    this.yVel = -15;
+                } else {
+                    this.destroy();
+                }
+            }
+        });
+    }
+
+    collisionCheckEnemies(list) {
+        const f = {
+            left: this.x,
+            leftOld: this.xOld,
+            right: this.x + this.w,
+            rightOld: this.xOld + this.w,
+            top: this.y,
+            topOld: this.yOld,
+            bottom: this.y + this.h,
+            bottomOld: this.yOld + this.h
+        }
+
+        list.forEach(item => {
+            const i = {
+                left: item.x,
+                right: item.x + item.w,
+                top: item.y,
+                bottom: item.y + item.h
+            }
+
+            if (f.left < i.right &&
+                f.right > i.left &&
+                f.top < i.bottom &&
+                f.bottom > i.top)
+            {
+                item.destroy();
+                this.destroy();
+            }
+        });
+    }
+
+    collisionCheckPipes(list) {
+
+    }
+
+    collisionCheck() {
+        if (this.x > this.parent.parent.screensize.width || this.x + this.w < 0 || this.y > this.parent.parent.screensize.height) this.destroy();
+
+        if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
+        if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
+        if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
+    }
+
+    update() {
+        this.updateVelocities();
+        this.updatePosition();
+        this.collisionCheck();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+    }
+}
+
 class World {
     constructor(parent, destination) {
         this.objectName = "World";
@@ -3350,7 +3785,7 @@ class World {
         this.backgroundColor = worldData[this.worldID].bg;
         this.theme = worldData[this.worldID].theme;
         this.spawnLocation = worldData[this.worldID].spawnLocation;
-        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "coins", "items"]
+        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs"]
 
         this.buildWorld(this.worldID);
 
@@ -3374,6 +3809,7 @@ class World {
     buildWorld(worldID) {
         this.worldElements = {};
         this.onScreenElements = {};
+        this.onScreenElements.fireballs = [];
 
         for (let key in worldData[worldID].worldElements) {
             this.worldElements[key] = [];
@@ -3392,12 +3828,17 @@ class World {
                 else if (key === "coins") this.worldElements.coins.push(new Coin(this, element.x, element.y, element.theme));
                 else if (key === "elevatorPlatforms") this.worldElements.elevatorPlatforms.push(new ElevatorPlatform(this, element.x, element.y, element.w, element.movementType));
                 else if (key === "flags") this.worldElements.flags.push(new Flag(this, element.x, element.y, element.h, element.theme, element.destination));
+                else if (key === "piranhas") this.worldElements.piranhas.push(new Piranha(this, element.x, element.y, element.theme, element.once));
             });
         }
     }
 
     spawnCharacter(x, y) {
         this.character = new Character(this, x, y - this.parent.currentHeight, this.parent.currentHeight, this.parent.currentCharacterState);
+    }
+
+    spawnFireBall(x, y) {
+        this.onScreenElements.fireballs.push(new FireBall(this, x, y));
     }
 
     spawnItem(x, y, theme, type, collision) {
@@ -3407,17 +3848,17 @@ class World {
 
     update() {
         if (this.parent.transition) {
-            if (this.worldElements.flags) {
-                this.worldElements.flags.forEach(flag => {
+            if (this.onScreenElements.flags) {
+                this.onScreenElements.flags.forEach(flag => {
                     flag.update();
                 });
             }
             if (this.character) this.character.update();
             return;
         } else {
-            for (let key in this.worldElements) {
+            for (let key in this.onScreenElements) {
                 if (this.needsUpdate.includes(key)) {
-                    this.worldElements[key].forEach(element => {
+                    this.onScreenElements[key].forEach(element => {
                         element.update();
                     });
                 }
@@ -3434,14 +3875,16 @@ class World {
             this.worldElements[key].forEach(element => {
                 element.scroll(deltaX);
                 if (!element.onScreen && element.x < this.parent.screensize.width && element.x + element.w * element.blocksize > 0) {
-                    // console.log("Added: " + element.objectName)
                     element.addToOnScreen();
                 } else if (element.onScreen && element.x + element.w * element.blocksize < 0) {
-                    // console.log("Removed: " + element.objectName)
                     element.removeFromOnScreen();
                 }
             });
         }
+
+        this.onScreenElements.fireballs.forEach(fireball => {
+            fireball.scroll(deltaX);
+        });
         
         if (this.character) this.character.scroll(deltaX);
     }
@@ -3469,6 +3912,11 @@ class World {
         if (this.onScreenElements.castles) {
             this.onScreenElements.castles.forEach(castle => {
                 castle.draw();
+            });
+        }
+        if (this.onScreenElements.piranhas) {
+            this.onScreenElements.piranhas.forEach(piranha => {
+                piranha.draw();
             });
         }
         if (this.onScreenElements.rectangles) {
@@ -3519,6 +3967,12 @@ class World {
 
         if (this.character) this.character.draw();
 
+        if (this.onScreenElements.fireballs) {
+            this.onScreenElements.fireballs.forEach(fireball => {
+                fireball.draw();
+            });
+        }
+
         if (this.onScreenElements.pipes) {
             this.onScreenElements.pipes.forEach(pipe => {
                 pipe.draw();
@@ -3546,7 +4000,7 @@ class Game {
         this.currentHeight = 80;
         this.currentCharacterState = "normal";
         this.lives = 3;
-        this.destination = {worldID: 14};
+        this.destination = {worldID: "test"};
 
         this.transition = false;
         this.transitionType = null;
@@ -3558,6 +4012,8 @@ class Game {
             "flagReached": 480,
             "dying": 240,
             "cutscene1": 300,
+            "shrinking": 7,
+            "growing": 7
         };
 
         this.gameState = {
@@ -3614,6 +4070,12 @@ class Game {
                 this.audioFiles[type][audio].volume = volume;
             }
         }
+    }
+
+    setTransition(type) {
+        this.transition = true;
+        this.transitionType = type;
+        this.transitionTimer = this.transitionTimers[this.transitionType];
     }
 
     toggleFullscreen() {
@@ -3712,6 +4174,7 @@ function handleKeydown(e) {
         game.keyStates.down = true; 
     } else if (e.keyCode === 17) {
         game.keyStates.sprint = true;
+        game.world.character.shoot();
     } else if (e.keyCode === 70) {
         game.toggleFullscreen();
     } else if (e.keyCode === 13 && game.gameState.current === game.gameState.menu) {
