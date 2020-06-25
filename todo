@@ -1,25 +1,25 @@
 - Add fireBar (object)
-- Add fireBall for fieryMario
+- Add Enemy type Bowser (has 5 hp, each fireball takes 1 away)
+- Add Enemy type Buzzy Beetle
+- Add Enemy type Bullet Bill (don't shoot if character within threshold)
+- Add Enemy type Lakitu
+- Add Enemy type Spiny Egg
+- Add Enemy type Spiny
+- Add Enemy type Hammer Bros
+- Add Enemy type Cheep Cheep
+- Add Enemy type Podoboo
+- Add Enemy type Bloober
 - Add Pre-Level Screen with lives etc
-- On shrink character is 8 seconds invincible & flashing animation
-- only red koopas dont walk off ledges, unless they were red koopa paratroopers before
-- Starman effect 30sec, bounce animation for Item after spawning
-- koopatroopa.state = "hidden" instead of spawning shell, respawning KoopaTroopa after 13 ingame seconds
-- Kicked shell destroys enemies
-- Damage enemy/collect coin uptop block if hit/bounced
-- ½ block away from pipe = no piranha, same with cannons
-- Bowser has 5 hp, each fireball takes 1 away
-- Display lives, points, time, coins on top of screen
-- levels have different time limits, add to world data
-- 1Up mushroom appearance is actually is a bit more limited (read reference)
-- 100 coins = +1 life
-- Maybe tweak friction, acceleration, maybe add air friction
+- Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
+- Add Flagpole score regions (see reference for details)
+- Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
+- Implement Coin collect mechanic (100 coins = +1 life)
+- Implement Score mechanic
+- 1Up mushroom appearance is actually is a bit more limited (see reference for details)
 - Credit pixel art scaler, reference picture websites
-- Flagpole point regions
 - becoming big / uncrouching under narrow space = moonwalk to right until unstuck
 - If we die after clearing 50% of the level, we spawn in the middle, except 4-4
 - If jump is held character jumps a little bit higher, set gravity -.05 or something (bonus yaccel?)
-- Ingame time is faster than real time, calculate how many frames are 1 ingame second and then edit starman time, multiCoinBlock, etc.
 - Major cleanups
 
 Game logic:

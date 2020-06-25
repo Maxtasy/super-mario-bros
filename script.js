@@ -168,162 +168,6 @@ const spriteOffsets = {
     }
 }
 
-const objectVelTable = {
-    magicMushroom: {xVel: 3, yVel: -10,},
-    oneUp: {xVel: 3, yVel: -10,},
-    coinItem: {xVel: 0, yVel: -20},
-    fireFlower: {xVel: 0, yVel: 0},
-    starman: {xVel: 0, yVel: 0},
-    brokenTileTopLeft: {xVel: -2, yVel: -10},
-    brokenTileTopRight: {xVel: 2, yVel: -10},
-    brokenTileBottomLeft: {xVel: -2, yVel: -10},
-    brokenTileBottomRight: {xVel: 2, yVel: -10}
-}
-
-const castles = {
-    "small": {
-        w: 5,
-        tiles: [
-            {x: 80, y: 0, type: "castleTop"},
-            {x: 160, y: 0, type: "castleTop"},
-            {x: 240, y: 0, type: "castleTop"},
-
-            {x: 80, y: 80, type: "castleWindowsLeft"},
-            {x: 160, y: 80, type: "castleWall"},
-            {x: 240, y: 80, type: "castleWindowsRight"},
-
-            {x: 0, y: 160, type: "castleTop"},
-            {x: 80, y: 160, type: "castleSemiTop"},
-            {x: 160, y: 160, type: "castleSemiTop"},
-            {x: 240, y: 160, type: "castleSemiTop"},
-            {x: 320, y: 160, type: "castleTop"},
-
-            {x: 0, y: 240, type: "castleWall"},
-            {x: 80, y: 240, type: "castleWall"},
-            {x: 160, y: 240, type: "castleDoorTop"},
-            {x: 240, y: 240, type: "castleWall"},
-            {x: 320, y: 240, type: "castleWall"},
-
-            {x: 0, y: 320, type: "castleWall"},
-            {x: 80, y: 320, type: "castleWall"},
-            {x: 160, y: 320, type: "castleDoorBottom"},
-            {x: 240, y: 320, type: "castleWall"},
-            {x: 320, y: 320, type: "castleWall"},
-        ],
-    },
-    "rectangle5doors": {
-        w: 9,
-        tiles: [
-            {x: 0, y: 0, type: "castleTop"},
-            {x: 80, y: 0, type: "castleTop"},
-            {x: 160, y: 0, type: "castleSemiTop"},
-            {x: 240, y: 0, type: "castleSemiTop"},
-            {x: 320, y: 0, type: "castleSemiTop"},
-            {x: 400, y: 0, type: "castleSemiTop"},
-            {x: 480, y: 0, type: "castleSemiTop"},
-            {x: 560, y: 0, type: "castleTop"},
-            {x: 640, y: 0, type: "castleTop"},
-
-            {x: 0, y: 80, type: "castleWall"},
-            {x: 80, y: 80, type: "castleWall"},
-            {x: 160, y: 80, type: "castleWall"},
-            {x: 240, y: 80, type: "castleDoorTop"},
-            {x: 320, y: 80, type: "castleWall"},
-            {x: 400, y: 80, type: "castleDoorTop"},
-            {x: 480, y: 80, type: "castleWall"},
-            {x: 560, y: 80, type: "castleWall"},
-            {x: 640, y: 80, type: "castleWall"},
-
-            {x: 0, y: 160, type: "castleWall"},
-            {x: 80, y: 160, type: "castleWall"},
-            {x: 160, y: 160, type: "castleWall"},
-            {x: 240, y: 160, type: "castleDoorBottom"},
-            {x: 320, y: 160, type: "castleWall"},
-            {x: 400, y: 160, type: "castleDoorBottom"},
-            {x: 480, y: 160, type: "castleWall"},
-            {x: 560, y: 160, type: "castleWall"},
-            {x: 640, y: 160, type: "castleWall"},
-
-            {x: 0, y: 240, type: "castleWall"},
-            {x: 80, y: 240, type: "castleWall"},
-            {x: 160, y: 240, type: "castleWall"},
-            {x: 240, y: 240, type: "castleWall"},
-            {x: 320, y: 240, type: "castleWall"},
-            {x: 400, y: 240, type: "castleWall"},
-            {x: 480, y: 240, type: "castleWall"},
-            {x: 560, y: 240, type: "castleWall"},
-            {x: 640, y: 240, type: "castleWall"},
-
-            {x: 0, y: 320, type: "castleWall"},
-            {x: 80, y: 320, type: "castleWall"},
-            {x: 160, y: 320, type: "castleDoorTop"},
-            {x: 240, y: 320, type: "castleWall"},
-            {x: 320, y: 320, type: "castleDoorTop"},
-            {x: 400, y: 320, type: "castleWall"},
-            {x: 480, y: 320, type: "castleDoorTop"},
-            {x: 560, y: 320, type: "castleWall"},
-            {x: 640, y: 320, type: "castleWall"},
-
-            {x: 0, y: 400, type: "castleWall"},
-            {x: 80, y: 400, type: "castleWall"},
-            {x: 160, y: 400, type: "castleDoorBottom"},
-            {x: 240, y: 400, type: "castleWall"},
-            {x: 320, y: 400, type: "castleDoorBottom"},
-            {x: 400, y: 400, type: "castleWall"},
-            {x: 480, y: 400, type: "castleDoorBottom"},
-            {x: 560, y: 400, type: "castleWall"},
-            {x: 640, y: 400, type: "castleWall"},
-        ]
-    }
-}
-
-const enemyProperties = {
-    "goomba": {
-        w: 80,
-        h: 80,
-        hitboxOffsetX: 20,
-        hitboxOffsetTop: 30,
-        hitboxOffsetBottom: 25,
-        xVel: 5,
-        yVel: 0,
-        stompable: true,
-        shootable: true,
-    },
-    "koopaTroopa": {
-        w: 80,
-        h: 160,
-        hitboxOffsetX: 15,
-        hitboxOffsetTop: 85,
-        hitboxOffsetBottom: 20,
-        xVel: 5,
-        yVel: 0,
-        stompable: true,
-        shootable: true,
-    },
-    "koopaParatroopa": {
-        w: 80,
-        h: 160,
-        hitboxOffsetX: 15,
-        hitboxOffsetTop: 85,
-        hitboxOffsetBottom: 20,
-        xVel: 3,
-        yVel: 5,
-        stompable: true,
-        shootable: true,
-    },
-    "shell": {
-        w: 80,
-        h: 80,
-        hitboxOffsetX: 15,
-        hitboxOffsetTop: 5,
-        hitboxOffsetBottom: 20,
-        xVel: 0,
-        yVel: 0,
-        stompable: true,
-        shootable: true,
-    }
-}
-
 //TODO: Add piranha to all levels
 const worldData = {
     "test": {
@@ -339,6 +183,8 @@ const worldData = {
         music: "overworld",
         worldElements: {
             rectangles: [
+                {x: 160, y: 680, w: 10, type: "blockShiny", collision: true, individualCheck: true},
+                // {x: 160, y: 760, w: 13, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 0, y: 1000, w: 69},
                 {x: 5680, y: 1000, w: 15},
                 {x: 7120, y: 1000, w: 64},
@@ -351,6 +197,9 @@ const worldData = {
                 {x: 13440, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 15120, y: 360, h: 8, type: "stair", collision: true},
             ],
+            coins: [
+                {x: 320, y: 600}
+            ],
             steps : [
                 {x: 10720, y: 680, w: 4},
                 {x: 11200, y: 680, w: 4, reversed: true},
@@ -359,6 +208,7 @@ const worldData = {
                 {x: 14480, y: 360, w: 8},
             ],
             tiles: [
+                {x: 80, y: 680, type: "questionBlock", item: {type: "starman"}},
                 {x: 1280, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
                 {x: 1600, y: 680, type: "blockShiny", collision: true},
                 {x: 1680, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
@@ -440,7 +290,7 @@ const worldData = {
                 {x: 14320, y: 840},
             ],
             enemies: [
-                {x: 1760, y: 920},
+                {x: 1760, y: 840, type: "koopaTroopa"},
                 {x: 3200, y: 920},
                 {x: 4080, y: 920},
                 {x: 4200, y: 920},
@@ -462,6 +312,7 @@ const worldData = {
                 {x: 16160, y: 600}
             ],
             flags: [
+                // {x: 1920, y: 120, destination: {worldID: 121, scrollOffset: null, transitionType: "cutscene1"}},
                 {x: 15840, y: 120, destination: {worldID: 121, scrollOffset: null, transitionType: "cutscene1"}},
             ],
         }
@@ -1185,12 +1036,9 @@ class Tile {
         this.gravity = this.parent.gravity || 2.15;
         this.x = x;
         this.y = y;
-        this.w = this.blocksize;
+        this.w = 1;
+        this.h = 1;
         this.yInitial = this.y;
-        this.left = this.x;
-        this.right = this.x + this.blocksize;
-        this.top = this.y;
-        this.bottom = this.y + this.blocksize;
         this.theme = theme || this.parent.theme;
         this.type = type || "blockShiny";
         this.collision = collision;
@@ -1202,10 +1050,6 @@ class Tile {
         this.animateSequences = {
             "questionBlock": [1920, 1920, 2000, 2080, 2000],
             "axe": [2160, 2160, 2240, 2320, 2240],
-        }
-
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
-            this.addToOnScreen();
         }
 
         if (this.animateSequences[this.type]) {
@@ -1227,6 +1071,23 @@ class Tile {
         }
 
         this.setSpriteOffsets();
+
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1246,8 +1107,15 @@ class Tile {
     }
 
     destroy(tileList) {
-        const tileIndex = tileList.indexOf(this);
-        tileList.splice(tileIndex, 1);
+        if (this.parent.constructor.name === "World") {
+            const tileIndex = this.parent.worldElements.tiles.indexOf(this);
+            this.parent.worldElements.tiles.splice(tileIndex, 1);
+            const index = this.parent.onScreenElements.tiles.indexOf(this);
+            this.parent.onScreenElements.tiles.splice(index, 1);
+        } else {
+            const tileIndex = tileList.indexOf(this);
+            tileList.splice(tileIndex, 1);
+        }
     }
 
     bounce() {
@@ -1271,6 +1139,8 @@ class Tile {
         if (this.bouncing) {
             this.updateVelocities();
             this.updatePosition();
+            this.collisionCheck();
+            this.updateBoundingBox();
         }
         if (this.animate && this.parent.parent.frame % 10 === 0) {
             this.frame = (this.frame + 1) % this.sequence.length;
@@ -1282,14 +1152,60 @@ class Tile {
         }
     }
 
+    collisionCheckCoins(list) {
+        list.forEach(item => {
+            if (this.top < item.bottom &&
+                this.left < item.right &&
+                this.right > item.left)
+            {
+                item.destroy();
+            }
+        });
+    }
+
+    collisionCheckEnemies(list) {
+        list.forEach(item => {
+            if (this.bottom > item.top &&
+                this.top < item.bottom &&
+                this.left < item.right && 
+                this.right > item.left)
+            {
+                item.plopDeath();
+            }
+        });
+    }
+
+    collisionCheckItems(list) {
+        list.forEach(item => {
+            if (item.collision &&
+                this.top < item.bottom &&
+                this.left < item.right &&
+                this.right > item.left)
+            {
+                item.bounce();
+            }
+        });
+    }
+
+    collisionCheck() {
+        let world;
+        if (this.parent.constructor.name === "World") {
+            world = this.parent;
+        } else {
+            world = this.parent.parent;
+        }
+        if (world.onScreenElements.coins) this.collisionCheckCoins(world.onScreenElements.coins);
+        if (world.onScreenElements.enemies) this.collisionCheckEnemies(world.onScreenElements.enemies);
+        if (world.onScreenElements.items) this.collisionCheckItems(world.onScreenElements.items);
+    }
+
     scroll(deltaX) {
         this.x -= deltaX;
-        this.left = this.x;
-        this.right = this.x + this.blocksize;
+        this.updateBoundingBox();
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.blocksize, this.blocksize, this.x, this.y, this.blocksize, this.blocksize);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
     }
 }
 
@@ -1302,10 +1218,6 @@ class Rectangle {
         this.y = y;
         this.w = w || 1;
         this.h = h || 1;
-        this.left = this.x;
-        this.right = this.x + this.w * this.blocksize;
-        this.top = this.y;
-        this.bottom = this.y + this.h * this.blocksize;
         this.theme = theme || this.parent.theme;
         this.type = type || "floor";
         this.collision = collision;
@@ -1315,10 +1227,15 @@ class Rectangle {
         this.sY = spriteOffsets.tiles.theme[this.theme].y + spriteOffsets.tiles.type[this.type].y;
         this.sprites = tileSprites;
 
+        this.build();
+        this.updateBoundingBox();
+
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         if (this.individualCheck) {
             this.tiles = [];
 
@@ -1328,6 +1245,17 @@ class Rectangle {
                 }
             }
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1351,8 +1279,7 @@ class Rectangle {
 
     scroll(deltaX) {
         this.x -= deltaX;
-        this.left = this.x;
-        this.right = this.x + this.w * this.blocksize;
+        this.updateBoundingBox();
 
         if (this.individualCheck) {
             this.tiles.forEach(tile => {
@@ -1384,13 +1311,20 @@ class Platform {
         this.x = x;
         this.y = y;
         this.w = w;
+        this.h = 1;
         this.theme = theme || this.parent.theme;
         this.variant = variant || "Leaf";
+        this.collision = true;
+
+        this.build();
+        this.updateBoundingBox();
 
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
 
         for (let i = 0; i < this.w; i++) {
@@ -1401,6 +1335,17 @@ class Platform {
 
             this.tiles.push(new Tile(this, this.x + i * this.blocksize, this.y, this.theme, typeName, false, true));
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1416,6 +1361,8 @@ class Platform {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1440,10 +1387,15 @@ class Hill {
         this.theme = theme || this.parent.theme;
         this.variant = variant || "";
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
 
         let rowWidth = 1;
@@ -1475,6 +1427,17 @@ class Hill {
         }
     }
 
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
+    }
+
     addToOnScreen() {
         this.onScreen = true;
         this.parent.onScreenElements.hills.push(this);
@@ -1488,6 +1451,8 @@ class Hill {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1509,12 +1474,18 @@ class Cloud {
         this.y = y;
         this.amount = amount || 1;
         this.w = this.amount + 2;
+        this.h = 3;
         this.theme = theme || this.parent.theme;
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
         
         for (let i = 0; i < 2; i++) {
@@ -1540,6 +1511,17 @@ class Cloud {
         }
     }
 
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
+    }
+
     addToOnScreen() {
         this.onScreen = true;
         this.parent.onScreenElements.clouds.push(this);
@@ -1553,6 +1535,8 @@ class Cloud {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1575,11 +1559,17 @@ class Bush {
         this.theme = theme || this.parent.theme;
         this.amount = amount || 1;
         this.w = amount + 2;
+        this.h = 2;
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
         
         for (let i = 0; i < this.amount + 2; i++) {
@@ -1597,6 +1587,17 @@ class Bush {
         }
     }
 
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
+    }
+
     addToOnScreen() {
         this.onScreen = true;
         this.parent.onScreenElements.bushes.push(this);
@@ -1610,6 +1611,8 @@ class Bush {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1630,14 +1633,20 @@ class Step {
         this.x = x;
         this.y = y;
         this.w = w;
+        this.h = this.w;
         this.theme = theme || this.parent.theme;
         this.type = type || "stair";
         this.reversed = reversed;
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.rectangles = [];
         
         for (let i = 0; i < this.w; i++) {
@@ -1651,8 +1660,19 @@ class Step {
                 y = this.y + (this.w - 1 - i) * this.blocksize;
                 h = 1 + i;
             }
-            this.rectangles.push(new Rectangle(this, x, y, 1, h, this.theme, this.type, false, true));
+            this.rectangles.push(new Rectangle(this, x, y, 1, h, this.theme, this.type, true));
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1668,6 +1688,8 @@ class Step {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.rectangles.forEach(rectangle => {
             rectangle.scroll(deltaX);
         });
@@ -1690,15 +1712,25 @@ class Pipe {
         this.size = size || 2;
         this.theme = theme || this.parent.theme;
         this.opening = opening || "top";
-        if (this.opening === "top") this.w = 2;
-        else this.w = this.size;
+        if (this.opening === "top") {
+            this.w = 2;
+            this.h = this.size;
+        } else {
+            this.w = this.size;
+            this.h = 2;
+        }
         this.destination = destination;
         this.collision = true;
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
 
         if (this.opening === "top") {
@@ -1740,6 +1772,17 @@ class Pipe {
         }
     }
 
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
+    }
+
     addToOnScreen() {
         this.onScreen = true;
         this.parent.onScreenElements.pipes.push(this);
@@ -1753,6 +1796,8 @@ class Pipe {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1777,10 +1822,15 @@ class Flag {
         this.theme = theme || this.parent.theme;
         this.destination = destination;
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.movingPiece = new Tile(this, this.x - this.blocksize / 2, this.y + this.blocksize, this.theme, "flagSail");
         this.movingDown = false;
 
@@ -1791,6 +1841,17 @@ class Flag {
             this.parts.push(new Tile(this, this.x, this.y + (i + 1) *  this.blocksize, this.theme, "flagPole", false, true));
         }
         this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, this.theme, "stair", false, true));
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1818,9 +1879,12 @@ class Flag {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.parts.forEach(part => {
             part.scroll(deltaX);
         });
+
         this.movingPiece.x -= deltaX;
     }
 
@@ -1837,22 +1901,140 @@ class Castle {
         this.objectName = "Castle";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.castles = {
+            "small": {
+                w: 5,
+                h: 5,
+                tiles: [
+                    {x: 80, y: 0, type: "castleTop"},
+                    {x: 160, y: 0, type: "castleTop"},
+                    {x: 240, y: 0, type: "castleTop"},
+        
+                    {x: 80, y: 80, type: "castleWindowsLeft"},
+                    {x: 160, y: 80, type: "castleWall"},
+                    {x: 240, y: 80, type: "castleWindowsRight"},
+        
+                    {x: 0, y: 160, type: "castleTop"},
+                    {x: 80, y: 160, type: "castleSemiTop"},
+                    {x: 160, y: 160, type: "castleSemiTop"},
+                    {x: 240, y: 160, type: "castleSemiTop"},
+                    {x: 320, y: 160, type: "castleTop"},
+        
+                    {x: 0, y: 240, type: "castleWall"},
+                    {x: 80, y: 240, type: "castleWall"},
+                    {x: 160, y: 240, type: "castleDoorTop"},
+                    {x: 240, y: 240, type: "castleWall"},
+                    {x: 320, y: 240, type: "castleWall"},
+        
+                    {x: 0, y: 320, type: "castleWall"},
+                    {x: 80, y: 320, type: "castleWall"},
+                    {x: 160, y: 320, type: "castleDoorBottom"},
+                    {x: 240, y: 320, type: "castleWall"},
+                    {x: 320, y: 320, type: "castleWall"},
+                ],
+            },
+            "rectangle5doors": {
+                w: 9,
+                h: 6,
+                tiles: [
+                    {x: 0, y: 0, type: "castleTop"},
+                    {x: 80, y: 0, type: "castleTop"},
+                    {x: 160, y: 0, type: "castleSemiTop"},
+                    {x: 240, y: 0, type: "castleSemiTop"},
+                    {x: 320, y: 0, type: "castleSemiTop"},
+                    {x: 400, y: 0, type: "castleSemiTop"},
+                    {x: 480, y: 0, type: "castleSemiTop"},
+                    {x: 560, y: 0, type: "castleTop"},
+                    {x: 640, y: 0, type: "castleTop"},
+        
+                    {x: 0, y: 80, type: "castleWall"},
+                    {x: 80, y: 80, type: "castleWall"},
+                    {x: 160, y: 80, type: "castleWall"},
+                    {x: 240, y: 80, type: "castleDoorTop"},
+                    {x: 320, y: 80, type: "castleWall"},
+                    {x: 400, y: 80, type: "castleDoorTop"},
+                    {x: 480, y: 80, type: "castleWall"},
+                    {x: 560, y: 80, type: "castleWall"},
+                    {x: 640, y: 80, type: "castleWall"},
+        
+                    {x: 0, y: 160, type: "castleWall"},
+                    {x: 80, y: 160, type: "castleWall"},
+                    {x: 160, y: 160, type: "castleWall"},
+                    {x: 240, y: 160, type: "castleDoorBottom"},
+                    {x: 320, y: 160, type: "castleWall"},
+                    {x: 400, y: 160, type: "castleDoorBottom"},
+                    {x: 480, y: 160, type: "castleWall"},
+                    {x: 560, y: 160, type: "castleWall"},
+                    {x: 640, y: 160, type: "castleWall"},
+        
+                    {x: 0, y: 240, type: "castleWall"},
+                    {x: 80, y: 240, type: "castleWall"},
+                    {x: 160, y: 240, type: "castleWall"},
+                    {x: 240, y: 240, type: "castleWall"},
+                    {x: 320, y: 240, type: "castleWall"},
+                    {x: 400, y: 240, type: "castleWall"},
+                    {x: 480, y: 240, type: "castleWall"},
+                    {x: 560, y: 240, type: "castleWall"},
+                    {x: 640, y: 240, type: "castleWall"},
+        
+                    {x: 0, y: 320, type: "castleWall"},
+                    {x: 80, y: 320, type: "castleWall"},
+                    {x: 160, y: 320, type: "castleDoorTop"},
+                    {x: 240, y: 320, type: "castleWall"},
+                    {x: 320, y: 320, type: "castleDoorTop"},
+                    {x: 400, y: 320, type: "castleWall"},
+                    {x: 480, y: 320, type: "castleDoorTop"},
+                    {x: 560, y: 320, type: "castleWall"},
+                    {x: 640, y: 320, type: "castleWall"},
+        
+                    {x: 0, y: 400, type: "castleWall"},
+                    {x: 80, y: 400, type: "castleWall"},
+                    {x: 160, y: 400, type: "castleDoorBottom"},
+                    {x: 240, y: 400, type: "castleWall"},
+                    {x: 320, y: 400, type: "castleDoorBottom"},
+                    {x: 400, y: 400, type: "castleWall"},
+                    {x: 480, y: 400, type: "castleDoorBottom"},
+                    {x: 560, y: 400, type: "castleWall"},
+                    {x: 640, y: 400, type: "castleWall"},
+                ]
+            }
+        }
         this.x = x;
         this.y = y;
         this.theme = theme || this.parent.theme;
         this.name = name || "small";
-        this.w = castles[this.name].w;
+        this.w = this.castles[this.name].w;
+        this.h = this.castles[this.name].h;
+        this.left = this.x;
+        this.right = this.x + this.w * this.blocksize;
+        this.top = this.y;
+        this.bottom = this.y + this.h * this.blocksize;
 
+        this.build();
+        this.updateBoundingBox();
 
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
 
+    build() {
         this.tiles = [];
 
-        castles[this.name].tiles.forEach(tile => {
+        this.castles[this.name].tiles.forEach(tile => {
             this.tiles.push(new Tile(this, this.x + tile.x, this.y + tile.y, this.theme, tile.type));
         })
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1868,6 +2050,8 @@ class Castle {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
+
         this.tiles.forEach(tile => {
             tile.scroll(deltaX);
         });
@@ -1888,16 +2072,30 @@ class Coin {
         this.frame = 0;
         this.x = x;
         this.y = y;
-        this.w = 80;
+        this.w = 1;
+        this.h = 1;
         this.theme = theme || this.parent.theme;
         this.sX = spriteOffsets.objects.theme[this.theme].x;
         this.sY = 480;
         this.sprites = objectSprites;
         this.sequence = [0, 0, 80, 160, 240, 160];
 
+        this.updateBoundingBox();
+
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1933,10 +2131,11 @@ class Coin {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.blocksize, this.blocksize, this.x, this.y, this.blocksize, this.blocksize);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
     }
 }
 
@@ -1945,6 +2144,52 @@ class Enemy {
         this.objectName = "Enemy";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.enemyProperties = {
+            "goomba": {
+                w: 1,
+                h: 1,
+                hitboxOffsetX: 20,
+                hitboxOffsetTop: 30,
+                hitboxOffsetBottom: 25,
+                xVel: 5,
+                yVel: 0,
+                stompable: true,
+                shootable: true,
+            },
+            "koopaTroopa": {
+                w: 1,
+                h: 2,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 85,
+                hitboxOffsetBottom: 20,
+                xVel: 5,
+                yVel: 0,
+                stompable: true,
+                shootable: true,
+            },
+            "koopaParatroopa": {
+                w: 1,
+                h: 2,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 85,
+                hitboxOffsetBottom: 20,
+                xVel: 3,
+                yVel: 5,
+                stompable: true,
+                shootable: true,
+            },
+            "shell": {
+                w: 1,
+                h: 1,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 5,
+                hitboxOffsetBottom: 20,
+                xVel: 0,
+                yVel: 0,
+                stompable: true,
+                shootable: true,
+            }
+        }
         this.gravity = this.parent.gravity;
         this.frame = 0;
         this.x = x;
@@ -1958,6 +2203,7 @@ class Enemy {
         this.sprites = enemySprites;
         this.facingLeftYOffset = 160;
         this.facingRight = false;
+        this.collision = true;
         this.animateSequences = {
             goomba: [0, 80],
             koopaTroopa: [0, 80],
@@ -1970,6 +2216,17 @@ class Enemy {
 
         this.setSpriteOffsets();
         this.setProperties();
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -1989,16 +2246,16 @@ class Enemy {
     }
 
     setProperties() {
-        this.w = enemyProperties[this.type].w;
-        this.h = enemyProperties[this.type].h;
-        this.stompable = enemyProperties[this.type].stompable;
-        this.shootable = enemyProperties[this.type].shootable;
-        this.xVel = enemyProperties[this.type].xVel;
-        this.yVel = enemyProperties[this.type].yVel;
+        this.w = this.enemyProperties[this.type].w;
+        this.h = this.enemyProperties[this.type].h;
+        this.stompable = this.enemyProperties[this.type].stompable;
+        this.shootable = this.enemyProperties[this.type].shootable;
+        this.xVel = this.enemyProperties[this.type].xVel;
+        this.yVel = this.enemyProperties[this.type].yVel;
         if (!this.facingRight) this.xVel *= -1;
-        this.hitboxOffsetTop = enemyProperties[this.type].hitboxOffsetTop;
-        this.hitboxOffsetBottom = enemyProperties[this.type].hitboxOffsetBottom;
-        this.hitboxOffsetX = enemyProperties[this.type].hitboxOffsetX;
+        this.hitboxOffsetTop = this.enemyProperties[this.type].hitboxOffsetTop;
+        this.hitboxOffsetBottom = this.enemyProperties[this.type].hitboxOffsetBottom;
+        this.hitboxOffsetX = this.enemyProperties[this.type].hitboxOffsetX;
         if (this.animateSequences[this.type]) {
             this.animate = true;
             this.sequence = this.animateSequences[this.type];
@@ -2006,10 +2263,55 @@ class Enemy {
             this.animate = false;
             this.sequence = null;
         }
+        
+        if (this.type === "shell") this.shellTime = 0;
+
+        this.updateBoundingBox();
+    }
+
+    fireballHit() {
+        if (this.type === "koopaParatroopa") {
+            this.type = "koopaTroopa";
+            this.setProperties();
+            this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.kick.play();
+        } else if (this.type === "bowser") {
+            this.hitpoints--;
+
+            if (this.hitpoints <= 0) {
+                this.plopDeath();
+                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+                this.parent.parent.audioFiles.sounds.kick.play();
+            } else {
+                this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
+                this.parent.parent.audioFiles.sounds.bump.play();
+            }
+        } else if (this.type === "buzzyBeetle" || this.type === "bulletBill") {
+            this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.bump.play();
+        } else {
+            this.plopDeath();
+        }
+    }
+
+    plopDeath() {
+        this.collision = false;
+        this.animate = false;
+        this.xVel = 0;
+        this.yVel = -10;
+        this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+        this.parent.parent.audioFiles.sounds.kick.play();
+    }
+
+    flatDeath() {
+        this.collision = false;
+        this.animate = false;
+        this.xVel = 0;
+        this.sX = 160;
+        this.destroyTimer = 90;
     }
 
     destroy() {
-        // Spawn dead body object (item?) in location with 2sec timer to disappear
         const enemyIndex = this.parent.worldElements.enemies.indexOf(this);
         this.parent.worldElements.enemies.splice(enemyIndex, 1);
 
@@ -2018,223 +2320,116 @@ class Enemy {
     }
 
     updatePosition() {
+        if (this.destroyTimer > 0) return;
         if (this.type != "koopaParatroopa") this.yVel += this.gravity;
         
         this.xOld = this.x;
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
+        this.updateBoundingBox();
     }
 
-    collisionCheckRectangles(rectangleList) {
-        rectangleList.forEach(rectangle => {
-            if (rectangle.collision && this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
-                // Enemy entered rectangle from the top
-                if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
-                    this.y = rectangle.top - this.h;
+    collisionCheckRectangles(list) {
+        list.forEach(item => {
+            if (item.collision &&
+                this.bottom > item.top &&
+                this.top < item.bottom &&
+                this.left < item.right &&
+                this.right > item.left)
+                {
+                // Top
+                if (this.bottom > item.top && this.bottomOld <= item.top) {
+                    this.y = item.top - this.h * this.blocksize;
                     this.yOld = this.y;
                     if (this.type === "koopaParatroopa") {
                         this.yVel *= -1;
                     } else {
                         this.yVel = 0;
                     }
-                // Enemy entered rectangle from the left
-                } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
-                    this.x = rectangle.left - this.w;
+                    this.updateBoundingBox();
+                // Left
+                } else if (this.right > item.left && this.rightOld <= item.left) {
+                    this.x = item.left - this.w * this.blocksize;
                     this.xOld = this.x;
                     this.xVel *= -1;
                     this.facingRight = !this.facingRight;
-                // Enemy entered rectangle from the right
-                } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
-                    this.x = rectangle.right;
+                    this.updateBoundingBox();
+                // Right
+                } else if (this.left < item.right && this.leftOld >= item.right) {
+                    this.x = item.right;
                     this.xOld = this.x;
                     this.xVel *= -1;
                     this.facingRight = !this.facingRight;
-                // Enemy entered rectangle from the bottom
-                } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
-                    this.y = rectangle.bottom;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                }
-            } 
-            if (this.type != "shell"
-                    && this.y + this.h == 1000
-                    && this.y + this.h <= rectangle.top
-                    && ((this.x < rectangle.left && this.xOld >= rectangle.left) || (this.x + this.w > rectangle.right && this.xOld + this.w <= rectangle.right)) 
-                ) {
-                this.xVel *= -1;
-                this.facingRight = !this.facingRight;
-            }
-        });
-    }
-
-    collisionCheckPlatforms(platformList) {
-        platformList.forEach(platform => {
-            if (this.y + this.h > platform.y && this.y < platform.y + platform.blocksize && this.x < platform.x + platform.w * platform.blocksize && this.x + this.w > platform.x) {
-                // Enemy entered platform from the top
-                if (this.y + this.h > platform.y && this.yOld + this.h <= platform.y) {
-                    this.y = platform.y - this.h;
+                    this.updateBoundingBox();
+                // Bottom
+                } else if (this.top < item.bottom && this.topOld >= item.bottom) {
+                    this.y = item.bottom;
                     this.yOld = this.y;
                     if (this.type === "koopaParatroopa") {
                         this.yVel *= -1;
                     } else {
                         this.yVel = 0;
                     }
-                // Enemy entered platform from the left
-                } else if (this.x + this.w > platform.x && this.xOld + this.w <= platform.x) {
-                    this.x = platform.x - this.w;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                    this.facingRight = !this.facingRight;
-                // Enemy entered platform from the right
-                } else if (this.x < platform.x + platform.w * platform.blocksize && this.xOld >= platform.x + platform.w * platform.blocksize) {
-                    this.x = platform.x + platform.w * platform.blocksize;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                    this.facingRight = !this.facingRight;
-                // Enemy entered platform from the bottom
-                } else if (this.y < platform.y + platform.blocksize && this.yOld >= platform.y + platform.blocksize) {
-                    this.y = platform.y + platform.blocksize;
-                    this.yOld = this.y;
-                    this.yVel = 0;
+                    this.updateBoundingBox();
                 }
-            } 
-            if (this.type != "shell"
-                    && ((this.type === "goomba" && this.y + this.h == 1000) || (this.type === "koopaTroopa" && this.y + this.h == platform.y))
-                    && this.y + this.h <= platform.y
-                    && ((this.x < platform.x && this.xOld >= platform.x) || (this.x + this.w > platform.x + platform.w * platform.blocksize && this.xOld + this.w <= platform.x + platform.w * platform.blocksize)) 
-                ) {
+            }
+            // Red KoopaTrooper don't jump off ledges
+            if (this.type === "koopaTroopa" &&
+                this.theme === "castle" &&
+                this.bottom === item.top &&
+                ((this.left < item.left && this.leftOld >= item.left) || (this.right > item.right && this.rightOld <= item.right))) 
+                {
                 this.xVel *= -1;
                 this.facingRight = !this.facingRight;
-            }
-        });
-
-    }
-
-    collisionCheckSteps(stepList) {
-        stepList.forEach(step => {
-            // Check for each rectangle of the step
-            step.rectangles.forEach(rectangle => {
-                if (this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
-                    // Enemy entered rectangle from the top
-                    if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
-                        this.y = rectangle.top - this.h;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    // Enemy entered rectangle from the left
-                    } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
-                        this.x = rectangle.left - this.w;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                        this.facingRight = !this.facingRight;
-                    // Enemy entered rectangle from the right
-                    } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
-                        this.x = rectangle.right;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                        this.facingRight = !this.facingRight;
-                    // Enemy entered rectangle from the bottom
-                    } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
-                        this.y = rectangle.bottom;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
-                }
-            });
-        });
-    }
-
-    collisionCheckTiles(tileList) {
-        tileList.forEach(tile => {
-            if (this.y + this.h > tile.top && this.y < tile.bottom && this.x < tile.right && this.x + this.w > tile.left) {
-                // Enemy entered tile from the top
-                if (this.y + this.h > tile.top && this.yOld + this.h <= tile.top) {
-                    this.y = tile.top - this.h;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                // Enemy entered tile from the left
-                } else if (this.x + this.w > tile.left && this.xOld + this.w <= tile.left) {
-                    this.x = tile.left - this.w;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                    this.facingRight = !this.facingRight;
-                // Enemy entered tile from the right
-                } else if (this.x < tile.right && this.xOld >= tile.right) {
-                    this.x = tile.right;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                    this.facingRight = !this.facingRight;
-                // Enemy entered tile from the bottom
-                } else if (this.y < tile.bottom && this.yOld >= tile.bottom) {
-                    this.y = tile.bottom;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                }
+                this.updateBoundingBox();
             }
         });
     }
 
-    collisionCheckPipes(pipeList) {
-        pipeList.forEach(pipe => {
-            if (pipe.opening === "top") {
-                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.w > pipe.x) {
-                    // Character entered pipe from the top
-                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
-                        this.y = pipe.y - this.h;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    // Character entered pipe from the left
-                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
-                        this.x = pipe.x - this.w;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                        this.facingRight = !this.facingRight;
-                    // Character entered pipe from the right
-                    } else if (this.x < pipe.x + 2 * this.blocksize && this.xOld >= pipe.x + 2 * this.blocksize) {
-                        this.x = pipe.x + 2 * this.blocksize;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                        this.facingRight = !this.facingRight;
-                    // Character entered pipe from the bottom
-                    } else if (this.y < pipe.y + pipe.size * this.blocksize && this.yOld >= pipe.y + pipe.size * this.blocksize) {
-                        this.y = pipe.y + pipe.size * this.blocksize;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
-                }
-            }
+    collisionCheckSteps(list) {
+        list.forEach(item => {
+            this.collisionCheckRectangles(item.rectangles);
         });
     }
 
     collisionCheckEnemies(list) {
         list.forEach(item => {
             if (item === this) return;
-            else if (this.type === "shell" && this.xVel != 0 && ((this.x + this.w > item.x && this.xOld + this.w <= item.x) || (this.x < item.x + item.w && this.xOld >= item.x + item.w))) {
-                item.destroy();
-                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
-                this.parent.parent.audioFiles.sounds.kick.play();
+            
+            if ((this.right > item.left && this.rightOld <= item.left) || (this.left < item.right && this.leftOld >= item.right))
+            {
+                if (this.type === "shell" && this.xVel != 0) {
+                    item.plopDeath();
+                    this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+                    this.parent.parent.audioFiles.sounds.kick.play();
+                } else {
+                    this.xVel *= -1;
+                    this.facingRight = !this.facingRight;
+                }
             }
         });
     }
 
     collisionCheck() {
         // Screen edges
-        if (this.x + this.w + 2 * this.blocksize < 0 || this.x - 2 * this.blocksize > this.parent.parent.screensize.width || this.y - 2 * this.blocksize > this.parent.parent.screensize.height) {
+        if (this.right + 4 * this.blocksize < 0 || this.left - 4 * this.blocksize > this.parent.parent.screensize.width || this.top > this.parent.parent.screensize.height) {
             this.destroy();
         }
 
+        if (!this.collision) return;
+
         if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
-        if (this.parent.onScreenElements.platforms) this.collisionCheckPlatforms(this.parent.onScreenElements.platforms);
+        if (this.parent.onScreenElements.platforms) this.collisionCheckRectangles(this.parent.onScreenElements.platforms);
         if (this.parent.onScreenElements.steps) this.collisionCheckSteps(this.parent.onScreenElements.steps);
-        if (this.parent.onScreenElements.tiles) this.collisionCheckTiles(this.parent.onScreenElements.tiles);
-        if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
+        if (this.parent.onScreenElements.tiles) this.collisionCheckRectangles(this.parent.onScreenElements.tiles);
+        if (this.parent.onScreenElements.pipes) this.collisionCheckRectangles(this.parent.onScreenElements.pipes);
         if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
+        //TODO: Reflect off items
 
         // KoopaParatroopa up-down-movement
-        if (this.type === "koopaParatroopa" && this.y + this.h > this.yInitial + 3 * this.blocksize || this.y < this.yInitial - 3 * this.blocksize) this.yVel *= -1;
+        if (this.type === "koopaParatroopa" && this.bottom > this.yInitial + 3 * this.blocksize || this.top < this.yInitial - 3 * this.blocksize) this.yVel *= -1;
 
-        //TODO: Reflect off other enemies
-        //TODO: Reflect off items
     }
 
     setSprite() {
@@ -2250,6 +2445,21 @@ class Enemy {
 
     update() {
         if (!this.onScreen) return;
+        if (this.destroyTimer > 0) this.destroyTimer--;
+        else if (this.destroyTimer === 0) this.destroy();
+
+        if (this.type === "shell") {
+            this.shellTime++;
+
+            if (this.shellTime === 360) {
+                this.sX += 80;
+            } else if (this.shellTime >= 480) {
+                this.type = "koopaTroopa";
+                this.y -= this.h * this.blocksize;
+                this.setProperties();
+            }
+        }
+
         this.updatePosition();
         this.collisionCheck();
         this.setSprite();
@@ -2257,10 +2467,12 @@ class Enemy {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.xOld -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
     }
 }
 
@@ -2268,12 +2480,13 @@ class Piranha {
     constructor(parent, x, y, theme, once) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
         this.frame = 0;
         this.x = x;
         this.y = y;
         this.yInitial = y;
-        this.h = 160;
-        this.w = 80;
+        this.h = 2;
+        this.w = 1;
         this.hitboxOffsetTop = 105;
         this.hitboxOffsetBottom = 15;
         this.hitboxOffsetX = 20;
@@ -2285,11 +2498,26 @@ class Piranha {
         this.yVel = 3;
         this.sequence = [0, 80];
         this.timeOut = 0;
+        this.collision = true;
         this.canMove = true;
+        this.canMoveThreshold = 1.5 * this.blocksize;
+
+        this.updateBoundingBox();
 
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -2303,6 +2531,15 @@ class Piranha {
         this.parent.onScreenElements.piranhas.splice(index, 1);
     }
 
+    plopDeath() {
+        this.collision = false;
+        this.animate = false;
+        this.xVel = 0;
+        this.yVel = -10;
+        game.audioFiles.sounds.stomp.currentTime = 0;
+        game.audioFiles.sounds.stomp.play();
+    }
+
     destroy() {
         const worldIndex = this.parent.worldElements.piranhas.indexOf(this);
         this.parent.worldElements.piranhas.splice(worldIndex, 1);
@@ -2311,22 +2548,38 @@ class Piranha {
         this.parent.onScreenElements.piranhas.splice(onScreenIndex, 1);
     }
 
+    updateVelocities() {
+        if (!this.collision) {
+            this.yVel += this.gravity;
+        }
+    }
+
     updatePosition() {
-        if (!this.canMove && this.y === this.yInitial + this.h) return;
+        if (!this.collision) {
+            this.y += this.yVel;
+            return;
+        }
+
+        if (!this.canMove && this.y >= this.yInitial + this.h * this.blocksize) return;
+
         if (this.timeOut > 0) {
             this.timeOut--;
             return;
         }
 
         this.y += this.yVel;
-        if (this.y <= this.yInitial || this.y >= this.yInitial + this.h) {
+
+        if (this.y <= this.yInitial || this.y >= this.yInitial + this.h * this.blocksize) {
             if (this.once) this.destroy();
             this.yVel *= -1;
             this.timeOut = 90;
         }
+
+        this.updateBoundingBox();
     }
 
     setSprite() {
+        if (!this.animate) return;
         if (this.parent.parent.frame % 20 === 0) {
             this.frame = (this.frame + 1) % this.sequence.length;
             this.sX = spriteOffsets.enemies.type.piranha.x + this.sequence[this.frame]
@@ -2334,22 +2587,28 @@ class Piranha {
     }
 
     update() {
+        this.updateVelocities();
         this.updatePosition();
         this.setSprite();
     }
 
     scroll(deltaX) {
         this.x -= deltaX;
-        if (this.parent.destination.spawnLocation.x + 80 > this.x && this.parent.destination.spawnLocation.x < this.x + 80) {
-            this.y += this.h
+
+        this.updateBoundingBox();
+
+        if (!this.parent.destination.spawnLocation) return; 
+        if (this.parent.destination.spawnLocation.x + this.w * this.blocksize > this.left && this.parent.destination.spawnLocation.x < this.right) {
+            this.y += this.h * this.blocksize;
             this.timeOut = 90;
             this.yVel = -this.yVel;
             this.canMove = false;
+            this.updateBoundingBox();
         }
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
     }
 }
 
@@ -2384,11 +2643,14 @@ class ElevatorPlatform {
         this.yInitial = this.y;
         this.yOld = this.y;
         this.w = w;
+        this.h = 1;
         this.sprites = objectSprites;
         this.sX = 320;
         this.sY = 640;
         this.movementType = movementType;
         this.weightApplied = false;
+
+        this.updateBoundingBox();
 
         if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
             this.addToOnScreen();
@@ -2410,6 +2672,17 @@ class ElevatorPlatform {
             this.yVel = 0;
             this.xVel = 0;
         }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -2437,29 +2710,46 @@ class ElevatorPlatform {
         this.y += this.yVel;
         this.xOld = this.x;
         this.x += this.xVel;
-        if (this.movementType === "up" && this.y + this.blocksize < 0) this.y = this.parent.parent.screensize.height;
-        else if (this.movementType === "down" && this.y > this.parent.parent.screensize.height) {
-            this.y = 0 - this.blocksize;
-        }
-        else if (this.movementType === "falling" && this.y > this.parent.parent.screensize.height) this.destroy();
-        else if (this.movementType === "leftRight" && (this.x + this.w * this.blocksize >= this.xInitial + this.w * this.blocksize + 3 * this.blocksize || this.x <= this.xInitial - 3 * this.blocksize)) this.xVel *= -1;
-        else if (this.movementType === "upDown" && (this.y > this.yInitial + 6 * this.blocksize || this.y + this.blocksize < this.yInitial + this.blocksize - 6 * this.blocksize)) this.yVel *= -1;
+        this.updateBoundingBox();
     }
 
     collisionCheck() {
-        if (this.yVel < 0 && !this.parent.character.inAir && this.parent.character.x + this.parent.character.w > this.x && this.parent.character.x < this.x + this.w * this.blocksize) {
-            if (this.y < this.parent.character.y + this.parent.character.h && this.yOld >= this.parent.character.y + this.parent.character.h) {
-                this.parent.character.y = this.y - this.parent.character.h;
-                this.parent.character.yOld = this.parent.character.y;
-                this.parent.character.yVel = 0;
-                this.parent.character.inAir = false;
-            }
-        } else if (this.movementType === "leftRight" 
-            && this.parent.character.y + this.parent.character.h == this.y 
-            && this.parent.character.xOld + this.parent.character.w > this.xOld && this.parent.character.x < this.xOld + this.w * this.blocksize)
+        const c = this.parent.character;
+
+        // Top of screen
+        if (this.movementType === "up" && this.bottom < 0) {
+            this.y = this.parent.parent.screensize.height;
+            this.updateBoundingBox();
+        }
+        // Bottom of Screen
+        else if (this.movementType === "down" && this.top > this.parent.parent.screensize.height) {
+            this.y = -this.h * this.blocksize;
+            this.updateBoundingBox();
+        }
+        else if (this.movementType === "falling" && this.top > this.parent.parent.screensize.height) this.destroy();
+        else if (this.movementType === "leftRight" && (this.right >= this.xInitial + (this.w + 3) * this.blocksize || this.left <= this.xInitial - 3 * this.blocksize)) this.xVel *= -1;
+        else if (this.movementType === "upDown" && (this.top > this.yInitial + 6 * this.blocksize || this.bottom < this.yInitial + (this.h - 6) * this.blocksize)) this.yVel *= -1;
+
+        if (this.yVel < 0 &&
+            !c.inAir &&
+            c.right > this.left &&
+            c.left < this.right &&
+            c.bottom > this.top &&
+            c.bottom <= this.topOld)
+            {
+                c.y = this.top - c.h * c.blocksize;
+                c.yOld = c.y;
+                c.yVel = 0;
+                c.inAir = false;
+                c.updateBoundingBox();
+        } else if (this.movementType === "leftRight" &&
+            c.bottom == this.top &&
+            c.rightOld > this.leftOld &&
+            c.left < this.rightOld)
         {
-            const deltaX = this.x - this.xOld;
-            this.parent.character.x += deltaX;
+            const deltaX = this.left - this.leftOld;
+            c.x += deltaX;
+            c.updateBoundingBox();
         }
     }
 
@@ -2473,6 +2763,7 @@ class ElevatorPlatform {
     scroll(deltaX) {
         this.x -= deltaX;
         this.xInitial -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
@@ -2483,32 +2774,46 @@ class ElevatorPlatform {
 }
 
 class Item {
-    constructor (parent, x, y, theme, type, collision) {
+    constructor (parent, x, y, theme, type) {
         this.objectName = "Item";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.itemVelTable = {
+            brokenTileTopLeft: {xVel: -4, yVel: -20},
+            brokenTileTopRight: {xVel: 4, yVel: -20},
+            brokenTileBottomLeft: {xVel: -4, yVel: -20},
+            brokenTileBottomRight: {xVel: 4, yVel: -20}
+        };
         this.gravity = this.parent.gravity;
         this.x = x;
         this.xOld = this.x;
         this.y = y;
         this.yOld = this.y;
+        this.yInitial = this.y;
+        this.w = 1;
+        this.h = 1;
         this.theme = theme || this.parent.theme;
         this.type = type;
+        if (this.type === "coinItem") {
+            this.xVel = 0;
+            this.yVel = -30;
+        } else if (this.type === "magicMushroom" || this.type === "fireFlower" || this.type === "starman" || this.type === "oneUp") {
+            this.xVel = 0;
+            this.yVel = -1.75;
+        } else {
+            this.xVel = this.itemVelTable[this.type].xVel;
+            this.yVel = this.itemVelTable[this.type].yVel;
+            this.heightToDraw = this.h * this.blocksize;
+        }
+        this.despawnTimer = 0;
+        this.collision = false;
         this.hitboxOffsetX = 10;
         this.hitboxOffsetTop = 10;
         this.hitboxOffsetBottom = 15;
-        this.collision = collision;
         this.sprites = objectSprites;
         this.sX = spriteOffsets.objects.theme[this.theme].x + spriteOffsets.objects.type[this.type].x;
         this.sY = spriteOffsets.objects.type[this.type].y;
-        this.xVel = objectVelTable[this.type].xVel;
-        this.yVel = objectVelTable[this.type].yVel;
         this.lifetime = 15;
-
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
-            this.addToOnScreen();
-        }
-
         this.animateSequences = {
             "coinItem": [0, 80, 160, 240],
             "fireFlower": [0, 80, 160, 240],
@@ -2520,6 +2825,23 @@ class Item {
             this.animate = true;
             this.sequence = this.animateSequences[this.type];
         }
+
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     addToOnScreen() {
@@ -2535,29 +2857,34 @@ class Item {
     }
 
     activate() {
-        if (this.type === "magicMushroom" || this.type === "fireFlower" && this.parent.character.h === 80) {
-            this.parent.parent.transitionTimer = this.parent.character.frames.growing.length;
-            this.parent.parent.transition = true;
-            this.parent.parent.transitionType = "growing";
-            this.parent.parent.audioFiles.sounds.powerup.currentTime = 0;
-            this.parent.parent.audioFiles.sounds.powerup.play()
-        } else if (this.type === "fireFlower" && this.parent.character.h === 160) {
-            if (this.parent.character.state.current != this.parent.character.state.star) this.parent.character.state.current = this.parent.character.state.flower;
-            this.parent.character.state.last = this.parent.character.state.flower;
-            this.parent.parent.audioFiles.sounds.powerup.currentTime = 0;
-            this.parent.parent.audioFiles.sounds.powerup.play()
+        const g = this.parent.parent;
+        const c = this.parent.character;
+
+        if (this.type === "magicMushroom" || this.type === "fireFlower" && c.h === 1) {
+            g.setTransition("growing");
+            g.audioFiles.sounds.powerup.currentTime = 0;
+            g.audioFiles.sounds.powerup.play()
+        } else if (this.type === "fireFlower" && c.h === 2) {
+            if (c.state.current != c.state.starman) c.state.current = c.state.flower;
+            c.state.last = c.state.flower;
+            g.audioFiles.sounds.powerup.currentTime = 0;
+            g.audioFiles.sounds.powerup.play()
         } else if (this.type === "oneUp") {
-            this.parent.parent.lives++;
-            this.parent.parent.audioFiles.sounds.oneUp.currentTime = 0;
-            this.parent.parent.audioFiles.sounds.oneUp.play()
+            g.lives++;
+            g.audioFiles.sounds.oneUp.currentTime = 0;
+            g.audioFiles.sounds.oneUp.play()
         } else if (this.type === "starman") {
-            this.parent.character.state.last = this.parent.character.state.current;
-            this.parent.character.state.current = this.parent.character.state.starman;
-            this.parent.character.starTime = 61;
-            this.parent.parent.music.pause();
-            this.parent.parent.audioFiles.music.starman.currentTime = 0;
-            this.parent.parent.audioFiles.music.starman.play();
+            c.state.last = c.state.current;
+            c.state.current = c.state.starman;
+            c.starTime = 61;
+            g.music.pause();
+            g.audioFiles.music.starman.currentTime = 0;
+            g.audioFiles.music.starman.play();
         }
+    }
+
+    bounce() {
+        this.yVel = -15;
     }
 
     destroy() {
@@ -2567,143 +2894,97 @@ class Item {
         this.parent.onScreenElements.items.splice(index, 1);
     }
 
-    updatePosition() {
+    updateVelocities() {
+        if ((this.type === "magicMushroom" || this.type === "fireFlower" || this.type === "oneUp" || this.type === "starman") && !this.collision) return;
         this.yVel += this.gravity;
-        
+    }
+
+    updatePosition() {
         this.xOld = this.x;
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
-    }
+        this.updateBoundingBox();
 
-    collisionCheckRectangles(rectangleList) {
-        rectangleList.forEach(rectangle => {
-            if (this.y + this.blocksize > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.blocksize > rectangle.left) {
-                // Item entered Rectangle from the top
-                if (this.y + this.blocksize > rectangle.top && this.yOld + this.blocksize <= rectangle.top) {
-                    this.y = rectangle.top - this.blocksize;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                // Item entered Rectangle from the left
-                } else if (this.x + this.blocksize > rectangle.left && this.xOld + this.blocksize <= rectangle.left) {
-                    this.x = rectangle.left - this.blocksize;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                // Item entered Rectangle from the right
-                } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
-                    this.x = rectangle.right;
-                    this.xOld = this.x;
-                    this.xVel *= -1;
-                // Item entered Rectangle from the bottom
-                } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
-                    this.y = rectangle.bottom;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                }
+        if (Object.keys(this.itemVelTable).includes(this.type) || this.collision) return;
+
+        if (this.top <= this.yInitial - this.h * this.blocksize) {
+            this.collision = true;
+            if (this.type === "magicMushroom" || this.type === "oneUp") {
+                this.xVel = 3;
+            } else if (this.type === "starman") {
+                this.xVel = 3;
+                this.yVel = -30;
+            } else {
+                this.xVel = 0;
+                this.yVel = 0;
             }
-        });
+        } else {
+            this.heightToDraw = this.yInitial - this.y;
+        }
     }
 
-    collisionCheckSteps(stepList) {
-        stepList.forEach(step => {
-            // Check for each rectangle of the step
-            step.rectangles.forEach(rectangle => {
-                if (this.y + this.blocksize > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.blocksize > rectangle.left) {
-                    // Item entered rectangle from the top
-                    if (this.y + this.blocksize > rectangle.top && this.yOld + this.blocksize <= rectangle.top) {
-                        this.y = rectangle.top - this.blocksize;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    // Item entered rectangle from the left
-                    } else if (this.x + this.blocksize > rectangle.left && this.xOld + this.blocksize <= rectangle.left) {
-                        this.x = rectangle.left - this.blocksize;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                    // Item entered rectangle from the right
-                    } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
-                        this.x = rectangle.right;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                    // Item entered rectangle from the bottom
-                    } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
-                        this.y = rectangle.bottom;
-                        this.yOld = this.y;
+    collisionCheckRectangles(list) {
+        list.forEach(item => {
+            if (item.collision &&
+                this.bottom > item.top &&
+                this.top < item.bottom &&
+                this.left < item.right &&
+                this.right > item.left) {
+                // Top
+                if (this.bottom > item.top && this.bottomOld <= item.top) {
+                    this.y = item.top - this.h * this.blocksize;
+                    this.yOld = this.y;
+                    if (this.type === "starman") {
+                        this.yVel = -30;
+                    } else {
                         this.yVel = 0;
                     }
-                }
-            });
-        });
-    }
-
-    collisionCheckTiles(tileList) {
-        tileList.forEach(tile => {
-            if (this.y + this.blocksize > tile.top && this.y < tile.bottom && this.x < tile.right && this.x + this.blocksize > tile.left) {
-                // Item entered tile from the top
-                if (this.y + this.blocksize > tile.top && this.yOld + this.blocksize <= tile.top) {
-                    this.y = tile.top - this.blocksize;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                // Item entered tile from the left
-                } else if (this.x + this.blocksize > tile.left && this.xOld + this.blocksize <= tile.left) {
-                    this.x = tile.left - this.blocksize;
+                    this.updateBoundingBox();
+                // Left
+                } else if (this.right > item.left && this.rightOld <= item.left) {
+                    this.x = item.left - this.w * this.blocksize;
                     this.xOld = this.x;
                     this.xVel *= -1;
-                // Item entered tile from the right
-                } else if (this.x < tile.right && this.xOld >= tile.right) {
-                    this.x = tile.right;
+                    this.updateBoundingBox();
+                // Right
+                } else if (this.left < item.right && this.leftOld >= item.right) {
+                    this.x = item.right;
                     this.xOld = this.x;
                     this.xVel *= -1;
-                // Item entered tile from the bottom
-                } else if (this.y < tile.bottom && this.yOld >= tile.bottom) {
-                    this.y = tile.bottom;
+                    this.updateBoundingBox();
+                // Bottom
+                } else if (this.top < item.bottom && this.topOld >= item.bottom) {
+                    this.y = item.bottom;
                     this.yOld = this.y;
                     this.yVel = 0;
+                    this.updateBoundingBox();
                 }
             }
         });
     }
 
-    collisionCheckPipes(pipeList) {
-        pipeList.forEach(pipe => {
-            if (pipe.opening === "top") {
-                if (this.y + this.blocksize > pipe.y && this.y < pipe.y + pipe.size * this.blocksize && this.x < pipe.x + 2 * this.blocksize && this.x + this.blocksize > pipe.x) {
-                    // Character entered pipe from the top
-                    if (this.y + this.blocksize > pipe.y && this.yOld + this.h <= pipe.y) {
-                        this.y = pipe.y - this.blocksize;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    // Character entered pipe from the left
-                    } else if (this.x + this.blocksize > pipe.x && this.xOld + this.blocksize <= pipe.x) {
-                        this.x = pipe.x - this.blocksize;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                    // Character entered pipe from the right
-                    } else if (this.x < pipe.x + 2 * this.blocksize && this.xOld >= pipe.x + 2 * this.blocksize) {
-                        this.x = pipe.x + 2 * this.blocksize;
-                        this.xOld = this.x;
-                        this.xVel *= -1;
-                    // Character entered pipe from the bottom
-                    } else if (this.y < pipe.y + pipe.size * this.blocksize && this.yOld >= pipe.y + pipe.size * this.blocksize) {
-                        this.y = pipe.y + pipe.size * this.blocksize;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
-                }
-            }
+    collisionCheckSteps(list) {
+        list.forEach(item => {
+            this.collisionCheckRectangles(item.rectangles);
         });
     }
 
     collisionCheck() {
         // Screen edges
-        if (this.x + this.blocksize < 0 || this.x > this.parent.parent.screensize.width || this.y > this.parent.parent.screensize.height) {
+        if (this.right + 4 * this.blocksize < 0 || this.left - 4 * this.blocksize > this.parent.parent.screensize.width || this.top > this.parent.parent.screensize.height) {
             this.destroy();
         }
 
         if (!this.collision) return;
+
         if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
+        if (this.parent.onScreenElements.platforms) this.collisionCheckRectangles(this.parent.onScreenElements.platforms);
         if (this.parent.onScreenElements.steps) this.collisionCheckSteps(this.parent.onScreenElements.steps);
-        if (this.parent.onScreenElements.tiles) this.collisionCheckTiles(this.parent.onScreenElements.tiles);
-        if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
+        if (this.parent.onScreenElements.tiles) this.collisionCheckRectangles(this.parent.onScreenElements.tiles);
+        if (this.parent.onScreenElements.pipes) this.collisionCheckRectangles(this.parent.onScreenElements.pipes);
+        if (this.parent.onScreenElements.enemies) this.collisionCheckRectangles(this.parent.onScreenElements.enemies);
+        //TODO: Reflect off items
     }
 
     setSprite() {
@@ -2724,6 +3005,14 @@ class Item {
 
     update() {
         if (this.parent.parent.transition) return;
+        if (this.type === "starman") {
+            this.despawnTimer++;
+
+            if (this.despawnTimer >= 360) {
+                this.destroy();
+            }
+        }
+        this.updateVelocities();
         this.updatePosition();
         this.collisionCheck();
         this.setSprite();
@@ -2731,10 +3020,11 @@ class Item {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.blocksize, this.blocksize, this.x, this.y, this.blocksize, this.blocksize);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.heightToDraw, this.x, this.y, this.w * this.blocksize, this.heightToDraw);
     }
 }
 
@@ -2743,13 +3033,14 @@ class Character {
         this.objectName = "Character";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
+        this.gravity = this.parent.gravity;
         this.frame = 0;
         this.x = x;
         this.xOld = this.x;
         this.y = y;
         this.yOld = this.y;
-        this.w = 80;
-        this.h = h || 80;
+        this.w = 1;
+        this.h = h || 1;
 
         this.hitboxOffsetX = 20;
         this.hitboxOffsetTop = 25;
@@ -2758,7 +3049,6 @@ class Character {
         this.facingLeftYOffset = 240;
         this.xVel = 0;
         this.yVel = 0;
-        this.gravity = this.parent.gravity;
         this.jumpForce = 40;
         this.xVelMaxWalk = 10;
         this.xVelMaxSprint = 15;
@@ -2792,22 +3082,22 @@ class Character {
         this.frames = {
             running: [80, 160, 240],
             growing: [
-                {sX: 0, sY: 0, h: 160},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 160, h: 80},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 0, h: 160},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 160, h: 80},
+                {sX: 0, sY: 0, h: 2},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 160, h: 1},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 0, h: 2},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 160, h: 1},
             ],
             shrinking: [
-                {sX: 0, sY: 160, h: 80},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 0, h: 160},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 0, h: 160},
-                {sX: 1200, sY: 0, h: 160},
-                {sX: 0, sY: 160, h: 80},
+                {sX: 0, sY: 160, h: 1},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 0, h: 2},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 0, h: 2},
+                {sX: 1200, sY: 0, h: 2},
+                {sX: 0, sY: 160, h: 1},
             ],
         }
         this.visible = true;
@@ -2816,6 +3106,20 @@ class Character {
         this.dying = 0;
         this.collision = true;
         this.fireballCooldown = 0;
+        this.canShootAgain = true;
+
+        this.updateBoundingBox();
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     jump() {
@@ -2828,13 +3132,16 @@ class Character {
     }
 
     shoot() {
-        if (this.state.current !== this.state.flower || this.fireballCooldown !== 0) return;
-        this.parent.spawnFireBall(this.x + this.w / 2, this.y + this.h * .25);
-        this.fireballCooldown = 15;
+        if ((this.state.current === this.state.flower || this.state.current === this.state.starman && this.state.last === this.state.flower) && this.fireballCooldown <= 0 && this.canShootAgain) {
+            this.canShootAgain = false;
+            this.parent.spawnFireBall(this.x + this.w * this.blocksize / 2, this.y + this.h * this.blocksize * .25);
+            this.fireballCooldown = 15;
+            this.parent.parent.audioFiles.sounds.fireball.play();
+        }
     }
 
     gotInjured() {
-        if (this.h === 160) {
+        if (this.h === 2) {
             this.parent.parent.setTransition("shrinking");
             this.invincibility = 480;
             this.state.current = this.state.normal;
@@ -2850,132 +3157,136 @@ class Character {
     }
 
     setHeight(height) {
-        if (height == 80 && this.h != 80) {
+        if (height === 1 && this.h !== 1) {
             this.hitboxOffsetX = 20;
             this.hitboxOffsetTop = 25;
-            this.y += 80;
-            this.h = 80;
-        } else if (height == 160 && this.h != 160) {
+            this.y += this.blocksize;
+            this.h = 1;
+        } else if (height === 2 && this.h !== 2) {
             this.hitboxOffsetX = 15;
             this.hitboxOffsetTop = 40;
-            this.y -= 80;
-            this.h = 160;
+            this.y -= this.blocksize;
+            this.h = 2;
         }
     }
 
     runTransition() {
-        if (this.parent.parent.transitionType === "flagReached" && this.y + this.h < 920) {
+        const g = this.parent.parent;
+        const w = this.parent;
+
+        if (g.transitionType === "flagReached" && this.bottom < 920) {
             this.yVel = 5;
             this.xVel = 0;
             this.movement.current = this.movement.crappling;
-        } else if (this.parent.parent.transitionType === "flagReached" && this.y + this.h >= 1000 && this.x + this.w < this.parent.levelEndLine) {
+        } else if (g.transitionType === "flagReached" && this.bottom >= 1000 && this.right < w.levelEndLine) {
             this.yVel = 0;
             this.xVel = 5;
             this.movement.current = this.movement.walking;
-        } else if (this.parent.parent.transitionType === "flagReached" && this.x + this.w > this.parent.levelEndLine) {
-            if (this.parent.parent.audioFiles.sounds.stageClear.currentTime === 0) {
-                this.parent.parent.audioFiles.sounds.stageClear.play();
+        } else if (g.transitionType === "flagReached" && this.right > w.levelEndLine) {
+            if (g.audioFiles.sounds.stageClear.currentTime === 0) {
+                g.audioFiles.sounds.stageClear.play();
             }
-            this.endmusicPlaying = true;
             this.visible = false;
 
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-                this.parent.parent.loadWorld(this.h, this.state.current);
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+                g.loadWorld(this.h, this.state.current);
             }
 
-            this.parent.parent.transitionTimer--;
-        } else if (this.parent.parent.transitionType === "pipeEnterTop") {
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-                this.parent.parent.loadWorld(this.h, this.state.current);
+            g.transitionTimer--;
+        } else if (g.transitionType === "pipeEnterTop") {
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+                g.loadWorld(this.h, this.state.current);
             }
             this.xVel = 0;
             this.yVel = 3;
             this.movement.current = this.movement.standing;
 
-            this.parent.parent.transitionTimer--;
-        } else if (this.parent.parent.transitionType === "pipeOutTop") {
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
+            g.transitionTimer--;
+        } else if (g.transitionType === "pipeOutTop") {
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
             }
             this.xVel = 0;
             this.yVel = -3;
             this.movement.current = this.movement.standing;
 
-            this.parent.parent.transitionTimer--;
-        } else if (this.parent.parent.transitionType === "pipeEnterLeft") {
-            if (this.parent.parent.transitionTimer == 35) this.visible = false;
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-                if (this.parent.parent.music) {
-                    this.parent.parent.music.pause();
-                    this.parent.parent.music.currentTime = 0;
+            g.transitionTimer--;
+        } else if (g.transitionType === "pipeEnterLeft") {
+            if (g.transitionTimer == 35) this.visible = false;
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+                if (g.music) {
+                    g.music.pause();
+                    g.music.currentTime = 0;
                 }
-                this.parent.parent.loadWorld(this.h, this.state.current);
+                g.loadWorld(this.h, this.state.current);
             }
             this.xVel = 3;
             this.yVel = 0;
             this.movement.current = this.movement.walking;
 
-            this.parent.parent.transitionTimer--;
-        } else if (this.parent.parent.transitionType === "growing") {
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-            } else if (this.parent.parent.frame % 5 == 0) {
-                this.sX = this.frames.growing[this.parent.parent.transitionTimer - 1].sX;
-                this.sY = this.frames.growing[this.parent.parent.transitionTimer - 1].sY;
-                this.setHeight(this.frames.growing[this.parent.parent.transitionTimer - 1].h);
+            g.transitionTimer--;
+        } else if (g.transitionType === "growing") {
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+            } else if (g.frame % 5 == 0) {
+                this.sX = this.frames.growing[g.transitionTimer - 1].sX;
+                this.sY = this.frames.growing[g.transitionTimer - 1].sY;
+                this.setHeight(this.frames.growing[g.transitionTimer - 1].h);
 
                 // In which direction is the player looking
                 if (!this.facingRight) {
                     this.sY += this.facingLeftYOffset;
                 }
-                this.parent.parent.transitionTimer--;
+
+                g.transitionTimer--;
             }
-        } else if (this.parent.parent.transitionType === "shrinking") {
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-                this.invincibility = 60;
-            } else if (this.parent.parent.frame % 5 == 0) {
-                this.sX = this.frames.shrinking[this.parent.parent.transitionTimer - 1].sX;
-                this.sY = this.frames.shrinking[this.parent.parent.transitionTimer - 1].sY;
-                this.setHeight(this.frames.shrinking[this.parent.parent.transitionTimer - 1].h);
+        } else if (g.transitionType === "shrinking") {
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+                this.invincibility = 240;
+            } else if (g.frame % 5 == 0) {
+                this.sX = this.frames.shrinking[g.transitionTimer - 1].sX;
+                this.sY = this.frames.shrinking[g.transitionTimer - 1].sY;
+                this.setHeight(this.frames.shrinking[g.transitionTimer - 1].h);
     
                 // In which direction is the player looking
                 if (!this.facingRight) {
                     this.sY += this.facingLeftYOffset;
                 }
-                this.parent.parent.transitionTimer--;
+
+                g.transitionTimer--;
             }
-        } else if (this.parent.parent.transitionType === "dying") {
-            if (this.parent.parent.transitionTimer == 0) {
-                this.parent.parent.transition = false;
-                this.parent.parent.transitionType = null;
-                this.parent.parent.loadWorld();
+        } else if (g.transitionType === "dying") {
+            if (g.transitionTimer == 0) {
+                g.transition = false;
+                g.transitionType = null;
+                g.loadWorld();
             }
             this.xVel = 0;
             this.yVel += this.gravity;
             this.sX = 480;
             this.sY = 160;
 
-            this.parent.parent.transitionTimer--;
-        } else if (this.parent.parent.transitionType === "cutscene1") {
-            if (this.parent.parent.music.currentTime === 0) {
-                this.parent.parent.music.play();
+            g.transitionTimer--;
+        } else if (g.transitionType === "cutscene1") {
+            if (g.music.currentTime === 0) {
+                g.music.play();
             }
-            if (this.x >= 1040) {
-                this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
-                this.parent.parent.audioFiles.sounds.pipe.play();
-                this.parent.parent.destination = {worldID: 12};
-                this.parent.parent.transitionType = "pipeEnterLeft";
-                this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
+            if (this.left >= 1040) {
+                g.audioFiles.sounds.pipe.currentTime = 0;
+                g.audioFiles.sounds.pipe.play();
+                g.destination = {worldID: 12};
+                g.transitionType = "pipeEnterLeft";
+                g.transitionTimer = g.transitionTimers[g.transitionType];
             }
             this.movement.current = this.movement.walking;
             this.collision = false;
@@ -2985,13 +3296,15 @@ class Character {
     }
 
     setVelocities() {
-        if (this.parent.parent.transition) return;
+        const g = this.parent.parent;
+
+        if (g.transition) return;
 
         // User wants to move right
-        if (this.parent.parent.keyStates.right && !this.parent.parent.keyStates.left && !this.parent.parent.keyStates.down) {
+        if (g.keyStates.right && !g.keyStates.left && !g.keyStates.down) {
             this.facingRight = true;
             if (this.xVel >= 0) {
-                if (this.parent.parent.keyStates.sprint) {
+                if (g.keyStates.sprint) {
                     this.xAccel = this.xAccelSprint;
                     this.xVelMax = this.xVelMaxSprint;
                     if (!this.inAir) this.movement.current = this.movement.running;
@@ -3005,10 +3318,10 @@ class Character {
                 if (!this.inAir) this.movement.current = this.movement.sliding;
             }
         // User wants to move left
-        } else if (this.parent.parent.keyStates.left && !this.parent.parent.keyStates.right && !this.parent.parent.keyStates.down) {
+        } else if (g.keyStates.left && !g.keyStates.right && !g.keyStates.down) {
             this.facingRight = false;
             if (this.xVel <= 0) {
-                if (this.parent.parent.keyStates.sprint) {
+                if (g.keyStates.sprint) {
                     this.xAccel = -this.xAccelSprint;
                     this.xVelMax = -this.xVelMaxSprint;
                     if (!this.inAir) this.movement.current = this.movement.running;
@@ -3064,306 +3377,281 @@ class Character {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
+        this.updateBoundingBox();
     }
 
     collisionCheckLeftScreenEdge() {
-        if (this.x < 0) {
+        if (this.left < 0) {
             this.x = 0;
-            this.xOld = this.x;
+            this.updateBoundingBox();
         }
     }
 
     collisionCheckFallingToDeath() {
-        if (this.y > this.parent.parent.screensize.height) {
+        if (this.top > this.parent.parent.screensize.height) {
             this.y = 160;
             this.x = 80;
+            this.updateBoundingBox();
         }
     }
 
-    collisionCheckTiles(tileList) {
-        tileList.forEach(tile => {
-            if (tile.collision && this.y + this.h > tile.top && 
-                this.y + this.hitboxOffsetTop < tile.bottom && 
-                this.x + this.hitboxOffsetX < tile.right && 
-                this.x + this.w - this.hitboxOffsetX > tile.left) {
-                // Character entered tile from the top
-                if (tile.type !== "secret" && this.y + this.h > tile.top && this.yOld + this.h <= tile.top) {
-                    this.y = tile.top - this.h;
+    collisionCheckTiles(list) {
+        const g = this.parent.parent;
+        const w = this.parent;
+
+        list.forEach(item => {
+            if (item.collision &&
+                this.bottom > item.top && 
+                this.top + this.hitboxOffsetTop < item.bottom && 
+                this.left + this.hitboxOffsetX < item.right && 
+                this.right - this.hitboxOffsetX > item.left)
+                {
+                // Top
+                if (item.type !== "secret" && this.bottom > item.top && this.bottomOld <= item.top) {
+                    this.y = item.top - this.h * this.blocksize;
                     this.yOld = this.y;
                     this.yVel = 0;
                     this.inAir = false;
-                // Character entered tile from the left
-                } else if (tile.type !== "secret" && this.x + this.w - this.hitboxOffsetX > tile.left && this.xOld + this.w - this.hitboxOffsetX <= tile.left) {
-                    this.x = tile.left - this.w + this.hitboxOffsetX;
+                    this.updateBoundingBox();
+                // Left
+                } else if (item.type !== "secret" && this.right - this.hitboxOffsetX > item.left && this.rightOld - this.hitboxOffsetX <= item.left) {
+                    this.x = item.left - this.w * this.blocksize + this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                // Character entered tile from the right
-                } else if (tile.type !== "secret" && this.x + this.hitboxOffsetX < tile.right && this.xOld + this.hitboxOffsetX >= tile.right) {
-                    this.x = tile.right - this.hitboxOffsetX;
+                    this.updateBoundingBox();
+                // Right
+                } else if (item.type !== "secret" && this.left + this.hitboxOffsetX < item.right && this.leftOld + this.hitboxOffsetX >= item.right) {
+                    this.x = item.right - this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                // Character entered tile from the bottom
-                } else if (this.y + this.hitboxOffsetTop < tile.bottom && this.yOld + this.hitboxOffsetTop >= tile.bottom) {
-                    this.y = tile.bottom - this.hitboxOffsetTop;
+                    this.updateBoundingBox();
+                // Bottom
+                } else if (this.top + this.hitboxOffsetTop < item.bottom && this.topOld + this.hitboxOffsetTop >= item.bottom) {
+                    this.y = item.bottom - this.hitboxOffsetTop;
                     this.yOld = this.y;
                     this.yVel = 0;
+                    this.updateBoundingBox();
 
-                    if (tile.type === "disabled") {
-                        this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
-                        this.parent.parent.audioFiles.sounds.bump.play();
-                    } else if (tile.type === "multiCoinBlock") {
-                        if (tile.states.current === tile.states.inactive) {
-                            this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.theme, "coinItem");
-                            this.parent.parent.audioFiles.sounds.coin.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.coin.play();
-                            tile.bounce();
-                            tile.states.current = tile.states.active;
-                        } else if (tile.states.current === tile.states.active) {
-                            this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.theme, "coinItem");
-                            this.parent.parent.audioFiles.sounds.coin.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.coin.play();
-                            tile.bounce();
-                        } else if (tile.states.current === tile.states.lastHit) {
-                            this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.theme, "coinItem");
-                            this.parent.parent.audioFiles.sounds.coin.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.coin.play();
-                            tile.bounce();
-                            tile.type = "disabled";
-                            tile.setSpriteOffsets()
+                    if (item.type === "disabled") {
+                        g.audioFiles.sounds.bump.currentTime = 0;
+                        g.audioFiles.sounds.bump.play();
+                    } else if (item.type === "multiCoinBlock") {
+                        if (item.states.current === item.states.inactive) {
+                            w.spawnItem(item.x, item.y - item.blocksize, item.theme, "coinItem");
+                            g.audioFiles.sounds.coin.currentTime = 0;
+                            g.audioFiles.sounds.coin.play();
+                            item.bounce();
+                            item.states.current = item.states.active;
+                        } else if (item.states.current === item.states.active) {
+                            w.spawnItem(item.x, item.y - item.blocksize, item.theme, "coinItem");
+                            g.audioFiles.sounds.coin.currentTime = 0;
+                            g.audioFiles.sounds.coin.play();
+                            item.bounce();
+                        } else if (item.states.current === item.states.lastHit) {
+                            w.spawnItem(item.x, item.y - item.blocksize, item.theme, "coinItem");
+                            g.audioFiles.sounds.coin.currentTime = 0;
+                            g.audioFiles.sounds.coin.play();
+                            item.bounce();
+                            item.type = "disabled";
+                            item.setSpriteOffsets()
                         }
-                    } else if ((tile.type === "blockShiny" || tile.type === "block") && !tile.item) {
-                        if (this.h == 160) {
-                            this.parent.parent.audioFiles.sounds.breakBlock.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.breakBlock.play();
-                            this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopLeft");
-                            this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y - this.blocksize / 2, tile.theme, "brokenTileTopRight");
-                            this.parent.spawnItem(tile.x - this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomLeft");
-                            this.parent.spawnItem(tile.x + this.blocksize / 2, tile.y + this.blocksize / 2, tile.theme, "brokenTileBottomRight");
-                            tile.destroy(tileList);
+                    } else if ((item.type === "blockShiny" || item.type === "block") && !item.item) {
+                        if (this.h == 2) {
+                            g.audioFiles.sounds.breakBlock.currentTime = 0;
+                            g.audioFiles.sounds.breakBlock.play();
+                            w.spawnItem(item.x - item.blocksize / 2, item.y - item.blocksize / 2, item.theme, "brokenTileTopLeft");
+                            w.spawnItem(item.x + item.blocksize / 2, item.y - item.blocksize / 2, item.theme, "brokenTileTopRight");
+                            w.spawnItem(item.x - item.blocksize / 2, item.y + item.blocksize / 2, item.theme, "brokenTileBottomLeft");
+                            w.spawnItem(item.x + item.blocksize / 2, item.y + item.blocksize / 2, item.theme, "brokenTileBottomRight");
+                            item.destroy(list);
                         } else {
-                            this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.bump.play();
-                            tile.bounce();
+                            g.audioFiles.sounds.bump.currentTime = 0;
+                            g.audioFiles.sounds.bump.play();
+                            item.bounce();
                         }
-                    } else if (tile.item) {
-                        tile.bounce();
+                    } else if (item.item) {
+                        item.bounce();
                         // Spawn flower instead of mushroom if we are big
-                        if (tile.item.type === "magicMushroom") {
-                            if (this.h !== 80) {
-                                this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.item.theme, "fireFlower", true);
+                        if (item.item.type === "magicMushroom") {
+                            if (this.h !== 1) {
+                                w.spawnItem(item.x, item.y, item.item.theme, "fireFlower", true);
                             } else {
-                                this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.item.theme, "magicMushroom", true);
+                                w.spawnItem(item.x, item.y, item.item.theme, "magicMushroom", true);
                             }
-                            this.parent.parent.audioFiles.sounds.powerupAppears.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.powerupAppears.play();
-                        } else if (tile.item.type === "coinItem") {
-                            this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.item.theme, "coinItem");
-                            this.parent.parent.audioFiles.sounds.coin.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.coin.play();
+                            g.audioFiles.sounds.powerupAppears.currentTime = 0;
+                            g.audioFiles.sounds.powerupAppears.play();
+                        } else if (item.item.type === "coinItem") {
+                            w.spawnItem(item.x, item.y - item.blocksize, item.item.theme, "coinItem");
+                            g.audioFiles.sounds.coin.currentTime = 0;
+                            g.audioFiles.sounds.coin.play();
                         } else {
-                            this.parent.spawnItem(tile.x, tile.y - tile.blocksize, tile.item.theme, tile.item.type, true);
-                            this.parent.parent.audioFiles.sounds.powerupAppears.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.powerupAppears.play();
+                            w.spawnItem(item.x, item.y, item.item.theme, item.item.type);
+                            g.audioFiles.sounds.powerupAppears.currentTime = 0;
+                            g.audioFiles.sounds.powerupAppears.play();
                         }
 
-                        tile.type = "disabled";
-                        tile.setSpriteOffsets()
-                        tile.animate = false;
-                        tile.item = null;
+                        item.type = "disabled";
+                        item.setSpriteOffsets()
+                        item.animate = false;
+                        item.item = null;
                     }
                 }
             }
         });
     }
 
-    collisionCheckRectangles(rectangleList) {
+    collisionCheckRectangles(list) {
         const hitboxOffsetTop = (this.movement.current === this.movement.crouching) ? this.hitboxOffsetTop + this.hitboxOffsetCrouchExtra : this.hitboxOffsetTop;
-        rectangleList.forEach(rectangle => {
-            if (rectangle.collision && rectangle.individualCheck) {
-                this.collisionCheckTiles(rectangle.tiles);
-            } else if (rectangle.collision 
-                && this.y + this.h > rectangle.top 
-                && this.y + hitboxOffsetTop < rectangle.bottom 
-                && this.x + this.hitboxOffsetX < rectangle.right
-                && this.x + this.w - this.hitboxOffsetX > rectangle.left) 
+        list.forEach(item => {
+            if (item.collision && item.individualCheck) {
+                this.collisionCheckTiles(item.tiles);
+            } else if (item.collision &&
+                this.bottom > item.top &&
+                this.top + hitboxOffsetTop < item.bottom &&
+                this.left + this.hitboxOffsetX < item.right &&
+                this.right - this.hitboxOffsetX > item.left) 
                 {
-                // Character entered rectangle from the top
-                if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
-                    this.y = rectangle.top - this.h;
+                // Top
+                if (this.bottom > item.top && this.bottomOld <= item.top) {
+                    this.y = item.top - this.h * this.blocksize;
                     this.yOld = this.y;
                     this.yVel = 0;
                     this.inAir = false;
-                // Character entered rectangle from the left
-                } else if (this.x + this.w - this.hitboxOffsetX > rectangle.left && this.xOld + this.w - this.hitboxOffsetX <= rectangle.left) {
-                    this.x = rectangle.left - this.w + this.hitboxOffsetX;
+                    this.updateBoundingBox();
+                // Left
+                } else if (this.right - this.hitboxOffsetX > item.left && this.rightOld - this.hitboxOffsetX <= item.left) {
+                    this.x = item.left - this.w * this.blocksize + this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                // Character entered rectangle from the right
-                } else if (this.x + this.hitboxOffsetX < rectangle.right && this.xOld + this.hitboxOffsetX >= rectangle.right) {
-                    this.x = rectangle.right - this.hitboxOffsetX;
+                    this.updateBoundingBox();
+                // Right
+                } else if (this.left + this.hitboxOffsetX < item.right && this.leftOld + this.hitboxOffsetX >= item.right) {
+                    this.x = item.right - this.hitboxOffsetX;
                     this.xOld = this.x;
                     this.xVel = 0;
-                // Character entered rectangle from the bottom
-                } else if (this.y + hitboxOffsetTop < rectangle.bottom && this.yOld + hitboxOffsetTop >= rectangle.bottom) {
-                    this.y = rectangle.bottom - hitboxOffsetTop;
+                    this.updateBoundingBox();
+                // Bottom
+                } else if (this.top + hitboxOffsetTop < item.bottom && this.topOld + hitboxOffsetTop >= item.bottom) {
+                    this.y = item.bottom - hitboxOffsetTop;
                     this.yOld = this.y;
                     this.yVel = 0;
+                    this.updateBoundingBox();
                 }
             }
         });
     }
 
-    collisionCheckPlatforms(platformList) {
-        platformList.forEach(platform => {
-            if (this.y + this.h > platform.y && 
-                this.y < platform.y + platform.blocksize && 
-                this.x < platform.x + platform.w * platform.blocksize && 
-                this.x + this.w > platform.x) 
-                {
-                // Character entered platform from the top
-                if (this.y + this.h > platform.y && this.yOld + this.h <= platform.y) {
-                    this.y = platform.y - this.h;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                    this.inAir = false;
-                // Character entered platform from the left
-                } else if (this.x + this.w > platform.x && this.xOld + this.w <= platform.x) {
-                    this.x = platform.x - this.w;
-                    this.xOld = this.x;
-                    this.xVel = 0;
-                // Character entered platform from the right
-                } else if (this.x < platform.x + platform.w * platform.blocksize && this.xOld >= platform.x + platform.w * platform.blocksize) {
-                    this.x = platform.x + platform.w * platform.blocksize;
-                    this.xOld = this.x;
-                    this.xVel = 0;
-                // Character entered platform from the bottom
-                } else if (this.y < platform.y + platform.blocksize && this.yOld >= platform.y + platform.blocksize) {
-                    this.y = platform.y + platform.blocksize;
-                    this.yOld = this.y;
-                    this.yVel = 0;
-                }
-            }
+    collisionCheckSteps(list) {
+        list.forEach(item => {
+            this.collisionCheckRectangles(item.rectangles);
         });
     }
 
-    collisionCheckSteps(stepList) {
-        stepList.forEach(step => {
-            // Check for each rectangle of the step
-            step.rectangles.forEach(rectangle => {
-                if (this.y + this.h > rectangle.top && this.y < rectangle.bottom && this.x < rectangle.right && this.x + this.w > rectangle.left) {
-                    // Character entered rectangle from the top
-                    if (this.y + this.h > rectangle.top && this.yOld + this.h <= rectangle.top) {
-                        this.y = rectangle.top - this.h;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                        this.inAir = false;
-                    // Character entered rectangle from the left
-                    } else if (this.x + this.w > rectangle.left && this.xOld + this.w <= rectangle.left) {
-                        this.x = rectangle.left - this.w;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered rectangle from the right
-                    } else if (this.x < rectangle.right && this.xOld >= rectangle.right) {
-                        this.x = rectangle.right;
-                        this.xOld = this.x;
-                        this.xVel = 0;
-                    // Character entered rectangle from the bottom
-                    } else if (this.y < rectangle.bottom && this.yOld >= rectangle.bottom) {
-                        this.y = rectangle.bottom;
-                        this.yOld = this.y;
-                        this.yVel = 0;
-                    }
-                }
-            });
-        });
-    }
+    collisionCheckPipes(list) {
+        const g = this.parent.parent;
 
-    collisionCheckPipes(pipeList) {
-        pipeList.forEach(pipe => {
-            if (pipe.opening === "top") {
-                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * pipe.blocksize && this.x < pipe.x + 2 * pipe.blocksize && this.x + this.w > pipe.x) {
-                    // Character entered pipe from the top
-                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
-                        if (pipe.destination &&
-                            this.parent.parent.keyStates.down && !this.parent.parent.keyStates.up && 
-                            this.x > pipe.x + pipe.blocksize * .25 && 
-                            this.x + this.w < pipe.x + 2 * pipe.blocksize - pipe.blocksize * .25) {
-                            this.x = pipe.x + pipe.blocksize / 2;
-                            this.parent.parent.transition = true;
-                            this.parent.parent.transitionType = "pipeEnterTop";
-                            this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
-                            this.parent.parent.destination = pipe.destination;
-                            this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.pipe.play();
+        list.forEach(item => {
+            if (item.opening === "top") {
+                if (this.bottom > item.top &&
+                    this.top < item.bottom &&
+                    this.left < item.right &&
+                    this.right > item.left) 
+                    {
+                    // Top
+                    if (this.bottom > item.top && this.bottomOld <= item.top) {
+                        if (item.destination &&
+                            g.keyStates.down && 
+                            !g.keyStates.up && 
+                            this.left > item.left + item.blocksize * .25 && 
+                            this.right < item.right - item.blocksize * .25)
+                        {
+                            this.x = item.x + item.blocksize / 2;
+                            g.setTransition("pipeEnterTop");
+                            g.destination = item.destination;
+                            g.audioFiles.sounds.pipe.currentTime = 0;
+                            g.audioFiles.sounds.pipe.play();
                         }
-                        this.y = pipe.y - this.h;
+                        this.y = item.top - this.h * this.blocksize;
                         this.yOld = this.y;
                         this.yVel = 0;
                         this.inAir = false;
-                    // Character entered pipe from the left
-                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
-                        this.x = pipe.x - this.w;
+                        this.updateBoundingBox();
+                    // Left
+                    } else if (this.right > item.left && this.rightOld <= item.left) {
+                        this.x = item.left - this.w * this.blocksize;
                         this.xOld = this.x;
                         this.xVel = 0;
-                    // Character entered pipe from the right
-                    } else if (this.x < pipe.x + 2 * pipe.blocksize && this.xOld >= pipe.x + 2 * pipe.blocksize) {
-                        this.x = pipe.x + 2 * pipe.blocksize;
+                        this.updateBoundingBox();
+                    // Right
+                    } else if (this.left < item.right + 2 * item.blocksize && this.leftOld >= item.left + 2 * item.blocksize) {
+                        this.x = item.right;
                         this.xOld = this.x;
                         this.xVel = 0;
-                    // Character entered pipe from the bottom
-                    } else if (this.y < pipe.y + pipe.size * pipe.blocksize && this.yOld >= pipe.y + pipe.size * pipe.blocksize) {
-                        this.y = pipe.y + pipe.size * pipe.blocksize;
+                        this.updateBoundingBox();
+                    // Bottom
+                    } else if (this.top < item.bottom && this.topOld >= item.bottom) {
+                        this.y = item.bottom;
                         this.yOld = this.y;
                         this.yVel = 0;
+                        this.updateBoundingBox();
                     }
                 }
-            } else if (pipe.opening === "left") {
-                if (this.y + this.h > pipe.y && this.y < pipe.y + pipe.size * pipe.blocksize && this.x < pipe.x + 2 * pipe.blocksize && this.x + this.w > pipe.x) {
-                    // Character entered pipe from the top
-                    if (this.y + this.h > pipe.y && this.yOld + this.h <= pipe.y) {
-                        this.y = pipe.y - this.h;
+            } else if (item.opening === "left") {
+                if (this.bottom > item.top &&
+                    this.top < item.bottom &&
+                    this.left < item.right &&
+                    this.right > item.left)
+                    {
+                    // Top
+                    if (this.bottom > item.top && this.bottomOld <= item.top) {
+                        this.y = item.top - this.h * this.blocksize;
                         this.yOld = this.y;
                         this.yVel = 0;
                         this.inAir = false;
-                    // Character entered pipe from the left
-                    } else if (this.x + this.w > pipe.x && this.xOld + this.w <= pipe.x) {
-                        if (pipe.destination &&
-                            this.parent.parent.keyStates.right && !this.parent.parent.keyStates.left && 
-                            this.y + this.h > pipe.y + pipe.blocksize * 1.25) {
-                            this.y = pipe.y + 2 * pipe.blocksize - this.h;
-                            this.parent.parent.transition = true;
-                            this.parent.parent.transitionType = "pipeEnterLeft";
-                            this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
-                            this.parent.parent.destination = pipe.destination;
-                            this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
-                            this.parent.parent.audioFiles.sounds.pipe.play();
+                        this.updateBoundingBox();
+                    // Left
+                    } else if (this.right > item.left && this.rightOld <= item.left) {
+                        if (item.destination &&
+                            g.keyStates.right &&
+                            !g.keyStates.left && 
+                            this.bottom > item.top + item.blocksize * 1.25)
+                        {
+                            this.y = item.bottom - this.h * this.blocksize;
+                            g.setTransition("pipeEnterLeft");
+                            g.destination = item.destination;
+                            g.audioFiles.sounds.pipe.currentTime = 0;
+                            g.audioFiles.sounds.pipe.play();
                         }
-                        this.x = pipe.x - this.w;
+                        this.x = item.left - this.w * this.blocksize;
                         this.xOld = this.x;
                         this.xVel = 0;
-                    // Character entered pipe from the right
-                    } else if (this.x < pipe.x + 2 * pipe.blocksize && this.xOld >= pipe.x + 2 * pipe.blocksize) {
-                        this.x = pipe.x + 2 * pipe.blocksize;
+                        this.updateBoundingBox();
+                    // Right
+                    } else if (this.left < item.right && this.leftOld >= item.right) {
+                        this.x = item.right;
                         this.xOld = this.x;
                         this.xVel = 0;
-                    // Character entered pipe from the bottom
-                    } else if (this.y < pipe.y + pipe.size * pipe.blocksize && this.yOld >= pipe.y + pipe.size * pipe.blocksize) {
-                        this.y = pipe.y + pipe.size * pipe.blocksize;
+                        this.updateBoundingBox();
+                    // Bottom
+                    } else if (this.top < item.bottom && this.topOld >= item.bottom) {
+                        this.y = item.bottom;
                         this.yOld = this.y;
                         this.yVel = 0;
+                        this.updateBoundingBox();
                     }
                 }
             }
         });
     }
 
-    collisionCheckItems(itemList) {
-        itemList.forEach(item => {
-            if (item.collision 
-                && this.y + this.h > item.y + item.hitboxOffsetTop 
-                && this.y + this.hitboxOffsetTop < item.y + this.blocksize - item.hitboxOffsetBottom 
-                && this.x + this.hitboxOffsetX < item.x + this.blocksize - item.hitboxOffsetX 
-                && this.x + this.w - this.hitboxOffsetX > item.x + item.hitboxOffsetX) {
+    collisionCheckItems(list) {
+        list.forEach(item => {
+            if (item.collision &&
+                this.bottom > item.top + item.hitboxOffsetTop &&
+                this.top + this.hitboxOffsetTop < item.bottom - item.hitboxOffsetBottom &&
+                this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX &&
+                this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX)
+            {
                 item.activate();
                 item.destroy();
             }
@@ -3371,44 +3659,26 @@ class Character {
     }
 
     collisionCheckEnemies(list) {
-        const character = this;
-        const game = character.parent.parent;
-        const c = {
-            top: this.y + this.hitboxOffsetTop,
-            topOld: this.yOld + this.hitboxOffsetTop,
-            bottom: this.y + this.h,
-            bottomOld: this.yOld + this.h,
-            left: this.x + this.hitboxOffsetX,
-            leftOld: this.xOld + this.hitboxOffsetX,
-            right: this.x + this.w - this.hitboxOffsetX,
-            rightOld: this.xOld + this.w - this.hitboxOffsetX
-        };
+        const g = this.parent.parent;
 
         list.forEach(item => {
-            const i = {
-                top: item.y + item.hitboxOffsetTop,
-                bottom: item.y + item.h - item.hitboxOffsetBottom,
-                left: item.x + item.hitboxOffsetX,
-                right: item.x + item.w - item.hitboxOffsetX
-            }
-
-            if (c.bottom > i.top && 
-                c.top < i.bottom && 
-                c.left < i.right && 
-                c.right > i.left) 
+            if (item.collision &&
+                this.bottom > item.top + item.hitboxOffsetTop && 
+                this.top + this.hitboxOffsetTop < item.bottom - item.hitboxOffsetBottom && 
+                this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX && 
+                this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX) 
             {
-                if (character.state.current === character.state.starman) {
-                    item.destroy();
-                    game.audioFiles.sounds.stomp.currentTime = 0;
-                    game.audioFiles.sounds.stomp.play();
+                if (this.state.current === this.state.starman) {
+                    item.plopDeath();
                 } else {
-                    // Character entered enemy from the top
-                    if (c.bottom > i.top && c.bottomOld <= i.top) {
-                        character.y = i.top - character.h;
-                        character.yOld = character.y;
-                        character.yVel = -20;
-                        game.audioFiles.sounds.stomp.currentTime = 0;
-                        game.audioFiles.sounds.stomp.play();
+                    // Top
+                    if (this.bottom > item.top + item.hitboxOffsetTop && this.bottomOld <= item.top + item.hitboxOffsetTop) {
+                        this.y = item.top - this.h * this.blocksize;
+                        this.yOld = this.y;
+                        this.yVel = -20;
+                        g.audioFiles.sounds.stomp.currentTime = 0;
+                        g.audioFiles.sounds.stomp.play();
+                        this.updateBoundingBox();
                         if (item.type === "koopaParatroopa") {
                             item.type = "koopaTroopa";
                             item.setSpriteOffsets();
@@ -3421,7 +3691,7 @@ class Character {
                             item.setProperties();
                         } else if (item.type === "shell") {
                             if (item.xVel === 0) {
-                                if (character.x >= item.x) {
+                                if (this.left >= item.left) {
                                     item.xVel = -20;
                                 } else {
                                     item.xVel = 20;
@@ -3429,27 +3699,28 @@ class Character {
                             } else {
                                 item.xVel = 0;
                             }
-                            game.audioFiles.sounds.kick.currentTime = 0;
-                            game.audioFiles.sounds.kick.play();
-                        } else {
-                            item.destroy();
+                            g.audioFiles.sounds.kick.currentTime = 0;
+                            g.audioFiles.sounds.kick.play();
+                        } else if (item.type === "goomba") {
+                            item.flatDeath();
                         }
-                    // Character entered enemy from other sides
-                    } else if (character.invincibility === 0) {
+                    } else if (this.invincibility === 0) {
                         if (item.type === "shell" && item.xVel === 0) {
-                            // Character entered shell from the left
-                            if (c.right > i.left && c.rightOld <= i.left) {
+                            // Left
+                            if (this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX && this.rightOld - this.hitboxOffsetX <= item.left + item.hitboxOffsetX) {
                                 item.xVel = 15;
-                                character.x = i.left - character.w;
-                            // Character entered shell from the right
-                            } else if (c.left < i.right && c.leftOld >= i.right) {
+                                this.x = item.left + item.hitboxOffsetX - this.w * this.blocksize - this.hitboxOffsetX;
+                                this.updateBoundingBox();
+                            // Right
+                            } else if (this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX && this.leftOld + this.hitboxOffsetX >= item.right - item.hitboxOffsetX) {
                                 item.xVel = -15;
-                                character.x = i.right;
+                                this.x = item.right - item.hitboxOffsetX;
+                                this.updateBoundingBox();
                             }
-                            game.audioFiles.sounds.kick.currentTime = 0;
-                            game.audioFiles.sounds.kick.play();
+                            g.audioFiles.sounds.kick.currentTime = 0;
+                            g.audioFiles.sounds.kick.play();
                         } else {
-                            character.gotInjured();
+                            this.gotInjured();
                         }
                     }
                 }
@@ -3458,80 +3729,80 @@ class Character {
     }
 
     collisionCheckPiranhas(list) {
-        const c = {
-            top: this.y + this.hitboxOffsetTop,
-            bottom: this.y + this.h,
-            left: this.x + this.hitboxOffsetX,
-            leftOld: this.xOld + this.hitboxOffsetX,
-            right: this.x + this.w - this.hitboxOffsetX,
-            rightOld: this.xOld + this.w - this.hitboxOffsetX
-        };
-
         list.forEach(item => {
-            const threshold = 1.5 * item.blocksize;
-            const i = {
-                top: item.y + item.hitboxOffsetTop,
-                bottom: item.y + item.h - item.hitboxOffsetBottom,
-                left: item.x + item.hitboxOffsetX,
-                right: item.x + item.w - item.hitboxOffsetX
-            }
-            if (c.bottom > i.top && 
-                c.top < i.bottom && 
-                c.left < i.right && 
-                c.right > i.left) 
+            if (this.bottom > item.top && 
+                this.top < item.bottom && 
+                this.left < item.right && 
+                this.right > item.left) 
             {
                 this.gotInjured();
-            } else if (c.left > i.right + threshold && c.leftOld <= i.right + threshold || c.right < i.left - threshold && c.rightOld >= i.left - threshold) {
+            } else if (this.left > item.right + item.canMoveThreshold && this.leftOld <= item.right + item.canMoveThreshold ||
+                       this.right < item.left - item.canMoveThreshold && this.rightOld >= item.left - item.canMoveThreshold)
+            {
                 item.canMove = true;
                 item.timeOut = 90;
             } 
-            else if (c.left < i.right + threshold && c.leftOld >= i.right + threshold || c.right > i.left - threshold && c.rightOld <= i.left - threshold) {
+            else if (this.left < item.right + item.canMoveThreshold && this.leftOld >= item.right + item.canMoveThreshold ||
+                     this.right > item.left - item.canMoveThreshold && this.rightOld <= item.left - item.canMoveThreshold)
+            {
                 item.canMove = false;
                 item.timeOut = 90;
             }
         });
     }
 
-    collisionCheckCoins(coinList) {
-        coinList.forEach(coin => {
-            if (this.y + this.h > coin.y && this.y < coin.y + this.blocksize && this.x < coin.x + this.blocksize && this.x + this.w > coin.x) {
-                coin.destroy();
+    collisionCheckCoins(list) {
+        list.forEach(item => {
+            if (this.bottom > item.top &&
+                this.top < item.bottom &&
+                this.left < item.right &&
+                this.right > item.left)
+            {
+                item.destroy();
             }
         });
     }
 
-    collisionCheckFlags(flagList) {
-        flagList.forEach(flag => {
-            if (this.x + this.w - this.hitboxOffsetX > flag.x && this.parent.transitionType !== "flagReached") {
-                if (this.y + this.h >= 920) {
-                    this.x = flag.x - this.w + this.hitboxOffsetX;
+    collisionCheckFlags(list) {
+        const g = this.parent.parent;
+
+        list.forEach(item => {
+            if (this.right - this.hitboxOffsetX > item.left && g.transitionType !== "flagReached") {
+                if (this.bottom >= item.bottom - item.blocksize) {
+                    this.x = item.right + this.blocksize;
                     this.xOld = this.x;
                     this.xVel = 0;
+                    this.updateBoundingBox();
                 } else {
-                    this.parent.parent.transitionType = "flagReached";
-                    this.parent.parent.transitionTimer = this.parent.parent.transitionTimers[this.parent.parent.transitionType];
-                    this.parent.parent.transition = true;
-                    this.x = flag.x;
-                    this.parent.parent.destination = flag.destination;
-                    this.parent.parent.audioFiles.sounds.flagpole.currentTime = 0;
-                    this.parent.parent.audioFiles.sounds.flagpole.play();
-                    this.parent.parent.music.pause();
-                    flag.pullDown();
+                    g.setTransition("flagReached");
+                    this.x = item.left;
+                    g.destination = item.destination;
+                    g.audioFiles.sounds.flagpole.currentTime = 0;
+                    g.audioFiles.sounds.flagpole.play();
+                    g.music.pause();
+                    item.pullDown();
+                    this.updateBoundingBox();
                 }
             }
-        })
+        });
     }
 
-    collisionCheckElevatorPlatforms(elevatorPlatformList) {
-        elevatorPlatformList.forEach(elevatorPlatform => {
-            if (this.x + this.w > elevatorPlatform.x && this.x < elevatorPlatform.x + elevatorPlatform.w * elevatorPlatform.blocksize) {
-                if (this.y + this.h > elevatorPlatform.y && this.yOld + this.h <= elevatorPlatform.y) {
-                    this.y = elevatorPlatform.y - this.h;
-                    this.yOld = this.y;
-                    if (elevatorPlatform.movementType === "down") this.yVel = elevatorPlatform.yVel;
-                    else this.yVel = 0;
-                    this.inAir = false;
-                }
+    collisionCheckElevatorPlatforms(list) {
+        list.forEach(item => {
+            if (this.right > item.left &&
+                this.left < item.right &&
+                this.bottom > item.top &&
+                this.bottomOld <= item.top)
+            {
+                this.y = item.top - this.h * this.blocksize;
+                this.yOld = this.y;
+
+                if (item.movementType === "down") this.yVel = item.yVel;
+                else this.yVel = 0;
+
+                this.inAir = false;
+
+                this.updateBoundingBox();
             }
         });
     }
@@ -3541,7 +3812,7 @@ class Character {
         this.collisionCheckLeftScreenEdge();
         this.collisionCheckFallingToDeath();
         if (this.parent.onScreenElements.elevatorPlatforms) this.collisionCheckElevatorPlatforms(this.parent.onScreenElements.elevatorPlatforms);
-        if (this.parent.onScreenElements.platforms) this.collisionCheckPlatforms(this.parent.onScreenElements.platforms);
+        if (this.parent.onScreenElements.platforms) this.collisionCheckRectangles(this.parent.onScreenElements.platforms);
         if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
         if (this.parent.onScreenElements.steps) this.collisionCheckSteps(this.parent.onScreenElements.steps);
         if (this.parent.onScreenElements.tiles) this.collisionCheckTiles(this.parent.onScreenElements.tiles);
@@ -3558,37 +3829,40 @@ class Character {
         if (this.movement.current === this.movement.sliding && this.xVel == 0) this.movement.current = this.movement.standing;
         else if (this.movement.current === this.movement.running && this.xVel == 0) this.movement.current = this.movement.standing;
         else if (this.movement.current === this.movement.walking && this.xVel == 0) this.movement.current = this.movement.standing;
-        else if (this.parent.parent.keyStates.down && !this.parent.parent.keyStates.up && this.h == 160) this.movement.current = this.movement.crouching;
+        else if (this.parent.parent.keyStates.down && !this.parent.parent.keyStates.up && this.h == 2) this.movement.current = this.movement.crouching;
         else if (this.inAir) this.movement.current = this.movement.jumping;
         else if (this.movement.current != this.movement.running && this.movement.current != this.movement.walking && this.movement.current != this.movement.sliding) this.movement.current = this.movement.standing;
     }
 
     setSprite() {
-        if (this.parent.parent.transitionType === "dying") return;
+        const g = this.parent.parent;
+
+        if (g.transitionType === "dying") return;
 
         if (this.state.current === this.state.normal) {
-            if (this.h == 80) {
+            if (this.h == 1) {
                 this.sY = 160;
             } else {
                 this.sY = 0;
             }
         } else if (this.state.current === this.state.flower) {
-            if (this.h == 80) {
+            if (this.h == 1) {
                 this.sY = 1120;
             } else {
                 this.sY = 960;
             }
-        } else if (this.state.current === this.state.star) {
-            if (this.parent.parent.frame % 10 == 0) {
+        } else if (this.state.current === this.state.starman) {
+            if (g.frame % 10 == 0) {
                 this.starTime--;
+
                 if (this.starTime == 0) {
                     this.state.current = this.state.last;
-                    this.parent.parent.audioFiles.music.starman.pause();
-                    this.parent.parent.music.currentTime = 0;
-                    this.parent.parent.music.play();
+                    g.audioFiles.music.starman.pause();
+                    g.music.currentTime = 0;
+                    g.music.play();
                 }
             }
-            if (this.h == 80) {
+            if (this.h == 1) {
                 this.sY = 1600 + this.starTime % 3 * 480;
             } else {
                 this.sY = 1440 + this.starTime % 3 * 480;
@@ -3601,12 +3875,12 @@ class Character {
         } else if (this.movement.current === this.movement.sliding) {
             this.sX = 320;
         } else if (this.movement.current === this.movement.running) {
-            if (this.parent.parent.frame % 5 === 0) {
+            if (g.frame % 5 === 0) {
                 this.frame++;
             }
             this.sX = this.frames.running[this.frame % this.frames.running.length];
         } else if (this.movement.current === this.movement.walking) {
-            if (this.parent.parent.frame % 10 === 0) {
+            if (g.frame % 10 === 0) {
                 this.frame++;
             }
             this.sX = this.frames.running[this.frame % this.frames.running.length];
@@ -3625,7 +3899,15 @@ class Character {
     }
 
     update() {
-        if (this.invincibility > 0) this.invincibility--;
+        if (this.invincibility > 0) {
+            this.invincibility--;
+            if (this.parent.parent.frame % 10 == 0) {
+                this.visible = !this.visible;
+            }
+        } else if (!this.parent.parent.transition) {
+            this.visible = true;
+        }
+
         if (this.fireballCooldown > 0) this.fireballCooldown--;
         if (this.parent.parent.transition) {
             this.runTransition();
@@ -3643,7 +3925,7 @@ class Character {
 
     draw() {
         if (this.visible) {
-            ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+            ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
         }
     }
 }
@@ -3652,12 +3934,13 @@ class FireBall {
     constructor(parent, x, y) {
         this.parent = parent;
         this.gravity = this.parent.gravity;
+        this.blocksize = this.parent.blocksize;
         this.x = x;
         this.xOld = x;
         this.y = y;
         this.yOld = y;
-        this.w = 40;
-        this.h = 40;
+        this.w = .5;
+        this.h = .5;
         this.yVel = 0;
         if (this.parent.character.facingRight) {
             this.xVel = 15;
@@ -3667,6 +3950,19 @@ class FireBall {
         this.sprites = objectSprites;
         this.sX = spriteOffsets.objects.theme.overworld.x + spriteOffsets.objects.type.fireball.x;
         this.sY = spriteOffsets.objects.type.fireball.y;
+
+        this.updateBoundingBox();
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
     }
 
     destroy() {
@@ -3683,78 +3979,83 @@ class FireBall {
         this.x += this.xVel;
         this.yOld = this.y;
         this.y += this.yVel;
+        this.updateBoundingBox();
     }
 
     collisionCheckRectangles(list) {
-        const f = {
-            left: this.x,
-            leftOld: this.xOld,
-            right: this.x + this.w,
-            rightOld: this.xOld + this.w,
-            top: this.y,
-            topOld: this.yOld,
-            bottom: this.y + this.h,
-            bottomOld: this.yOld + this.h
-        }
+        const g = this.parent.parent;
 
         list.forEach(item => {
             if (item.collision &&
-                f.left < item.right &&
-                f.right > item.left &&
-                f.top < item.bottom &&
-                f.bottom > item.top)
+                this.left < item.right &&
+                this.right > item.left &&
+                this.top < item.bottom &&
+                this.bottom > item.top)
             {
-                if (f.bottom > item.top && f.bottomOld <= item.top) {
-                    this.y = item.top - this.h;
-                    this.yVel = -15;
+                if (this.bottom > item.top && this.bottomOld <= item.top) {
+                    this.y = item.top - this.h * this.blocksize;
+                    this.yVel = -10;
+                    this.updateBoundingBox();
                 } else {
                     this.destroy();
+                    g.audioFiles.sounds.bump.currentTime = 0;
+                    g.audioFiles.sounds.bump.play()
                 }
             }
         });
     }
 
-    collisionCheckEnemies(list) {
-        const f = {
-            left: this.x,
-            leftOld: this.xOld,
-            right: this.x + this.w,
-            rightOld: this.xOld + this.w,
-            top: this.y,
-            topOld: this.yOld,
-            bottom: this.y + this.h,
-            bottomOld: this.yOld + this.h
-        }
+    collisionCheckSteps(list) {
+        list.forEach(item => {
+            this.collisionCheckRectangles(item.rectangles);
+        });
+    }
+
+    collisionCheckFlags(list) {
+        const g = this.parent.parent;
 
         list.forEach(item => {
-            const i = {
-                left: item.x,
-                right: item.x + item.w,
-                top: item.y,
-                bottom: item.y + item.h
-            }
-
-            if (f.left < i.right &&
-                f.right > i.left &&
-                f.top < i.bottom &&
-                f.bottom > i.top)
+            if (this.left < item.right &&
+                this.right > item.left &&
+                this.top < item.bottom &&
+                this.bottom > item.top)
             {
-                item.destroy();
+                this.destroy();
+                g.audioFiles.sounds.bump.currentTime = 0;
+                g.audioFiles.sounds.bump.play()
+            }
+        });
+    }
+
+    collisionCheckEnemies(list) {
+        list.forEach(item => {
+            if (item.collision &&
+                this.left < item.right &&
+                this.right > item.left &&
+                this.top < item.bottom &&
+                this.bottom > item.top)
+            {
+                item.fireballHit();
                 this.destroy();
             }
         });
     }
 
-    collisionCheckPipes(list) {
-
-    }
-
     collisionCheck() {
-        if (this.x > this.parent.parent.screensize.width || this.x + this.w < 0 || this.y > this.parent.parent.screensize.height) this.destroy();
+        const g = this.parent.parent;
+        const w = this.parent;
 
-        if (this.parent.onScreenElements.rectangles) this.collisionCheckRectangles(this.parent.onScreenElements.rectangles);
-        if (this.parent.onScreenElements.enemies) this.collisionCheckEnemies(this.parent.onScreenElements.enemies);
-        if (this.parent.onScreenElements.pipes) this.collisionCheckPipes(this.parent.onScreenElements.pipes);
+        if (this.left > g.screensize.width || this.right < 0 || this.top > g.screensize.height) this.destroy();
+
+        if (w.onScreenElements.rectangles) this.collisionCheckRectangles(w.onScreenElements.rectangles);
+        if (w.onScreenElements.platforms) this.collisionCheckRectangles(w.onScreenElements.platforms);
+        if (w.onScreenElements.elevatorPlatforms) this.collisionCheckRectangles(w.onScreenElements.elevatorPlatforms);
+        if (w.onScreenElements.tiles) this.collisionCheckRectangles(w.onScreenElements.tiles);
+        if (w.onScreenElements.flags) this.collisionCheckFlags(w.onScreenElements.flags);
+        if (w.onScreenElements.enemies) this.collisionCheckEnemies(w.onScreenElements.enemies);
+        if (w.onScreenElements.piranhas) this.collisionCheckEnemies(w.onScreenElements.piranhas);
+        if (w.onScreenElements.pipes) this.collisionCheckRectangles(w.onScreenElements.pipes);
+        if (w.onScreenElements.steps) this.collisionCheckSteps(w.onScreenElements.steps);
     }
 
     update() {
@@ -3765,10 +4066,11 @@ class FireBall {
 
     scroll(deltaX) {
         this.x -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
-        ctx.drawImage(this.sprites, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
     }
 }
 
@@ -3787,7 +4089,7 @@ class World {
         this.spawnLocation = worldData[this.worldID].spawnLocation;
         this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs"]
 
-        this.buildWorld(this.worldID);
+        this.build(this.worldID);
 
         if (this.destination.scrollOffset) {
             this.scroll(this.destination.scrollOffset);
@@ -3806,7 +4108,7 @@ class World {
         }
     }
 
-    buildWorld(worldID) {
+    build(worldID) {
         this.worldElements = {};
         this.onScreenElements = {};
         this.onScreenElements.fireballs = [];
@@ -3834,16 +4136,16 @@ class World {
     }
 
     spawnCharacter(x, y) {
-        this.character = new Character(this, x, y - this.parent.currentHeight, this.parent.currentHeight, this.parent.currentCharacterState);
+        this.character = new Character(this, x, y - this.parent.currentHeight * this.blocksize, this.parent.currentHeight, this.parent.currentCharacterState);
     }
 
     spawnFireBall(x, y) {
         this.onScreenElements.fireballs.push(new FireBall(this, x, y));
     }
 
-    spawnItem(x, y, theme, type, collision) {
-        if (!this.worldElements.items) this.worldElements["items"] = [];
-        this.worldElements.items.push(new Item(this, x, y, theme, type, collision));
+    spawnItem(x, y, theme, type) {
+        if (!this.worldElements.items) this.worldElements.items = [];
+        this.worldElements.items.push(new Item(this, x, y, theme, type));
     }
 
     update() {
@@ -3981,6 +4283,62 @@ class World {
     }
 }
 
+class StatusBar {
+    constructor(parent) {
+        this.parent = parent;
+        this.elements = {
+            name: {x: 80, y: 20},
+            score: {x: 80, y: 80}
+        }
+    }
+
+    padNumber(numberStr, paddingAmount) {
+        return numberStr.toString().padStart(paddingAmount, "0");
+    }
+
+    drawScore() {
+        const score = this.padNumber(this.parent.score, 6);
+        
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top"; 
+        ctx.fillText(this.parent.name, 80, 20);
+        ctx.fillText(score, 80, 80);
+    }
+
+    drawCoins() {
+        const coins = this.padNumber(this.parent.coins, 2);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top"; 
+        ctx.fillText("COINS", 720, 20);
+        ctx.fillText(coins, 720, 80);
+    }
+
+    drawWorld() {
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top"; 
+        ctx.fillText("WORLD", 1200, 20);
+        ctx.fillText(`${this.parent.worldNum}-${this.parent.levelNum}`, 1200, 80);
+    }
+
+    drawTime() {
+        const time = this.padNumber(this.parent.time, 3);
+        
+        ctx.textAlign = "end";
+        ctx.textBaseline = "top"; 
+        ctx.fillText("TIME", this.parent.screensize.width - 80, 20);
+        ctx.fillText(time, this.parent.screensize.width - 80, 80);
+    }
+
+    draw() {
+        ctx.font = "60px VT323";
+        ctx.fillStyle = "white";
+        this.drawScore();
+        this.drawCoins();
+        this.drawWorld();
+        this.drawTime();
+    }
+}
+
 class Game {
     constructor() {
         this.objectName = "Game";
@@ -3997,8 +4355,14 @@ class Game {
             up: false,
             down: false
         };
-        this.currentHeight = 80;
+        this.currentHeight = 1;
         this.currentCharacterState = "normal";
+        this.name = "MARIO";
+        this.score = 0;
+        this.coins = 0;
+        this.worldNum = 1;
+        this.levelNum = 1;
+        this.time = 400;
         this.lives = 3;
         this.destination = {worldID: "test"};
 
@@ -4060,6 +4424,8 @@ class Game {
                 worldClear: new Audio("audio/smb_world_clear.wav")
             }
         }
+
+        this.statusBar = new StatusBar(this);
 
         this.setVolume(GAME_VOLUME);
     }
@@ -4125,7 +4491,7 @@ class Game {
 
     loadWorld(height, state) {
         this.frame = 0;
-        this.currentHeight = height || 80;
+        this.currentHeight = height || 1;
         this.currentCharacterState = state || "normal";
         this.currentWorld = this.destination.worldID;
 
@@ -4154,6 +4520,7 @@ class Game {
     draw() {
         if (this.gameState.current !== this.gameState.play) return;
         this.world.draw();
+        this.statusBar.draw();
     }
 }
 
@@ -4194,6 +4561,7 @@ function handleKeyup(e) {
         game.keyStates.down = false;
     } else if (e.keyCode === 17) {
         game.keyStates.sprint = false;
+        game.world.character.canShootAgain = true;
     }
 }
 
