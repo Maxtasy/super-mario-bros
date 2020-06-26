@@ -183,8 +183,6 @@ const worldData = {
         music: "overworld",
         worldElements: {
             rectangles: [
-                {x: 160, y: 680, w: 10, type: "blockShiny", collision: true, individualCheck: true},
-                // {x: 160, y: 760, w: 13, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 0, y: 1000, w: 69},
                 {x: 5680, y: 1000, w: 15},
                 {x: 7120, y: 1000, w: 64},
@@ -197,9 +195,6 @@ const worldData = {
                 {x: 13440, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
                 {x: 15120, y: 360, h: 8, type: "stair", collision: true},
             ],
-            coins: [
-                {x: 320, y: 600}
-            ],
             steps : [
                 {x: 10720, y: 680, w: 4},
                 {x: 11200, y: 680, w: 4, reversed: true},
@@ -207,7 +202,11 @@ const worldData = {
                 {x: 12400, y: 680, w: 4, reversed: true},
                 {x: 14480, y: 360, w: 8},
             ],
+            fireBars: [
+                {x: 2680, y: 640, w: 7},
+            ],
             tiles: [
+                {x: 2640, y: 600, type: "disabled", collision: true},
                 {x: 80, y: 680, type: "questionBlock", item: {type: "starman"}},
                 {x: 1280, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
                 {x: 1600, y: 680, type: "blockShiny", collision: true},
@@ -290,7 +289,6 @@ const worldData = {
                 {x: 14320, y: 840},
             ],
             enemies: [
-                {x: 1760, y: 840, type: "koopaTroopa"},
                 {x: 3200, y: 920},
                 {x: 4080, y: 920},
                 {x: 4200, y: 920},
@@ -2613,20 +2611,95 @@ class Piranha {
 }
 
 class FireBar {
-    constructor() {
+    constructor(parent, x, y, length, counterClockWise) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.x = x;
+        this.y = y;
+        this.length = length;
+        this.w = this.length / 2;
+        this.counterClockWise = counterClockWise;
+        this.sprites = objectSprites;
+        this.sX = 520;
+        this.degree = 0;
 
+        if (this.counterClockWise) {
+            this.sY = 720;
+        } else {
+            this.sY = 760;
+        }
+
+        this.build();
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+    }
+
+    build() {
+        this.parts = [];
+
+        for (let i = 0; i < this.length; i++) {
+            this.parts.push({x: 0, y: i * 40, r: i * 40});
+        }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x - this.w * this.blocksize;
+        this.right = this.x + this.w * this.blocksize;
+
+        this.parts.forEach(part => {
+            part.left = this.x + part.x - 20;
+            part.right = this.x + part.x + 20;
+            part.top = this.y + part.y - 20;
+            part.bottom = this.y + part.y + 20;
+        });
+    }
+
+    addToOnScreen() {
+        this.onScreen = true;
+        this.parent.onScreenElements.fireBars.push(this);
+    }
+
+    removeFromOnScreen() {
+        this.onScreen = false;
+        const index = this.parent.onScreenElements.fireBars.indexOf(this);
+        this.parent.onScreenElements.fireBars.splice(index, 1);
+    }
+
+    degToRad(degree) {
+        return degree * 0.01745329252;
     }
 
     update() {
+        if (this.parent.parent.frame % 5 === 0) {
+            this.parts.forEach(part => {
+                const rad = this.degToRad(this.degree);
 
+                part.x = Math.sin(rad) * part.r;
+                part.y = Math.cos(rad) * part.r;
+            });
+            
+            if (this.counterClockWise) {
+                this.degree = (this.degree + 9) % 360;
+            } else {
+                this.degree = (this.degree - 9) % 360;
+            }
+
+            this.updateBoundingBox();
+        }
     }
 
     scroll(deltaX) {
-
+        this.x -= deltaX;
+        this.updateBoundingBox();
     }
 
     draw() {
-
+        this.parts.forEach(part => {
+            ctx.drawImage(this.sprites, this.sX, this.sY, 40, 40, this.x + part.x - 20, this.y + part.y - 20, 40, 40);
+        })
     }
 }
 
@@ -3043,7 +3116,8 @@ class Character {
         this.h = h || 1;
 
         this.hitboxOffsetX = 20;
-        this.hitboxOffsetTop = 25;
+        this.hitboxOffsetTopDefault = 25;
+        this.hitboxOffsetTop = this.hitboxOffsetTopDefault;
         this.hitboxOffsetCrouchExtra = 60;
 
         this.facingLeftYOffset = 240;
@@ -3147,7 +3221,7 @@ class Character {
             this.state.current = this.state.normal;
             this.parent.parent.audioFiles.sounds.pipe.currentTime = 0;
             this.parent.parent.audioFiles.sounds.pipe.play();
-        } else {
+        } else if (this.invincibility === 0) {
             this.yVel = -40;
             this.parent.parent.setTransition("dying");
             this.parent.parent.audioFiles.sounds.marioDie.currentTime = 0;
@@ -3731,9 +3805,9 @@ class Character {
     collisionCheckPiranhas(list) {
         list.forEach(item => {
             if (this.bottom > item.top && 
-                this.top < item.bottom && 
-                this.left < item.right && 
-                this.right > item.left) 
+                this.top + this.hitboxOffsetTop < item.bottom && 
+                this.left + this.hitboxOffsetX < item.right && 
+                this.right - this.hitboxOffsetX  > item.left) 
             {
                 this.gotInjured();
             } else if (this.left > item.right + item.canMoveThreshold && this.leftOld <= item.right + item.canMoveThreshold ||
@@ -3748,6 +3822,20 @@ class Character {
                 item.canMove = false;
                 item.timeOut = 90;
             }
+        });
+    }
+
+    collisionCheckFireBars(list) {
+        list.forEach(item => {
+            item.parts.forEach(part => {
+                if (this.bottom > part.top && 
+                    this.top + this.hitboxOffsetTop < part.bottom && 
+                    this.left + this.hitboxOffsetX < part.right && 
+                    this.right - this.hitboxOffsetX > part.left) 
+                {
+                    this.gotInjured();
+                }
+            });
         });
     }
 
@@ -3809,6 +3897,7 @@ class Character {
 
     collisionCheck() {
         if (this.parent.parent.transition || !this.collision) return;
+        this.hitboxOffsetTop = (this.movement.current === this.movement.crouching) ? this.hitboxOffsetTopDefault + this.hitboxOffsetCrouchExtra : this.hitboxOffsetTopDefault;
         this.collisionCheckLeftScreenEdge();
         this.collisionCheckFallingToDeath();
         if (this.parent.onScreenElements.elevatorPlatforms) this.collisionCheckElevatorPlatforms(this.parent.onScreenElements.elevatorPlatforms);
@@ -3822,6 +3911,7 @@ class Character {
         if (this.parent.onScreenElements.coins) this.collisionCheckCoins(this.parent.onScreenElements.coins);
         if (this.parent.onScreenElements.flags) this.collisionCheckFlags(this.parent.onScreenElements.flags);
         if (this.parent.onScreenElements.piranhas) this.collisionCheckPiranhas(this.parent.onScreenElements.piranhas);
+        if (this.parent.onScreenElements.fireBars) this.collisionCheckFireBars(this.parent.onScreenElements.fireBars);
     }
 
     setMovement() {
@@ -4087,7 +4177,7 @@ class World {
         this.backgroundColor = worldData[this.worldID].bg;
         this.theme = worldData[this.worldID].theme;
         this.spawnLocation = worldData[this.worldID].spawnLocation;
-        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs"]
+        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs", "fireBars"]
 
         this.build(this.worldID);
 
@@ -4131,6 +4221,7 @@ class World {
                 else if (key === "elevatorPlatforms") this.worldElements.elevatorPlatforms.push(new ElevatorPlatform(this, element.x, element.y, element.w, element.movementType));
                 else if (key === "flags") this.worldElements.flags.push(new Flag(this, element.x, element.y, element.h, element.theme, element.destination));
                 else if (key === "piranhas") this.worldElements.piranhas.push(new Piranha(this, element.x, element.y, element.theme, element.once));
+                else if (key === "fireBars") this.worldElements.fireBars.push(new FireBar(this, element.x, element.y, element.w, element.counterClockWise));
             });
         }
     }
@@ -4176,9 +4267,9 @@ class World {
         for (let key in this.worldElements) {
             this.worldElements[key].forEach(element => {
                 element.scroll(deltaX);
-                if (!element.onScreen && element.x < this.parent.screensize.width && element.x + element.w * element.blocksize > 0) {
+                if (!element.onScreen && element.left < this.parent.screensize.width && element.right > 0) {
                     element.addToOnScreen();
-                } else if (element.onScreen && element.x + element.w * element.blocksize < 0) {
+                } else if (element.onScreen && element.right < 0) {
                     element.removeFromOnScreen();
                 }
             });
@@ -4278,6 +4369,12 @@ class World {
         if (this.onScreenElements.pipes) {
             this.onScreenElements.pipes.forEach(pipe => {
                 pipe.draw();
+            });
+        }
+
+        if (this.onScreenElements.fireBars) {
+            this.onScreenElements.fireBars.forEach(fireBar => {
+                fireBar.draw();
             });
         }
     }

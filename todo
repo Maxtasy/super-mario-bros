@@ -1,4 +1,3 @@
-- Add fireBar (object)
 - Add Enemy type Bowser (has 5 hp, each fireball takes 1 away)
 - Add Enemy type Buzzy Beetle
 - Add Enemy type Bullet Bill (don't shoot if character within threshold)
