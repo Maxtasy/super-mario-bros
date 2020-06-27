@@ -48,7 +48,6 @@ const spriteOffsets = {
             castleDoorBottom: {x: 1040, y: 80},
             flagTopAlt: {x: 1120, y: 80},
             coinTile: {x: 1920, y: 80},
-            axe: {x: 2160, y: 80},
             pipeVerticalTopLeft: {x: 0, y: 160},
             pipeVerticalTopRight: {x: 80, y: 160},
             pipeHorizontalTopLeft: {x: 160, y: 160},
@@ -162,8 +161,17 @@ const spriteOffsets = {
             goomba: {x: 0, y: 80},
             koopaTroopa: {x: 480, y: 0},
             koopaParatroopa: {x: 640, y: 0},
-            shell: {x: 800, y: 80},
-            piranha: {x: 960, y: 0}
+            koopaShell: {x: 800, y: 80},
+            piranha: {x: 960, y: 0},
+            buzzyBeetle: {x: 2560, y: 80},
+            buzzyBeetleShell: {x: 2720, y: 80},
+            spinyEgg: {x: 2240, y: 80},
+            spiny: {x: 2400, y: 80},
+            lakitu: {x: 2080, y: 0},
+            hammerBro: {x: 1600, y: 0},
+            bulletBill: {x: 2800, y: 80},
+            bloober: {x: 2960, y: 0},
+            cheepCheep: {x: 3120, y: 80},
         }
     }
 }
@@ -203,10 +211,10 @@ const worldData = {
                 {x: 14480, y: 360, w: 8},
             ],
             fireBars: [
-                {x: 2680, y: 640, w: 7},
+                {x: 2680, y: 340, w: 7},
             ],
             tiles: [
-                {x: 2640, y: 600, type: "disabled", collision: true},
+                {x: 2640, y: 300, type: "disabled", collision: true},
                 {x: 80, y: 680, type: "questionBlock", item: {type: "starman"}},
                 {x: 1280, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
                 {x: 1600, y: 680, type: "blockShiny", collision: true},
@@ -289,6 +297,7 @@ const worldData = {
                 {x: 14320, y: 840},
             ],
             enemies: [
+                {x: 800, y: 920, type: "buzzyBeetle"},
                 {x: 3200, y: 920},
                 {x: 4080, y: 920},
                 {x: 4200, y: 920},
@@ -939,6 +948,7 @@ const worldData = {
         },
         bg: "#000000",
         width: 12800,
+        levelEndLine: 12000,
         gravity: 2.15,
         music: "castle",
         worldElements: {
@@ -1002,12 +1012,13 @@ const worldData = {
                 {x: 9040, y: 360, type: "secret"},
 
                 {x: 11200, y: 680, type: "bridgeRope"},
-                
-                {x: 11280, y: 600, type: "axe", collision: true},
             ],
             elevatorPlatforms: [
                 {x: 11040, y: 440, w: 2, movementType: "leftRight"}
-            ]
+            ],
+            axes: [
+                {x: 11280, y: 600}
+            ],
         }
     },
     21: {
@@ -1047,7 +1058,6 @@ class Tile {
         this.sprites = tileSprites;
         this.animateSequences = {
             "questionBlock": [1920, 1920, 2000, 2080, 2000],
-            "axe": [2160, 2160, 2240, 2320, 2240],
         }
 
         if (this.animateSequences[this.type]) {
@@ -1072,7 +1082,7 @@ class Tile {
 
         this.updateBoundingBox();
 
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
             this.addToOnScreen();
         }
     }
@@ -1195,6 +1205,70 @@ class Tile {
         if (world.onScreenElements.coins) this.collisionCheckCoins(world.onScreenElements.coins);
         if (world.onScreenElements.enemies) this.collisionCheckEnemies(world.onScreenElements.enemies);
         if (world.onScreenElements.items) this.collisionCheckItems(world.onScreenElements.items);
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        this.updateBoundingBox();
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
+    }
+}
+
+class Axe {
+    constructor(parent, x, y) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.frame = 0;
+        this.x = x;
+        this.y = y;
+        this.w = 1;
+        this.h = 1;
+        this.sX = 2160;
+        this.sY =  80;
+        this.sprites = tileSprites;
+        this.frames = [0, 0, 80, 160, 80];
+
+        this.updateBoundingBox();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.leftOld = this.xOld;
+        this.right = this.x + this.w * this.blocksize;
+        this.rightOld = this.xOld + this.w * this.blocksize;
+        this.top = this.y;
+        this.topOld = this.yOld;
+        this.bottom = this.y + this.h * this.blocksize;
+        this.bottomOld = this.yOld + this.h * this.blocksize;
+    }
+
+    addToOnScreen() {
+        this.onScreen = true;
+        this.parent.onScreenElements.axes.push(this);
+    }
+
+    removeFromOnScreen() {
+        this.onScreen = false;
+        const index = this.parent.onScreenElements.axes.indexOf(this);
+        this.parent.onScreenElements.axes.splice(index, 1);
+    }
+
+    setSprite() {
+        if (this.parent.parent.frame % 10 === 0) {
+            this.frame = (this.frame + 1) % this.frames.length;
+            this.sX = 2160 + this.frames[this.frame];
+        }
+    }
+
+    update() {
+        this.setSprite();
     }
 
     scroll(deltaX) {
@@ -2151,8 +2225,24 @@ class Enemy {
                 hitboxOffsetBottom: 25,
                 xVel: 5,
                 yVel: 0,
-                stompable: true,
-                shootable: true,
+            },
+            "buzzyBeetle": {
+                w: 1,
+                h: 1,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 5,
+                hitboxOffsetBottom: 20,
+                xVel: 5,
+                yVel: 0,
+            },
+            "buzzyBeetleShell": {
+                w: 1,
+                h: 1,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 5,
+                hitboxOffsetBottom: 20,
+                xVel: 0,
+                yVel: 0,
             },
             "koopaTroopa": {
                 w: 1,
@@ -2162,8 +2252,6 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 5,
                 yVel: 0,
-                stompable: true,
-                shootable: true,
             },
             "koopaParatroopa": {
                 w: 1,
@@ -2173,10 +2261,8 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 3,
                 yVel: 5,
-                stompable: true,
-                shootable: true,
             },
-            "shell": {
+            "koopaShell": {
                 w: 1,
                 h: 1,
                 hitboxOffsetX: 15,
@@ -2184,9 +2270,7 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 0,
                 yVel: 0,
-                stompable: true,
-                shootable: true,
-            }
+            },
         }
         this.gravity = this.parent.gravity;
         this.frame = 0;
@@ -2206,14 +2290,21 @@ class Enemy {
             goomba: [0, 80],
             koopaTroopa: [0, 80],
             koopaParatroopa: [0, 80],
-        }
-
-        if (this.parent.constructor.name === "World" && this.x < this.parent.parent.screensize.width) {
-            this.addToOnScreen();
+            buzzyBeetle: [0, 80],
+            hammerBro: [0, 80, 160, 240],
+            lakitu: [0, 80],
+            spinyEgg: [0, 80],
+            spiny: [0, 80],
+            bloober: [0, 80],
+            cheepCheep: [0, 80]
         }
 
         this.setSpriteOffsets();
         this.setProperties();
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
     }
 
     updateBoundingBox() {
@@ -2244,10 +2335,9 @@ class Enemy {
     }
 
     setProperties() {
+        this.frame = 0;
         this.w = this.enemyProperties[this.type].w;
         this.h = this.enemyProperties[this.type].h;
-        this.stompable = this.enemyProperties[this.type].stompable;
-        this.shootable = this.enemyProperties[this.type].shootable;
         this.xVel = this.enemyProperties[this.type].xVel;
         this.yVel = this.enemyProperties[this.type].yVel;
         if (!this.facingRight) this.xVel *= -1;
@@ -2262,7 +2352,7 @@ class Enemy {
             this.sequence = null;
         }
         
-        if (this.type === "shell") this.shellTime = 0;
+        if (this.type === "koopaShell" || this.type === "buzzyBeetleShell") this.shellTime = 0;
 
         this.updateBoundingBox();
     }
@@ -2397,7 +2487,7 @@ class Enemy {
             
             if ((this.right > item.left && this.rightOld <= item.left) || (this.left < item.right && this.leftOld >= item.right))
             {
-                if (this.type === "shell" && this.xVel != 0) {
+                if ((this.type === "koopaShell" || this.type === "buzzyBeetleShell" ) && this.xVel != 0) {
                     item.plopDeath();
                     this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
                     this.parent.parent.audioFiles.sounds.kick.play();
@@ -2446,14 +2536,18 @@ class Enemy {
         if (this.destroyTimer > 0) this.destroyTimer--;
         else if (this.destroyTimer === 0) this.destroy();
 
-        if (this.type === "shell") {
+        if (this.type === "koopaShell" || this.type === "buzzyBeetleShell") {
             this.shellTime++;
 
-            if (this.shellTime === 360) {
+            if (this.type === "koopaShell" && this.shellTime === 360) {
                 this.sX += 80;
             } else if (this.shellTime >= 480) {
-                this.type = "koopaTroopa";
-                this.y -= this.h * this.blocksize;
+                if (this.type === "koopaShell") {
+                    this.type = "koopaTroopa";
+                    this.y -= this.h * this.blocksize;
+                } else {
+                    this.type = "buzzyBeetle";
+                }
                 this.setProperties();
             }
         }
@@ -2466,6 +2560,204 @@ class Enemy {
     scroll(deltaX) {
         this.x -= deltaX;
         this.xOld -= deltaX;
+        this.updateBoundingBox();
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
+    }
+}
+
+class Bowser {
+    constructor(parent, x, y) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.gravity = 1.5;
+        this.frame = 0;
+        this.x = x;
+        this.xInitial = this.x;
+        this.y = y;
+        this.yInitial = this.y;
+        this.w = 2;
+        this.h = 2;
+        this.sX = 3280;
+        this.sY = 160;
+        this.xVel = -3;
+        this.sprites = enemySprites;
+        this.hitpoints = 5;
+        this.flameShootTimer = 130;
+        this.jumpTimer = 150;
+        this.frames = [0, 160, 320, 480];
+        this.jumping = false;
+
+        if (this.parent.constructor.name === "World" && this.left < this.parent.parent.screensize.width) {
+            this.addToOnScreen();
+        }
+
+        this.updateBoundingBox();
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.right = this.x + this.w * this.blocksize;
+
+        this.hitboxHead = {top: this.y + 10, bottom: this.y + 100, left: this.x, right: this.x + this.blocksize};
+        this.hitboxTail = {top: this.y + 50, bottom: this.y + 140, left: this.x + this.blocksize, right: this.x + this.blocksize * 2};
+    }
+
+    addToOnScreen() {
+        this.onScreen = true;
+        this.parent.onScreenElements.bowsers.push(this);
+    }
+
+    removeFromOnScreen() {
+        this.onScreen = false;
+        const index = this.parent.onScreenElements.bowsers.indexOf(this);
+        this.parent.onScreenElements.bowsers.splice(index, 1);
+    }
+
+    fireballHit() {
+        this.hitpoints--;
+        if (this.hitpoints <= 0) this.plopDeath();
+    }
+
+    plopDeath() {
+        this.yVel = -30;
+    }
+
+    destroy() {
+        const enemyIndex = this.parent.worldElements.bowsers.indexOf(this);
+        this.parent.worldElements.bowsers.splice(enemyIndex, 1);
+
+        const index = this.parent.onScreenElements.bowsers.indexOf(this);
+        this.parent.onScreenElements.bowsers.splice(index, 1);
+    }
+
+    jump() {
+        this.jumping = true;
+        this.yVel = -25;
+    }
+
+    setVelocities() {
+        if (this.jumping || this.hitpoints <= 0) {
+            this.yVel += this.gravity;
+        }
+    }
+
+    updatePosition() {
+        this.x += this.xVel;
+
+        if (this.x < this.xInitial - this.w * this.blocksize || this.x > this.xInitial) {
+            this.xVel *= -1;
+        }
+
+        if (this.jumping || this.hitpoints <= 0) {
+            this.y += this.yVel;
+            if (this.hitpoints <= 0 && this.y > this.parent.parent.screensize.height) {
+                this.destroy();
+            } else if (this.hitpoints > 0 && this.y >= this.yInitial) {
+                this.y = this.yInitial;
+                this.jumping = false;
+                this.yVel = 0;
+            }
+        }
+
+        this.updateBoundingBox();
+    }
+
+    setSprite() {
+        if (this.parent.parent.frame % 10 == 0) {
+            this.frame = (this.frame + 1) % this.frames.length;
+            this.sX = 3280 + this.frames[this.frame];
+        }
+    }
+
+    update() {
+        this.flameShootTimer--;
+
+        if (this.flameShootTimer <= 0) {
+            this.parent.spawnBowserFlame(this.x, this.y);
+            this.flameShootTimer = 130;
+        }
+
+        this.jumpTimer--;
+
+        if (this.jumpTimer <= 0) {
+            this.jump();
+            this.jumpTimer = 150;
+        }
+        this.setVelocities();
+        this.updatePosition();
+        this.setSprite();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
+        this.xInitial -= deltaX;
+        this.updateBoundingBox();
+    }
+
+    draw() {
+        ctx.drawImage(this.sprites, this.sX, this.sY, this.w * this.blocksize, this.h * this.blocksize, this.x, this.y, this.w * this.blocksize, this.h * this.blocksize);
+    }
+}
+
+class BowserFlame {
+    constructor(parent, x, y) {
+        this.parent = parent;
+        this.blocksize = this.parent.blocksize;
+        this.frame = 0;
+        this.x = x;
+        this.y = y;
+        this.w = 1.5;
+        this.h = .5;
+        this.sX = 3920;
+        this.sY = 0;
+        this.hitboxOffsetTop = 20;
+        this.hitboxOffsetBottom = 0;
+        this.hitboxOffsetLeft = 30;
+        this.hitboxOffsetRight = 75;
+        this.xVel = -5;
+        this.sprites = enemySprites;
+        this.frames = [0, 40];
+    }
+
+    destroy() {
+        const index = this.parent.onScreenElements.bowserFlames.indexOf(this);
+        this.parent.onScreenElements.bowserFlames.splice(index, 1);
+    }
+
+    updateBoundingBox() {
+        this.left = this.x;
+        this.right = this.x + this.w * this.blocksize;
+        this.top = this.y;
+        this.bottom = this.y + this.h * this.blocksize;
+    }
+
+    updatePosition() {
+        this.x += this.xVel;
+        this.updateBoundingBox();
+    }
+
+    setSprite() {
+        if (this.parent.parent.frame % 10 == 0) {
+            this.frame = (this.frame + 1) % this.frames.length;
+            this.sY = 0 + this.frames[this.frame];
+        }
+    }
+
+    collisionCheck() {
+        if (this.left > this.parent.parent.screensize.width || this.right < 0 || this.top > this.parent.parent.screensize.height) this.destroy();
+    }
+
+    update() {
+        this.updatePosition();
+        this.setSprite();
+        this.collisionCheck();
+    }
+
+    scroll(deltaX) {
+        this.x -= deltaX;
         this.updateBoundingBox();
     }
 
@@ -3118,6 +3410,7 @@ class Character {
         this.hitboxOffsetX = 20;
         this.hitboxOffsetTopDefault = 25;
         this.hitboxOffsetTop = this.hitboxOffsetTopDefault;
+        this.hitboxOffsetBottom = 0;
         this.hitboxOffsetCrouchExtra = 60;
 
         this.facingLeftYOffset = 240;
@@ -3269,6 +3562,12 @@ class Character {
             }
 
             g.transitionTimer--;
+        } else if (g.transitionType === "axeReached") {
+            if (this.right < w.levelEndLine) {
+                this.xVel = 5;
+            } else {
+                this.xVel = 0;
+            }
         } else if (g.transitionType === "pipeEnterTop") {
             if (g.transitionTimer == 0) {
                 g.transition = false;
@@ -3757,18 +4056,21 @@ class Character {
                             item.type = "koopaTroopa";
                             item.setSpriteOffsets();
                             item.setProperties();
+                        } else if (item.type === "buzzyBeetle") {
+                            item.type = "buzzyBeetleShell";
+                            item.setSpriteOffsets();
+                            item.setProperties();
                         } else if (item.type === "koopaTroopa") {
-                            item.frame = 0;
-                            item.type = "shell";
+                            item.type = "koopaShell";
                             item.y += 80;
                             item.setSpriteOffsets();
                             item.setProperties();
-                        } else if (item.type === "shell") {
+                        } else if (item.type === "koopaShell" || "buzzyBeetleShell") {
                             if (item.xVel === 0) {
                                 if (this.left >= item.left) {
-                                    item.xVel = -20;
+                                    item.xVel = -15;
                                 } else {
-                                    item.xVel = 20;
+                                    item.xVel = 15;
                                 }
                             } else {
                                 item.xVel = 0;
@@ -3779,7 +4081,7 @@ class Character {
                             item.flatDeath();
                         }
                     } else if (this.invincibility === 0) {
-                        if (item.type === "shell" && item.xVel === 0) {
+                        if ((item.type === "koopaShell" || item.type === "buzzyBeetleShell") && item.xVel === 0) {
                             // Left
                             if (this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX && this.rightOld - this.hitboxOffsetX <= item.left + item.hitboxOffsetX) {
                                 item.xVel = 15;
@@ -3821,6 +4123,46 @@ class Character {
             {
                 item.canMove = false;
                 item.timeOut = 90;
+            }
+        });
+    }
+
+    collisionCheckBowserFlames(list) {
+        list.forEach(item => {
+            if (this.bottom > item.top && 
+                this.top + this.hitboxOffsetTop < item.bottom - item.hitboxOffsetBottom && 
+                this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetRight&& 
+                this.right - this.hitboxOffsetX  > item.left + item.hitboxOffsetLeft) 
+            {
+                this.gotInjured();
+            }
+        });
+    }
+
+    collisionCheckAxes(list) {
+        list.forEach(item => {
+            if (this.bottom > item.top && 
+                this.top + this.hitboxOffsetTop < item.bottom && 
+                this.left + this.hitboxOffsetX < item.right && 
+                this.right - this.hitboxOffsetX  > item.left) 
+            {
+                this.parent.parent.setTransition("axeReached");
+            }
+        });
+    }
+
+    collisionCheckBowsers(list) {
+        list.forEach(item => {
+            if ((this.bottom > item.hitboxHead.top && 
+                this.top + this.hitboxOffsetTop < item.hitboxHead.bottom && 
+                this.left + this.hitboxOffsetX < item.hitboxHead.right && 
+                this.right - this.hitboxOffsetX  > item.hitboxHead.left) ||
+                (this.bottom > item.hitboxTail.top && 
+                this.top + this.hitboxOffsetTop < item.hitboxTail.bottom && 
+                this.left + this.hitboxOffsetX < item.hitboxTail.right && 
+                this.right - this.hitboxOffsetX  > item.hitboxTail.left))
+            {
+                this.gotInjured();
             }
         });
     }
@@ -3912,6 +4254,9 @@ class Character {
         if (this.parent.onScreenElements.flags) this.collisionCheckFlags(this.parent.onScreenElements.flags);
         if (this.parent.onScreenElements.piranhas) this.collisionCheckPiranhas(this.parent.onScreenElements.piranhas);
         if (this.parent.onScreenElements.fireBars) this.collisionCheckFireBars(this.parent.onScreenElements.fireBars);
+        if (this.parent.onScreenElements.bowserFlames) this.collisionCheckBowserFlames(this.parent.onScreenElements.bowserFlames);
+        if (this.parent.onScreenElements.bowsers) this.collisionCheckBowsers(this.parent.onScreenElements.bowsers);
+        if (this.parent.onScreenElements.axes) this.collisionCheckAxes(this.parent.onScreenElements.axes);
     }
 
     setMovement() {
@@ -4131,6 +4476,23 @@ class FireBall {
         });
     }
 
+    collisionCheckBowsers(list) {
+        list.forEach(item => {
+            if ((this.bottom > item.hitboxHead.top && 
+                this.top < item.hitboxHead.bottom && 
+                this.left < item.hitboxHead.right && 
+                this.right > item.hitboxHead.left) ||
+                (this.bottom > item.hitboxTail.top && 
+                this.top < item.hitboxTail.bottom && 
+                this.left < item.hitboxTail.right && 
+                this.right > item.hitboxTail.left))
+            {
+                item.fireballHit();
+                this.destroy();
+            }
+        });
+    }
+
     collisionCheck() {
         const g = this.parent.parent;
         const w = this.parent;
@@ -4146,6 +4508,7 @@ class FireBall {
         if (w.onScreenElements.piranhas) this.collisionCheckEnemies(w.onScreenElements.piranhas);
         if (w.onScreenElements.pipes) this.collisionCheckRectangles(w.onScreenElements.pipes);
         if (w.onScreenElements.steps) this.collisionCheckSteps(w.onScreenElements.steps);
+        if (w.onScreenElements.bowsers) this.collisionCheckBowsers(w.onScreenElements.bowsers);
     }
 
     update() {
@@ -4177,7 +4540,7 @@ class World {
         this.backgroundColor = worldData[this.worldID].bg;
         this.theme = worldData[this.worldID].theme;
         this.spawnLocation = worldData[this.worldID].spawnLocation;
-        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs", "fireBars"]
+        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs", "fireBars", "bowsers", "bowserFlames", "axes"]
 
         this.build(this.worldID);
 
@@ -4201,7 +4564,6 @@ class World {
     build(worldID) {
         this.worldElements = {};
         this.onScreenElements = {};
-        this.onScreenElements.fireballs = [];
 
         for (let key in worldData[worldID].worldElements) {
             this.worldElements[key] = [];
@@ -4222,6 +4584,8 @@ class World {
                 else if (key === "flags") this.worldElements.flags.push(new Flag(this, element.x, element.y, element.h, element.theme, element.destination));
                 else if (key === "piranhas") this.worldElements.piranhas.push(new Piranha(this, element.x, element.y, element.theme, element.once));
                 else if (key === "fireBars") this.worldElements.fireBars.push(new FireBar(this, element.x, element.y, element.w, element.counterClockWise));
+                else if (key === "bowsers") this.worldElements.bowsers.push(new Bowser(this, element.x, element.y));
+                else if (key === "axes") this.worldElements.axes.push(new Axe(this, element.x, element.y));
             });
         }
     }
@@ -4231,7 +4595,15 @@ class World {
     }
 
     spawnFireBall(x, y) {
+        if (!this.onScreenElements.fireballs) this.onScreenElements.fireballs = [];
         this.onScreenElements.fireballs.push(new FireBall(this, x, y));
+    }
+
+    spawnBowserFlame(x, y) {
+        if (!this.onScreenElements.bowserFlames) this.onScreenElements.bowserFlames = [];
+        this.onScreenElements.bowserFlames.push(new BowserFlame(this, x, y));
+        this.parent.audioFiles.sounds.bowserFire.currentTime = 0;
+        this.parent.audioFiles.sounds.bowserFire.play();
     }
 
     spawnItem(x, y, theme, type) {
@@ -4275,9 +4647,17 @@ class World {
             });
         }
 
-        this.onScreenElements.fireballs.forEach(fireball => {
-            fireball.scroll(deltaX);
-        });
+        if (this.onScreenElements.fireballs) {
+            this.onScreenElements.fireballs.forEach(fireball => {
+                fireball.scroll(deltaX);
+            });
+        }
+
+        if (this.onScreenElements.bowserFlames) {
+            this.onScreenElements.bowserFlames.forEach(bowserFlame => {
+                bowserFlame.scroll(deltaX);
+            });
+        }
         
         if (this.character) this.character.scroll(deltaX);
     }
@@ -4337,6 +4717,11 @@ class World {
                 tile.draw();
             });
         }
+        if (this.onScreenElements.axes) {
+            this.onScreenElements.axes.forEach(axe => {
+                axe.draw();
+            });
+        }
         if (this.onScreenElements.flags) {
             this.onScreenElements.flags.forEach(flag => {
                 flag.draw();
@@ -4357,24 +4742,30 @@ class World {
                 item.draw();
             });
         }
-
         if (this.character) this.character.draw();
-
         if (this.onScreenElements.fireballs) {
             this.onScreenElements.fireballs.forEach(fireball => {
                 fireball.draw();
             });
         }
-
         if (this.onScreenElements.pipes) {
             this.onScreenElements.pipes.forEach(pipe => {
                 pipe.draw();
             });
         }
-
         if (this.onScreenElements.fireBars) {
             this.onScreenElements.fireBars.forEach(fireBar => {
                 fireBar.draw();
+            });
+        }
+        if (this.onScreenElements.bowsers) {
+            this.onScreenElements.bowsers.forEach(bowser => {
+                bowser.draw();
+            });
+        }
+        if (this.onScreenElements.bowserFlames) {
+            this.onScreenElements.bowserFlames.forEach(bowserFlame => {
+                bowserFlame.draw();
             });
         }
     }

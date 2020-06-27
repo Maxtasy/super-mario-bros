@@ -1,6 +1,6 @@
-- Add Enemy type Bowser (has 5 hp, each fireball takes 1 away)
-- Add Enemy type Buzzy Beetle
-- Add Enemy type Bullet Bill (don't shoot if character within threshold)
+- Axe transition (remove bridge, freeze bowser, let hi fall down)
+- Add Cannon object that spawns enemy Bullet Bill (don't shoot if character within threshold)
+- Add Enemy type Bullet Bill
 - Add Enemy type Lakitu
 - Add Enemy type Spiny Egg
 - Add Enemy type Spiny
