@@ -29,6 +29,7 @@ const spriteOffsets = {
             floor: {x: 0, y: 0},
             blockShiny: {x: 80, y: 0},
             block: {x: 160, y: 0},
+            fence: {x: 400, y: 0},
             cannonTop: {x: 720, y: 0},
             castleTop: {x: 880, y: 0},
             castleWindowsLeft: {x: 960, y: 0},
@@ -948,7 +949,7 @@ const worldData = {
         },
         bg: "#000000",
         width: 12800,
-        levelEndLine: 12000,
+        levelEndLine: 12080,
         gravity: 2.15,
         music: "castle",
         worldElements: {
@@ -1012,17 +1013,34 @@ const worldData = {
                 {x: 9040, y: 360, type: "secret"},
 
                 {x: 11200, y: 680, type: "bridgeRope"},
+
+                {x: 12240, y: 840, type: "mushroomRetainerTop"},
+                {x: 12240, y: 920, type: "mushroomRetainerBottom"},
+            ],
+            fireBars: [
+                {x: 2440, y: 800, counterClockWise: true},
+                {x: 3960, y: 480, counterClockWise: true},
+                {x: 4880, y: 480, counterClockWise: true},
+                {x: 5400, y: 480, counterClockWise: true},
+
+                {x: 6120, y: 720, counterClockWise: true},
+                {x: 6760, y: 720, counterClockWise: true},
+
+                {x: 7080, y: 320},
             ],
             elevatorPlatforms: [
                 {x: 11040, y: 440, w: 2, movementType: "leftRight"}
             ],
             axes: [
-                {x: 11280, y: 600}
+                {x: 11280, y: 600, destination: {worldID: 21}}
             ],
+            bowsers: [
+                {x: 10800, y: 600}
+            ]
         }
     },
     21: {
-        theme: "overground",
+        theme: "overworld",
         spawnLocation: {
             x: 160,
             y: 1000
@@ -1032,7 +1050,156 @@ const worldData = {
         levelEndLine: 16560,
         music: "overworld",
         worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 92},
+                {x: 7680, y: 1000, w: 10},
+                {x: 8720, y: 1000, w: 30},
+                {x: 11360, y: 1000, w: 10},
+                {x: 12320, y: 1000, w: 59},
+                {x: 2320, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 2720, y: 680, h: 2, type: "stair", collision: true},
+                {x: 2720, y: 840, w: 2, h: 2, type: "stair", collision: true},
+                {x: 5600, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 6480, y: 360, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 6720, y: 360, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 7360, y: 360, w: 4, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 10080, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 12320, y: 760, h: 3, type: "stair", collision: true},
+                {x: 13120, y: 360, w: 5, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 14800, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 15200, y: 200, w: 2, h: 10, type: "stair", collision: true},
+                {x: 1120, y: 920, w: 4, type: "fence"},
+                {x: 3040, y: 920, w: 2, type: "fence"},
+                {x: 4960, y: 920, w: 4, type: "fence"},
+                {x: 6880, y: 920, w: 2, type: "fence"},
+                {x: 8800, y: 920, w: 4, type: "fence"},
+                {x: 10720, y: 920, w: 2, type: "fence"},
+                {x: 12640, y: 920, w: 4, type: "fence"},
+                {x: 14560, y: 920, w: 2, type: "fence"},
+            ],
+            steps: [
+                {x: 1600, y: 600, w: 5}
+            ],
+            tiles: [
+                {x: 1200, y: 680, type: "blockShiny", collision: true},
+                {x: 1280, y: 680, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 1360, y: 680, type: "blockShiny", collision: true},
+                {x: 2240, y: 680, type: "secret"},
+                {x: 2240, y: 360, type: "secret", item: {type: "oneUp"}},
+                {x: 4240, y: 360, type: "questionBlock"},
+                {x: 4320, y: 360, type: "questionBlock"},
+                {x: 4400, y: 360, type: "questionBlock"},
+                {x: 4480, y: 360, type: "questionBlock"},
+                {x: 4560, y: 360, type: "questionBlock"},
+                {x: 4240, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 4320, y: 680, type: "questionBlock"},
+                {x: 4400, y: 680, type: "questionBlock"},
+                {x: 4480, y: 680, type: "questionBlock"},
+                {x: 4560, y: 680, type: "questionBlock"},
+                {x: 5440, y: 680, type: "blockShiny", collision: true},
+                {x: 5520, y: 360, type: "blockShiny", collision: true, item: {type: "starman"}},
+                {x: 6640, y: 360, type: "blockShiny", collision: true, item: {type: "vine"}},
+                {x: 6320, y: 680, type: "questionBlock"},
+                {x: 6400, y: 680, type: "questionBlock"},
+                {x: 6480, y: 680, type: "questionBlock"},
+                {x: 6560, y: 680, type: "questionBlock"},
+                
+                {x: 6800, y: 680, type: "questionBlock"},
+                {x: 6880, y: 680, type: "questionBlock"},
+                {x: 6960, y: 680, type: "questionBlock"},
+                
+                {x: 10000, y: 360, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 12880, y: 680, type: "multiCoinBlock"},
+                {x: 13600, y: 680, type: "questionBlock"},
+                {x: 13760, y: 360, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 14880, y: 360, type: "secret"},
+                {x: 3280, y: 920, type: "fence"},
+                {x: 7120, y: 920, type: "fence"},
+                {x: 10960, y: 920, type: "fence"},
+                {x: 14800, y: 920, type: "fence"},
+                {x: 16720, y: 920, type: "fence"},
+            ],
+            pipes: [
+                {x: 3680, y: 680, size: 4},
+                {x: 5920, y: 680, size: 4},
+                {x: 8240, y: 680, size: 4, destination: {worldID: 212}},
+                {x: 9200, y: 840, size: 2},
+                {x: 9760, y: 680, size: 4},
+                {x: 10080, y: 760, size: 3},
+                {x: 10400, y: 600, size: 5},
+                {x: 14080, y: 760, size: 3},
+            ],
+            clouds: [
+                {x: 1440, y: 200},
+                {x: 2160, y: 120},
+                {x: 2400, y: 200, amount: 2},
+                {x: 3600, y: 120},
+                {x: 3840, y: 200, amount: 2},
+                {x: 5280, y: 200},
+                {x: 6000, y: 120},
+                {x: 6240, y: 200, amount: 2},
+                {x: 7440, y: 120},
+                {x: 7680, y: 200, amount: 2},
+                {x: 9120, y: 200},
+                {x: 9840, y: 120},
+                {x: 10080, y: 200, amount: 2},
+                {x: 11280, y: 120},
+                {x: 11520, y: 200, amount: 2},
+                {x: 12960, y: 200},
+                {x: 13680, y: 120},
+                {x: 13920, y: 200, amount: 2},
+                {x: 15120, y: 120},
+                {x: 15360, y: 200, amount: 2},
+                {x: 16800, y: 200},
+            ],
+            enemies: [
+                {x: 1920, y: 440},
+                {x: 2560, y: 840, type: "koopaTroopa"},
+                {x: 2640, y: 840, type: "koopaTroopa"},
+                {x: 3360, y: 920},
+                {x: 3480, y: 920},
+                {x: 4400, y: 520, type: "koopaTroopa"},
+                {x: 4720, y: 920},
+                {x: 4840, y: 920},
+                {x: 5280, y: 840, type: "koopaTroopa"},
+                {x: 5440, y: 920},
+                {x: 5560, y: 920},
+                {x: 5680, y: 920},
+                {x: 6960, y: 920},
+                {x: 7080, y: 920},
+                {x: 7200, y: 920},
+                {x: 8240, y: 600},
+                {x: 9280, y: 760},
+                {x: 9600, y: 920},
+                {x: 10960, y: 840, type: "koopaTroopa"},
+                {x: 12080, y: 840, type: "koopaParatroopa"},
+                {x: 12960, y: 920},
+                {x: 13080, y: 920},
+                {x: 13520, y: 840, type: "koopaParatroopa"},
+                {x: 13680, y: 840, type: "koopaParatroopa"},
+                {x: 14800, y: 840, type: "koopaTroopa"},
+            ],
+            piranhas: [
+                {x: 3720, y: 520},
+                {x: 5960, y: 520},
+                {x: 8280, y: 520},
+                {x: 9240, y: 680},
+                {x: 9800, y: 520},
+                {x: 10120, y: 600},
+                {x: 10440, y: 440},
+                {x: 14120, y: 600},
+            ],
+            trees: [
 
+            ],
+            castles: [
+                {x: 0, y: 120},
+                {x: -160, y: 520, name: "rectangle5doors"},
+                {x: 16320, y: 600},
+            ],
+            flags: [
+                {x: 16000, y: 120, destination: {worldID: 22}}
+            ],
         }
     }
 }
@@ -1055,7 +1222,13 @@ class Tile {
         this.item = item;
         if (this.type === "questionBlock" && !this.item || this.type === "secret" && !this.item) this.item = {type: "coinItem"};
         this.bouncing = false;
-        this.sprites = tileSprites;
+        if (this.type === "mushroomRetainerTop" || this.type === "mushroomRetainerBottom") {
+            this.sprites = objectSprites;
+            this.sX = 0;
+            this.sY = (this.type === "mushroomRetainerTop") ? 1120 : 1200;
+        } else {
+            this.sprites = tileSprites;
+        }
         this.animateSequences = {
             "questionBlock": [1920, 1920, 2000, 2080, 2000],
         }
@@ -1110,6 +1283,7 @@ class Tile {
     }
 
     setSpriteOffsets() {
+        if (this.type === "mushroomRetainerTop" || this.type === "mushroomRetainerBottom") return;
         this.sX = spriteOffsets.tiles.type[this.type].x;
         this.sY = spriteOffsets.tiles.theme[this.theme].y + spriteOffsets.tiles.type[this.type].y;
     }
@@ -1218,12 +1392,13 @@ class Tile {
 }
 
 class Axe {
-    constructor(parent, x, y) {
+    constructor(parent, x, y, destination) {
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.frame = 0;
         this.x = x;
         this.y = y;
+        this.destination = destination;
         this.w = 1;
         this.h = 1;
         this.sX = 2160;
@@ -2908,7 +3083,7 @@ class FireBar {
         this.blocksize = this.parent.blocksize;
         this.x = x;
         this.y = y;
-        this.length = length;
+        this.length = length || 6;
         this.w = this.length / 2;
         this.counterClockWise = counterClockWise;
         this.sprites = objectSprites;
@@ -3564,9 +3739,16 @@ class Character {
             g.transitionTimer--;
         } else if (g.transitionType === "axeReached") {
             if (this.right < w.levelEndLine) {
+                this.movement.current = this.movement.walking;
                 this.xVel = 5;
             } else {
+                this.movement.current = this.movement.standing;
                 this.xVel = 0;
+                g.transition = false;
+                g.transitionType = null;
+                setTimeout(() => {
+                    g.loadWorld(this.h, this.state.current)
+                }, 3000);
             }
         } else if (g.transitionType === "pipeEnterTop") {
             if (g.transitionTimer == 0) {
@@ -3671,7 +3853,7 @@ class Character {
     setVelocities() {
         const g = this.parent.parent;
 
-        if (g.transition) return;
+        if (g.transition && g.transitionType != "axeReached") return;
 
         // User wants to move right
         if (g.keyStates.right && !g.keyStates.left && !g.keyStates.down) {
@@ -4065,7 +4247,7 @@ class Character {
                             item.y += 80;
                             item.setSpriteOffsets();
                             item.setProperties();
-                        } else if (item.type === "koopaShell" || "buzzyBeetleShell") {
+                        } else if (item.type === "koopaShell" || item.type === "buzzyBeetleShell") {
                             if (item.xVel === 0) {
                                 if (this.left >= item.left) {
                                     item.xVel = -15;
@@ -4146,6 +4328,11 @@ class Character {
                 this.left + this.hitboxOffsetX < item.right && 
                 this.right - this.hitboxOffsetX  > item.left) 
             {
+                this.parent.parent.destination = item.destination;
+                this.x = item.right;
+                this.y = item.top;
+                this.yVel = 0;
+                this.updateBoundingBox();
                 this.parent.parent.setTransition("axeReached");
             }
         });
@@ -4238,7 +4425,7 @@ class Character {
     }
 
     collisionCheck() {
-        if (this.parent.parent.transition || !this.collision) return;
+        if ((this.parent.parent.transition && this.parent.parent.transitionType != "axeReached") || !this.collision) return;
         this.hitboxOffsetTop = (this.movement.current === this.movement.crouching) ? this.hitboxOffsetTopDefault + this.hitboxOffsetCrouchExtra : this.hitboxOffsetTopDefault;
         this.collisionCheckLeftScreenEdge();
         this.collisionCheckFallingToDeath();
@@ -4534,7 +4721,7 @@ class World {
         this.blocksize = this.parent.blocksize;
         this.destination = destination;
         this.worldID = this.destination.worldID;
-        this.gravity = worldData[this.worldID].gravity;
+        this.gravity = worldData[this.worldID].gravity || 2.15;
         this.end = worldData[this.worldID].width;
         this.levelEndLine = worldData[this.worldID].levelEndLine;
         this.backgroundColor = worldData[this.worldID].bg;
@@ -4585,7 +4772,7 @@ class World {
                 else if (key === "piranhas") this.worldElements.piranhas.push(new Piranha(this, element.x, element.y, element.theme, element.once));
                 else if (key === "fireBars") this.worldElements.fireBars.push(new FireBar(this, element.x, element.y, element.w, element.counterClockWise));
                 else if (key === "bowsers") this.worldElements.bowsers.push(new Bowser(this, element.x, element.y));
-                else if (key === "axes") this.worldElements.axes.push(new Axe(this, element.x, element.y));
+                else if (key === "axes") this.worldElements.axes.push(new Axe(this, element.x, element.y, element.destination));
             });
         }
     }
@@ -4789,23 +4976,23 @@ class StatusBar {
         
         ctx.textAlign = "start";
         ctx.textBaseline = "top"; 
-        ctx.fillText(this.parent.name, 80, 20);
-        ctx.fillText(score, 80, 80);
+        ctx.fillText(this.parent.name, 80, 10);
+        ctx.fillText(score, 80, 60);
     }
 
     drawCoins() {
         const coins = this.padNumber(this.parent.coins, 2);
         ctx.textAlign = "center";
         ctx.textBaseline = "top"; 
-        ctx.fillText("COINS", 720, 20);
-        ctx.fillText(coins, 720, 80);
+        ctx.fillText("COINS", 720, 10);
+        ctx.fillText(coins, 720, 60);
     }
 
     drawWorld() {
         ctx.textAlign = "center";
         ctx.textBaseline = "top"; 
-        ctx.fillText("WORLD", 1200, 20);
-        ctx.fillText(`${this.parent.worldNum}-${this.parent.levelNum}`, 1200, 80);
+        ctx.fillText("WORLD", 1200, 10);
+        ctx.fillText(`${this.parent.worldNum}-${this.parent.levelNum}`, 1200, 60);
     }
 
     drawTime() {
@@ -4813,8 +5000,8 @@ class StatusBar {
         
         ctx.textAlign = "end";
         ctx.textBaseline = "top"; 
-        ctx.fillText("TIME", this.parent.screensize.width - 80, 20);
-        ctx.fillText(time, this.parent.screensize.width - 80, 80);
+        ctx.fillText("TIME", this.parent.screensize.width - 80, 10);
+        ctx.fillText(time, this.parent.screensize.width - 80, 60);
     }
 
     draw() {
@@ -4852,7 +5039,7 @@ class Game {
         this.levelNum = 1;
         this.time = 400;
         this.lives = 3;
-        this.destination = {worldID: "test"};
+        this.destination = {worldID: 21};
 
         this.transition = false;
         this.transitionType = null;
@@ -4865,7 +5052,8 @@ class Game {
             "dying": 240,
             "cutscene1": 300,
             "shrinking": 7,
-            "growing": 7
+            "growing": 7,
+            "axeReached": 480,
         };
 
         this.gameState = {
@@ -4968,9 +5156,11 @@ class Game {
         if (this.gameState.current !== this.gameState.menu) return;
         ctx.clearRect(0, 0, this.screensize.width, this.screensize.height);
         ctx.drawImage(this.mainMenuImage, 0, 0, this.screensize.width, this.screensize.height);
-        ctx.fillStyle = "red"
-        ctx.font = "72px Arial";
-        ctx.fillText("MTC 999999", 940, 820);
+        ctx.fillStyle = "white"
+        ctx.font = "96px VT323";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top"; 
+        ctx.fillText("MTC 999999", 920, 750);
     }
 
     startGame() {

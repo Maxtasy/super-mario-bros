@@ -1,4 +1,7 @@
-- Axe transition (remove bridge, freeze bowser, let hi fall down)
+- Axe transition (remove bridge, freeze bowser, let him fall down)
+- Update all coins, questionBlocks, fireBars even offscreen
+- Add jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
+- Add princessToadstool
 - Add Cannon object that spawns enemy Bullet Bill (don't shoot if character within threshold)
 - Add Enemy type Bullet Bill
 - Add Enemy type Lakitu
