@@ -45,6 +45,7 @@ const spriteOffsets = {
             solid: {x: 160, y: 80},
             bridge: {x: 240, y: 80},
             treeStump: {x: 400, y: 80},
+            rope: {x: 480, y: 80},
             treeBottom: {x: 560, y: 80},
             cannonBottom: {x: 720, y: 80},
             castleSemiTop: {x: 880, y: 80},
@@ -182,6 +183,7 @@ const spriteOffsets = {
             bulletBill: {x: 2800, y: 80},
             bloober: {x: 2960, y: 0},
             cheepCheep: {x: 3120, y: 80},
+            podoboo: {x: 2880, y: 80}
         }
     }
 }
@@ -1047,6 +1049,7 @@ const worldData = {
             ]
         }
     },
+    // TODO: Add jumpingBoard
     21: {
         spawnLocation: {
             x: 160,
@@ -1424,6 +1427,7 @@ const worldData = {
             ]
         }
     },
+    // TODO: Water specific fixes (movement, sprint, sprites)
     22: {
         width: 15360,
         gravity: .5,
@@ -1707,8 +1711,128 @@ const worldData = {
         }
     },
     24: {
+        spawnLocation: {
+            x: 40, 
+            y: 520
+        },
+        levelEndLine: 12160,
+        bg: "#000000",
+        theme: "castle",
+        width: 12800,
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 120, w: 16, h: 3, type: "solid", collision: true},
+                {x: 0, y: 760, w: 16, h: 4, type: "solid", collision: true},
+                {x: 0, y: 520, w: 2, h: 3, type: "solid", collision: true},
+                {x: 1440, y: 680, w: 2, type: "solid", collision: true},
+                {x: 2160, y: 680, w: 2, type: "solid", collision: true},
 
+                {x: 2560, y: 760, w: 2, h: 4, type: "solid", collision: true},
+                {x: 2720, y: 120, w: 49, h: 3, type: "solid", collision: true},
+                {x: 2720, y: 360, w: 21, type: "solid", collision: true},
+                {x: 4480, y: 360, w: 27, type: "solid", collision: true},
+
+                {x: 2960, y: 680, w: 12, type: "solid", collision: true},
+                {x: 4000, y: 680, w: 11, type: "solid", collision: true},
+                {x: 4960, y: 680, w: 11, type: "solid", collision: true},
+
+                {x: 2720, y: 1000, w: 9, type: "solid", collision: true},
+                {x: 3520, y: 1000, w: 11, type: "solid", collision: true},
+                {x: 4480, y: 1000, w: 11, type: "solid", collision: true},
+                {x: 5440, y: 1000, w: 12, type: "solid", collision: true},
+                
+                {x: 6400, y: 760, w: 4, h: 4, type: "solid", collision: true},
+                {x: 7440, y: 120, w: 6, h: 3, type: "solid", collision: true},
+                {x: 7440, y: 760, w: 6, type: "solid", collision: true},
+                {x: 7360, y: 840, w: 7, h: 2, type: "solid", collision: true},
+                {x: 7360, y: 1000, w: 17, type: "solid", collision: true},
+                {x: 8640, y: 760, h: 3, type: "solid", collision: true},
+                {x: 8880, y: 760, w: 2, h: 4, type: "solid", collision: true},
+
+                {x: 9200, y: 120, w: 45, type: "solid", collision: true},
+                {x: 11280, y: 1000, w: 19, type: "solid", collision: true},
+                {x: 9200, y: 200, w: 13, h: 2, type: "solid", collision: true},
+                {x: 9200, y: 760, w: 5, h: 3, type: "solid", collision: true},
+                {x: 9760, y: 760, w: 2, h: 3, type: "solid", collision: true},
+                {x: 10080, y: 760, w: 2, h: 3, type: "solid", collision: true},
+                {x: 9200, y: 1000, w: 13, type: "solid", collision: true},
+                {x: 11360, y: 200, w: 2, h: 3, type: "solid", collision: true},
+                {x: 11280, y: 680, w: 3, h: 4, type: "solid", collision: true},
+
+                {x: 10240, y: 360, w: 6, type: "block", collision: true, individualCheck: true},
+                
+                {x: 10240, y: 760, w: 13, type: "bowserBridge", collision: true},
+
+                {x: 1280, y: 1000, w: 16, type: "waterTop"},
+                {x: 8720, y: 1000, w: 2, type: "waterTop"},
+                {x: 9040, y: 1000, w: 2, type: "waterTop"},
+                {x: 10240, y: 1000, w: 13, type: "waterTop"},
+                {x: 6880, y: 120, h: 12, type: "rope"},
+                {x: 7120, y: 120, h: 12, type: "rope"},
+            ],
+            tiles: [
+                {x: 1760, y: 520, type: "solid", collision: true},
+                {x: 1840, y: 520, type: "disabled", collision: true},
+                {x: 1920, y: 520, type: "solid", collision: true},
+                
+                {x: 1840, y: 200, type: "questionBlock", item: {type: "magicMushroom"}},
+                
+                {x: 4400, y: 360, type: "disabled", collision: true},
+                {x: 3920, y: 680, type: "disabled", collision: true},
+                {x: 4880, y: 680, type: "disabled", collision: true},
+                {x: 5840, y: 680, type: "disabled", collision: true},
+                
+                {x: 3440, y: 1000, type: "disabled", collision: true},
+                {x: 4400, y: 1000, type: "disabled", collision: true},
+                {x: 5360, y: 1000, type: "disabled", collision: true},
+                {x: 6560, y: 440, type: "disabled", collision: true},
+                {x: 7360, y: 760, type: "disabled", collision: true},
+                
+                {x: 8240, y: 840, type: "disabled", collision: true},
+                {x: 11200, y: 680, type: "bowserBridgeRope"},
+
+                {x: 12240, y: 840, type: "mushroomRetainerTop"},
+                {x: 12240, y: 920, type: "mushroomRetainerBottom"},
+            ],
+            axes: [
+                {x: 11280, y: 600, destination: {worldID: 31}},
+            ],
+            enemies: [
+                {x: 1280, y: 1080, type: "podoboo"},
+                {x: 2400, y: 1080, type: "podoboo"},
+            ],
+            bowsers: [
+                {x: 10800, y: 600},
+            ],
+            elevatorPlatforms: [
+                {x: 6840, y: 760, w: 2, movementType: "up"},
+                {x: 7080, y: 760, w: 2, movementType: "down"},
+                {x: 11040, y: 440, w: 2, movementType: "leftRight"},
+            ],
+            fireBars: [
+                {x: 3960, y: 720, counterClockwise: true},
+                {x: 4920, y: 720, counterClockwise: true},
+                {x: 5880, y: 720, counterClockwise: true},
+                {x: 4440, y: 400, counterClockwise: true},
+                {x: 6600, y: 480, counterClockwise: true},
+                {x: 7400, y: 800},
+            ],
+            steps: [
+                {x: 160, y: 520, w: 3, type: "solid", reversed: true}
+            ],
+            coins: [
+                {x: 8160, y: 600},
+                {x: 8240, y: 600},
+                {x: 8320, y: 600},
+                {x: 8160, y: 920},
+                {x: 8240, y: 920},
+                {x: 8320, y: 920},
+            ]
+        }
     },
+    31: {
+
+    }
 }
 
 class Tile {
@@ -2987,6 +3111,8 @@ class Enemy {
                 hitboxOffsetBottom: 25,
                 xVel: 5,
                 yVel: 0,
+                stompable: true,
+                shootable: true,
             },
             buzzyBeetle: {
                 w: 1,
@@ -2996,6 +3122,8 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 5,
                 yVel: 0,
+                stompable: true,
+                shootable: false,
             },
             buzzyBeetleShell: {
                 w: 1,
@@ -3005,6 +3133,9 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 0,
                 yVel: 0,
+                stompable: true,
+                shootable: false,
+                kickable: true,
             },
             koopaTroopa: {
                 w: 1,
@@ -3014,6 +3145,8 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 5,
                 yVel: 0,
+                stompable: true,
+                shootable: true,
             },
             koopaParatroopa: {
                 w: 1,
@@ -3023,6 +3156,8 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 3,
                 yVel: 5,
+                stompable: true,
+                shootable: true,
             },
             koopaShell: {
                 w: 1,
@@ -3032,6 +3167,9 @@ class Enemy {
                 hitboxOffsetBottom: 20,
                 xVel: 0,
                 yVel: 0,
+                stompable: true,
+                shootable: true,
+                kickable: true,
             },
             bloober: {
                 w: 1,
@@ -3041,6 +3179,8 @@ class Enemy {
                 hitboxOffsetBottom: 40,
                 xVel: 5,
                 yVel: -20,
+                stompable: false,
+                shootable: true,
             },
             cheepCheep: {
                 w: 1,
@@ -3050,9 +3190,23 @@ class Enemy {
                 hitboxOffsetBottom: 25,
                 xVel: 5,
                 yVel: -60,
+                stompable: true,
+                shootable: true,
             },
+            podoboo: {
+                w: 1,
+                h: 1,
+                hitboxOffsetX: 15,
+                hitboxOffsetTop: 30,
+                hitboxOffsetBottom: 25,
+                xVel: 0,
+                yVel: -35,
+                gravity: 1,
+                stompable: false,
+                shootable: false,
+                undestructable: true,
+            }
         }
-        this.gravity = this.parent.gravity;
         this.frame = 0;
         this.x = x;
         this.xOld = this.x;
@@ -3121,10 +3275,16 @@ class Enemy {
         this.h = this.enemyProperties[this.type].h;
         this.xVel = this.enemyProperties[this.type].xVel;
         this.yVel = this.enemyProperties[this.type].yVel;
+        this.yVelInitial = this.enemyProperties[this.type].yVel;
         if (!this.facingRight) this.xVel *= -1;
         this.hitboxOffsetTop = this.enemyProperties[this.type].hitboxOffsetTop;
         this.hitboxOffsetBottom = this.enemyProperties[this.type].hitboxOffsetBottom;
         this.hitboxOffsetX = this.enemyProperties[this.type].hitboxOffsetX;
+        this.gravity = this.enemyProperties[this.type].gravity || this.parent.gravity;
+        this.stompable = this.enemyProperties[this.type].stompable;
+        this.shootable = this.enemyProperties[this.type].shootable;
+        this.kickable = this.enemyProperties[this.type].kickable;
+        this.undestructable = this.enemyProperties[this.type].undestructable;
         if (this.animateSequences[this.type]) {
             this.animate = true;
             this.sequence = this.animateSequences[this.type];
@@ -3282,6 +3442,11 @@ class Enemy {
     }
 
     collisionCheck() {
+        if (this.type === "podoboo" && this.top > this.parent.parent.screensize.height) {
+            this.yVel = this.yVelInitial;
+            return;
+        }
+
         // Screen edges
         if (this.right + 4 * this.blocksize < 0 || this.left - 4 * this.blocksize > this.parent.parent.screensize.width || this.top > this.parent.parent.screensize.height) {
             this.destroy();
@@ -3303,11 +3468,18 @@ class Enemy {
     }
 
     setSprite() {
+        if (this.type === "podoboo") {
+            this.sY = (this.yVel > 0) ? 640 : 720;
+            return;
+        }
+
         if (this.animate && this.parent.parent.frame % 10 === 0) {
             this.frame = (this.frame + 1) % this.sequence.length;
             this.sX = spriteOffsets.enemies.type[this.type].x + this.sequence[this.frame];
         }
+
         this.sY = spriteOffsets.enemies.type[this.type].y + spriteOffsets.enemies.theme[this.theme].y;
+
         if (!this.facingRight) {
             this.sY += this.facingLeftYOffset;
         }
@@ -4364,6 +4536,7 @@ class Character {
 
             g.transitionTimer--;
         } else if (g.transitionType === "axeReached") {
+            if (!w.levelEndLine) console.error("Level is missing worldData.LevelEndLine");
             if (this.right < w.levelEndLine) {
                 this.movement.current = this.movement.walking;
                 this.xVel = 5;
@@ -4449,10 +4622,11 @@ class Character {
                 g.transitionTimer--;
             }
         } else if (g.transitionType === "dying") {
-            if (g.transitionTimer == 0) {
+            if (g.transitionTimer === 0) {
                 g.transition = false;
                 g.transitionType = null;
-                g.loadWorld();
+                g.gameState.current = g.gameState.preLevel;
+                g.frame = 0;
             }
             this.xVel = 0;
             this.yVel += this.gravity;
@@ -4873,65 +5047,78 @@ class Character {
                 this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX && 
                 this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX) 
             {
-                if (this.state.current === this.state.starman) {
+                if (this.state.current === this.state.starman && !item.undestructable) {
                     item.plopDeath();
                 } else {
                     // Top
-                    if (this.bottom > item.top + item.hitboxOffsetTop && this.bottomOld <= item.top + item.hitboxOffsetTop) {
-                        this.y = item.top - this.h * this.blocksize;
-                        this.yOld = this.y;
-                        this.yVel = -20;
-                        g.audioFiles.sounds.stomp.currentTime = 0;
-                        g.audioFiles.sounds.stomp.play();
-                        this.updateBoundingBox();
-                        if (item.type === "koopaParatroopa") {
-                            item.type = "koopaTroopa";
-                            item.setSpriteOffsets();
-                            item.setProperties();
-                        } else if (item.type === "buzzyBeetle") {
-                            item.type = "buzzyBeetleShell";
-                            item.setSpriteOffsets();
-                            item.setProperties();
-                        } else if (item.type === "koopaTroopa") {
-                            item.type = "koopaShell";
-                            item.y += 80;
-                            item.setSpriteOffsets();
-                            item.setProperties();
-                        } else if (item.type === "koopaShell" || item.type === "buzzyBeetleShell") {
-                            if (item.xVel === 0) {
-                                if (this.left >= item.left) {
-                                    item.xVel = -15;
+                    if (this.bottom > item.top + item.hitboxOffsetTop && 
+                        this.bottomOld <= item.top + item.hitboxOffsetTop) 
+                    {
+                        if (item.stompable) {
+                            this.y = item.top - this.h * this.blocksize;
+                            this.yOld = this.y;
+                            this.yVel = -20;
+                            this.updateBoundingBox();
+
+                            if (item.type === "koopaParatroopa") {
+                                item.type = "koopaTroopa";
+                                item.setSpriteOffsets();
+                                item.setProperties();
+                                g.audioFiles.sounds.stomp.currentTime = 0;
+                                g.audioFiles.sounds.stomp.play();
+                            } else if (item.type === "buzzyBeetle") {
+                                item.type = "buzzyBeetleShell";
+                                item.setSpriteOffsets();
+                                item.setProperties();
+                                g.audioFiles.sounds.stomp.currentTime = 0;
+                                g.audioFiles.sounds.stomp.play();
+                            } else if (item.type === "koopaTroopa") {
+                                item.type = "koopaShell";
+                                item.y += 80;
+                                item.setSpriteOffsets();
+                                item.setProperties();
+                                g.audioFiles.sounds.stomp.currentTime = 0;
+                                g.audioFiles.sounds.stomp.play();
+                            } else if (item.kickable) {
+                                if (item.xVel === 0) {
+                                    if (this.left >= item.left) {
+                                        item.xVel = -15;
+                                    } else {
+                                        item.xVel = 15;
+                                    }
                                 } else {
-                                    item.xVel = 15;
+                                    item.xVel = 0;
                                 }
-                            } else {
-                                item.xVel = 0;
+                                g.audioFiles.sounds.kick.currentTime = 0;
+                                g.audioFiles.sounds.kick.play();
+                            } else if (item.type === "goomba") {
+                                item.flatDeath();
+                                g.audioFiles.sounds.stomp.currentTime = 0;
+                                g.audioFiles.sounds.stomp.play();
+                            } else if (item.type === "cheepCheep") {
+                                item.plopDeath();
+                                g.audioFiles.sounds.stomp.currentTime = 0;
+                                g.audioFiles.sounds.stomp.play();
                             }
-                            g.audioFiles.sounds.kick.currentTime = 0;
-                            g.audioFiles.sounds.kick.play();
-                        } else if (item.type === "goomba") {
-                            item.flatDeath();
-                        } else if (item.type === "cheepCheep") {
-                            item.plopDeath();
-                        }
-                    } else if (this.invincibility === 0) {
-                        if ((item.type === "koopaShell" || item.type === "buzzyBeetleShell") && item.xVel === 0) {
-                            // Left
-                            if (this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX && this.rightOld - this.hitboxOffsetX <= item.left + item.hitboxOffsetX) {
-                                item.xVel = 15;
-                                this.x = item.left + item.hitboxOffsetX - this.w * this.blocksize - this.hitboxOffsetX;
-                                this.updateBoundingBox();
-                            // Right
-                            } else if (this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX && this.leftOld + this.hitboxOffsetX >= item.right - item.hitboxOffsetX) {
-                                item.xVel = -15;
-                                this.x = item.right - item.hitboxOffsetX;
-                                this.updateBoundingBox();
-                            }
-                            g.audioFiles.sounds.kick.currentTime = 0;
-                            g.audioFiles.sounds.kick.play();
-                        } else {
+                        } else if (this.invincibility === 0) {
                             this.gotInjured();
                         }
+                    } else if (item.kickable && item.xVel === 0) {
+                        // Left
+                        if (this.right - this.hitboxOffsetX > item.left + item.hitboxOffsetX && this.rightOld - this.hitboxOffsetX <= item.left + item.hitboxOffsetX) {
+                            item.xVel = 15;
+                            this.x = item.left + item.hitboxOffsetX - this.w * this.blocksize - this.hitboxOffsetX;
+                            this.updateBoundingBox();
+                        // Right
+                        } else if (this.left + this.hitboxOffsetX < item.right - item.hitboxOffsetX && this.leftOld + this.hitboxOffsetX >= item.right - item.hitboxOffsetX) {
+                            item.xVel = -15;
+                            this.x = item.right - item.hitboxOffsetX;
+                            this.updateBoundingBox();
+                        }
+                        g.audioFiles.sounds.kick.currentTime = 0;
+                        g.audioFiles.sounds.kick.play();
+                    } else {
+                        this.gotInjured();
                     }
                 }
             }
@@ -5500,7 +5687,7 @@ class World {
         this.cheepCheepSpawnLine = worldData[this.worldID].cheepCheepSpawnLine;
         this.theme = worldData[this.worldID].theme || "overworld";
         this.spawnLocation = worldData[this.worldID].spawnLocation;
-        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs", "fireBars", "bowsers", "bowserFlames", "axes", "vines"]
+        this.needsUpdate = ["rectangles", "flags", "tiles", "elevatorPlatforms", "enemies", "piranhas", "coins", "items", "fireballs", "fireBars", "bowsers", "bowserFlames", "axes", "vines"];
 
         this.build(this.worldID);
 
@@ -5822,6 +6009,7 @@ class Game {
     constructor() {
         this.objectName = "Game";
         this.blocksize = 80;
+        this.frame = 0;
         this.screensize = {
             width: cvs.width,
             height: cvs.height
@@ -5843,7 +6031,7 @@ class Game {
         this.levelNum = 1;
         this.time = 400;
         this.lives = 3;
-        this.destination = {worldID: 23};
+        this.destination = {worldID: 24};
 
         this.transition = false;
         this.transitionType = null;
@@ -5863,6 +6051,7 @@ class Game {
         this.gameState = {
             current: "menu",
             menu: "menu",
+            preLevel: "preLevel",
             paused: "paused",
             play: "play"
         }
@@ -5956,8 +6145,7 @@ class Game {
         }
     }
 
-    showMenu() {
-        if (this.gameState.current !== this.gameState.menu) return;
+    showMenuScreen() {
         ctx.clearRect(0, 0, this.screensize.width, this.screensize.height);
         ctx.drawImage(this.mainMenuImage, 0, 0, this.screensize.width, this.screensize.height);
         ctx.fillStyle = "white"
@@ -5965,6 +6153,21 @@ class Game {
         ctx.textAlign = "start";
         ctx.textBaseline = "top"; 
         ctx.fillText("MTC 999999", 920, 750);
+    }
+
+    showPreLevelScreen() {
+        if (this.frame > 180) {
+            this.gameState.current = this.gameState.play;
+            this.loadWorld();
+        }
+
+        ctx.clearRect(0, 0, this.screensize.width, this.screensize.height);
+        ctx.drawImage(characterSprites, 0, 160, 80, 80, this.screensize.width / 2 - 160, this.screensize.height / 2, 80, 80);
+        ctx.fillStyle = "white"
+        ctx.font = "96px VT323";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "center"; 
+        ctx.fillText(`x ${this.lives}`, this.screensize.width / 2, this.screensize.height / 2);
     }
 
     startGame() {
@@ -5977,7 +6180,9 @@ class Game {
         this.currentCharacterState = state || "normal";
         this.currentWorld = this.destination.worldID;
 
-        this.music = this.audioFiles.music[worldData[this.currentWorld].music] || this.audioFiles.music.overworld;
+        if (!worldData[this.currentWorld]) console.error(`WorldData.${this.currentWorld} does not exist.`);
+
+        this.music = this.audioFiles.music[worldData[this.currentWorld].music] || this.audioFiles.music[worldData[this.currentWorld].theme];
         this.music.currentTime = 0;
         this.music.loop = true;
         this.music.play();
@@ -5987,22 +6192,26 @@ class Game {
 
     // Runs each frame
     update() {
-        if (this.gameState.current !== this.gameState.play) return;
-        this.frame++;
-
-        this.world.update();
-
-        // Scroll screen if player character crossed "magic line"
-        if (this.world.character.x > this.scrollLine && this.world.end > this.screensize.width) {
-            const deltaX = Math.round(this.world.character.x - this.scrollLine);
-            this.world.scroll(deltaX);
+        if (this.gameState.current === this.gameState.menu) {
+            this.showMenuScreen();
+        } else if (this.gameState.current === this.gameState.preLevel) {
+            this.showPreLevelScreen();
+        } else if (this.gameState.current === this.gameState.play) {
+            this.world.update();
+    
+            // Scroll screen if player character crossed "magic line"
+            if (this.world.character.x > this.scrollLine && this.world.end > this.screensize.width) {
+                const deltaX = Math.round(this.world.character.x - this.scrollLine);
+                this.world.scroll(deltaX);
+            }
         }
+
+        this.frame++;
     }
 
     draw() {
-        if (this.gameState.current !== this.gameState.play) return;
-        this.world.draw();
-        this.statusBar.draw();
+        if (this.gameState.current === this.gameState.play || this.gameState.current === this.gameState.preLevel) this.statusBar.draw();
+        if (this.gameState.current === this.gameState.play) this.world.draw();
     }
 }
 
@@ -6011,7 +6220,7 @@ function stopHere() {
 }
 
 function handleKeydown(e) {
-    if (e.keyCode === 32 && (!game.world.character.inAir || game.world.waterLevel)) {
+    if (e.keyCode === 32 && game.gameState.current === game.gameState.play && (!game.world.character.inAir || game.world.waterLevel)) {
         game.world.character.jump();
     } else if (e.keyCode === 37) {
         game.keyStates.left = true;
@@ -6021,14 +6230,14 @@ function handleKeydown(e) {
         game.keyStates.right = true;
     } else if (e.keyCode === 40) {
         game.keyStates.down = true; 
-    } else if (e.keyCode === 17) {
+    } else if (e.keyCode === 17 && game.gameState.current === game.gameState.play) {
         game.keyStates.sprint = true;
         game.world.character.shoot();
     } else if (e.keyCode === 70) {
         game.toggleFullscreen();
     } else if (e.keyCode === 13 && game.gameState.current === game.gameState.menu) {
-        game.gameState.current = game.gameState.play;
-        game.loadWorld();
+        game.gameState.current = game.gameState.preLevel;
+        game.frame = 0;
     }
 }
 
@@ -6041,14 +6250,13 @@ function handleKeyup(e) {
         game.keyStates.right = false;
     } else if (e.keyCode === 40) {
         game.keyStates.down = false;
-    } else if (e.keyCode === 17) {
+    } else if (e.keyCode === 17 && game.gameState.current === game.gameState.play) {
         game.keyStates.sprint = false;
         game.world.character.canShootAgain = true;
     }
 }
 
 function loop() {
-    game.showMenu();
     game.update();
     game.draw();
     setTimeout(loop, 16.66);

@@ -1,20 +1,15 @@
+- Check if latest Character <-> Enemy collision logic works
 - Axe transition (remove bridge, freeze bowser, let him fall down)
-- Finish Bloober
-- Finish World 22
+- 2-4: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
+- Fix Bloober movement
 - Update all coins, questionBlocks, fireBars at all times
-- Add Vines
 - Add jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
-- Add princessToadstool
 - Add Cannon object that spawns enemy Bullet Bill (don't shoot if character within threshold)
 - Add Enemy type Bullet Bill
 - Add Enemy type Lakitu
 - Add Enemy type Spiny Egg
 - Add Enemy type Spiny
 - Add Enemy type Hammer Bros
-- Add Enemy type Cheep Cheep
-- Add Enemy type Podoboo
-- Add Enemy type Bloober
-- Add Pre-Level Screen with lives etc
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
 - Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
