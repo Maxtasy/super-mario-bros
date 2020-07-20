@@ -1,5 +1,6 @@
 - Check if latest Character <-> Enemy collision logic works
-- Axe transition (remove bridge, freeze bowser, let him fall down)
+- Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
+- Maybe add piranhas into pipe class
 - 2-4: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
 - Fix Bloober movement
 - Update all coins, questionBlocks, fireBars at all times

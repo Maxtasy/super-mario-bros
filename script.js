@@ -183,7 +183,7 @@ const spriteOffsets = {
             bulletBill: {x: 2800, y: 80},
             bloober: {x: 2960, y: 0},
             cheepCheep: {x: 3120, y: 80},
-            podoboo: {x: 2880, y: 80}
+            podoboo: {x: 2880, y: 80},
         }
     }
 }
@@ -1049,7 +1049,7 @@ const worldData = {
             ]
         }
     },
-    // TODO: Add jumpingBoard
+    // TODO: Add jumpingBoard, vine to new level
     21: {
         spawnLocation: {
             x: 160,
@@ -1830,8 +1830,222 @@ const worldData = {
             ]
         }
     },
+    // TODO: Add jumpingBoard
     31: {
+        bg: "#000000",
+        theme: "overworld",
+        spawnLocation: {
+            x: 160,
+            y: 1000
+        },
+        vineLevel: {
+            worldID: 312
+        },
+        width: 16800,
+        levelEndLine: 16560,
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 45},
+                {x: 3840, y: 1000, w: 29},
+                {x: 7040, y: 1000, w: 40},
+                {x: 10560, y: 1000, w: 10},
+                {x: 11520, y: 1000, w: 33},
+                {x: 14400, y: 1000, w: 30},
 
+                {x: 2080, y: 680, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+
+                {x: 6160, y: 600, w: 8, theme: "castle", type: "bridgeFence"},
+                {x: 6160, y: 680, w: 8, type: "bridge", collision: true},
+                {x: 6160, y: 920, w: 8, type: "waterTop"},
+                {x: 6160, y: 1000, w: 8, type: "water"},
+
+                {x: 6880, y: 920, w: 2, type: "waterTop"},
+                {x: 6880, y: 1000, w: 2, type: "water"},
+                
+                {x: 6800, y: 680, h: 4, type: "stair", collision: true},
+                {x: 7040, y: 680, h: 4, type: "stair", collision: true},
+                {x: 7120, y: 840, h: 2, type: "stair", collision: true},
+                
+                {x: 7280, y: 360, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 8880, y: 360, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 9120, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 9440, y: 360, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 8880, y: 680, w: 11, type: "blockShiny", collision: true, individualCheck: true},
+                
+                {x: 10320, y: 360, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 10320, y: 600, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                
+                {x: 13440, y: 680, w: 3, type: "blockShiny", collision: true, individualCheck: true},
+                
+                {x: 13920, y: 760, h: 3, type: "stair", collision: true},
+                {x: 14000, y: 520, h: 6, type: "stair", collision: true},
+                
+                {x: 15280, y: 360, h: 8, type: "stair", collision: true},
+
+                {x: 1120, y: 920, w: 4, type: "fence"},
+                {x: 4960, y: 920, w: 4, type: "fence"},
+                {x: 8800, y: 920, w: 4, type: "fence"},
+                {x: 10720, y: 920, w: 2, type: "fence"},
+                {x: 12640, y: 920, w: 4, type: "fence"},
+            ],
+            tiles: [
+                {x: 1280, y: 680, type: "questionBlock"},
+                {x: 1520, y: 600, type: "questionBlock"},
+                {x: 1760, y: 600, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 4880, y: 680, type: "blockShiny", collision: true},
+                {x: 6800, y: 1000, type: "floor"},
+                {x: 6560, y: 360, type: "secret", item: {type: "oneUp"}},
+                {x: 7200, y: 360, type: "blockShiny", collision: true, item: {type: "starman"}},
+                {x: 9040, y: 360, type: "questionBlock"},
+                {x: 9360, y: 360, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 10480, y: 360, type: "blockShiny", collision: true, item: {type: "vine"}},
+
+                {x: 12000, y: 360, type: "blockShiny", collision: true},
+                {x: 12080, y: 360, type: "questionBlock"},
+                {x: 12160, y: 360, type: "blockShiny", collision: true},
+                
+                {x: 12400, y: 360, type: "blockShiny", collision: true},
+                {x: 12480, y: 360, type: "questionBlock"},
+                {x: 12560, y: 360, type: "blockShiny", collision: true},
+
+                {x: 12000, y: 680, type: "blockShiny", collision: true},
+                {x: 12080, y: 680, type: "questionBlock"},
+                {x: 12160, y: 680, type: "blockShiny", collision: true},
+                
+                {x: 12400, y: 680, type: "blockShiny", collision: true},
+                {x: 12480, y: 680, type: "questionBlock", item: {type: "magicMushroom"}},
+                {x: 12560, y: 680, type: "blockShiny", collision: true},
+                
+                {x: 13280, y: 680, type: "blockShiny", collision: true},
+                {x: 13360, y: 680, type: "multiCoinBlock"},
+                
+                {x: 3280, y: 920, type: "fence"},
+                {x: 14560, y: 920, type: "fence"},
+                {x: 16720, y: 920, type: "fence"},
+            ],
+            pipes: [
+                {x: 2560, y: 760, size: 3, theme: "castle"},
+                {x: 3040, y: 680, size: 4, theme: "castle", destination: {worldID: 311}},
+                {x: 4560, y: 760, size: 3, theme: "castle"},
+                {x: 5360, y: 840, size: 2, theme: "castle"},
+                {x: 8240, y: 680, size: 4, theme: "castle"},
+            ],
+            piranhas: [
+                {x: 2600, y: 600},
+                {x: 3080, y: 520},
+                {x: 4600, y: 600},
+                {x: 5400, y: 680},
+                {x: 8280, y: 520},
+            ],
+            steps: [
+                {x: 5840, y: 680, w: 4},
+                {x: 10880, y: 520, w: 6},
+                {x: 14640, y: 360, w: 8},
+            ],
+            enemies: [
+                {x: 2960, y: 920},
+                {x: 4240, y: 920},
+                {x: 4360, y: 920},
+                {x: 4480, y: 920},
+                
+                {x: 6560, y: 600},
+                {x: 6680, y: 600},
+                {x: 6800, y: 600},
+                
+                {x: 7520, y: 920},
+                {x: 7640, y: 920},
+                
+                {x: 11120, y: 600},
+                {x: 11200, y: 520},
+
+                {x: 12320, y: 920},
+                {x: 12440, y: 920},
+                {x: 12560, y: 920},
+                
+                {x: 2000, y: 840, type: "koopaParatroopa"},
+                {x: 13200, y: 840, type: "koopaParatroopa"},
+                {x: 13680, y: 840, type: "koopaParatroopa"},
+                
+                {x: 5200, y: 840, type: "koopaTroopa"},
+                {x: 8080, y: 840, type: "koopaTroopa"},
+                {x: 11920, y: 840, type: "koopaTroopa"},
+
+                {x: 12160, y: 200, type: "koopaTroopa"},
+                {x: 15280, y: 200, type: "koopaTroopa"},
+                
+                {x: 13600, y: 440, type: "koopaTroopa"},
+                {x: 15040, y: 360, type: "koopaTroopa"},
+                
+                {x: 2240, y: 760, type: "koopaParatroopa"},
+                {x: 13440, y: 760, type: "koopaParatroopa"},
+                
+                {x: 9040, y: 520, type: "hammerBro"},
+                {x: 9280, y: 840, type: "hammerBro"},
+            ],
+            castles: [
+                {x: 0, y: 120},
+                {x: -160, y: 520, name: "rectangle5doors"},
+                {x: 16320, y: 600},
+            ],
+            trees: [
+                {x: 1040, y: 760, theme: "castle", big: true},
+                {x: 1680, y: 760, theme: "castle", big: true},
+                {x: 3440, y: 760, theme: "castle", big: true},
+                {x: 4880, y: 760, theme: "castle", big: true},
+                {x: 5520, y: 760, theme: "castle", big: true},
+                {x: 7280, y: 760, theme: "castle", big: true},
+                {x: 8720, y: 760, theme: "castle", big: true},
+                {x: 9360, y: 760, theme: "castle", big: true},
+                {x: 12560, y: 760, theme: "castle", big: true},
+                {x: 13200, y: 760, theme: "castle", big: true},
+                
+                {x: 880, y: 840, theme: "castle"},
+                {x: 1840, y: 840, theme: "castle"},
+                {x: 1920, y: 840, theme: "castle"},
+                {x: 3200, y: 840, theme: "castle"},
+                {x: 4720, y: 840, theme: "castle"},
+                {x: 5680, y: 840, theme: "castle"},
+                {x: 5760, y: 840, theme: "castle"},
+                {x: 8560, y: 840, theme: "castle"},
+                {x: 9520, y: 840, theme: "castle"},
+                {x: 9600, y: 840, theme: "castle"},
+                {x: 10880, y: 840, theme: "castle"},
+                {x: 12400, y: 840, theme: "castle"},
+                {x: 13360, y: 840, theme: "castle"},
+                {x: 13440, y: 840, theme: "castle"},
+                {x: 16240, y: 840, theme: "castle"},
+            ],
+            clouds: [
+                {x: 1440, y: 200},
+                {x: 5280, y: 200},
+                {x: 9120, y: 200},
+                {x: 12960, y: 200},
+                
+                {x: 2160, y: 120},
+                {x: 3600, y: 120},
+                {x: 6000, y: 120},
+                {x: 7440, y: 120},
+                {x: 9840, y: 120},
+                {x: 11280, y: 120},
+                {x: 13680, y: 120},
+                {x: 15120, y: 120},
+                
+                {x: 2400, y: 200, amount: 2},
+                {x: 3840, y: 200, amount: 2},
+                {x: 6240, y: 200, amount: 2},
+                {x: 7680, y: 200, amount: 2},
+                {x: 10080, y: 200, amount: 2},
+                {x: 11520, y: 200, amount: 2},
+                {x: 13920, y: 200, amount: 2},
+                {x: 15360, y: 200, amount: 2},
+            ],
+            flags: [
+                {x: 16000, y: 120, theme: "castle", destination: {worldID: 32}}
+            ],
+            jumpingBoards: [
+                {x: 10080, y: 840},
+            ],
+        }
     }
 }
 
@@ -2102,13 +2316,16 @@ class Rectangle {
         this.h = h || 1;
         this.theme = theme || this.parent.theme;
         this.type = type || "floor";
-        this.collision = collision;
+        if (this.type === "floor") {
+            this.collision = true;
+        } else {
+            this.collision = collision;
+        }
         if (this.type === "bridge" || this.type === "bridgeFence") {
             this.enemyCollision = false;
         } else {
             this.enemyCollision = this.collision;
         }
-        if (this.type === "floor") this.collision = true;
         this.individualCheck = individualCheck;
         this.sX = spriteOffsets.tiles.type[this.type].x;
         this.sY = spriteOffsets.tiles.theme[this.theme].y + spriteOffsets.tiles.type[this.type].y;
@@ -2538,10 +2755,10 @@ class Tree {
         if (this.big) {
             this.tiles.push(new Tile(this, this.x, this.y, this.theme, "treeTopBigTop"));
             this.tiles.push(new Tile(this, this.x, this.y + 1 * this.blocksize, this.theme, "treeTopBigBottom"));
-            this.tiles.push(new Tile(this, this.x, this.y + 2 * this.blocksize, this.theme, "treeBottom"));
+            this.tiles.push(new Tile(this, this.x, this.y + 2 * this.blocksize, "overworld", "treeBottom"));
         } else {
             this.tiles.push(new Tile(this, this.x, this.y, this.theme, "treeTopSmall"));
-            this.tiles.push(new Tile(this, this.x, this.y + 1 * this.blocksize, this.theme, "treeBottom"));
+            this.tiles.push(new Tile(this, this.x, this.y + 1 * this.blocksize, "overworld", "treeBottom"));
         }
     }
 
@@ -2789,7 +3006,7 @@ class Flag {
     }
 
     build() {
-        this.movingPiece = new Tile(this, this.x - this.blocksize / 2, this.y + this.blocksize, this.theme, "flagSail");
+        this.movingPiece = new Tile(this, this.x - this.blocksize / 2, this.y + this.blocksize, "overworld", "flagSail");
         this.movingDown = false;
 
         this.parts = [];
@@ -2798,7 +3015,7 @@ class Flag {
         for (let i = 0; i < this.h - 2; i++) {
             this.parts.push(new Tile(this, this.x, this.y + (i + 1) *  this.blocksize, this.theme, "flagPole", false, true));
         }
-        this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, this.theme, "stair", false, true));
+        this.parts.push(new Tile(this, this.x, this.y + this.h * this.blocksize - this.blocksize, "overworld", "stair", false, true));
     }
 
     updateBoundingBox() {
@@ -3205,6 +3422,17 @@ class Enemy {
                 stompable: false,
                 shootable: false,
                 undestructable: true,
+            },
+            hammerBro: {
+                w: 1,
+                h: 2,
+                hitboxOffsetX: 25,
+                hitboxOffsetTop: 60,
+                hitboxOffsetBottom: 0,
+                xVel: 1,
+                yVel: 0,
+                stompable: true,
+                shootable: true,
             }
         }
         this.frame = 0;
@@ -5276,6 +5504,10 @@ class Character {
                 this.right > item.left &&
                 this.left < item.right) 
             {
+                if (this.bottom < 0) {
+                    g.destination = g.world.vineLevel;
+                    g.loadWorld(this.h, this.state.current)
+                }
                 this.onVine = true;
                 if (g.keyStates.up && !g.keyStates.down) {
                     this.yVel = -5;
@@ -5679,6 +5911,7 @@ class World {
         this.destination = destination;
         this.worldID = this.destination.worldID;
         this.gravity = worldData[this.worldID].gravity || 2.15;
+        this.vineLevel = worldData[this.worldID].vineLevel;
         this.end = worldData[this.worldID].width;
         this.levelEndLine = worldData[this.worldID].levelEndLine;
         this.backgroundColor = worldData[this.worldID].bg || "#63adfe";
@@ -5765,7 +5998,7 @@ class World {
         this.worldElements.items.push(new Item(this, x, y, theme, type));
     }
 
-    spawnVine(x, y) {
+    spawnVine(x, y, destination) {
         if (!this.worldElements.vines) this.worldElements.vines = [];
         this.worldElements.vines.push(new Vine(this, x, y, true));
     }
@@ -6031,7 +6264,7 @@ class Game {
         this.levelNum = 1;
         this.time = 400;
         this.lives = 3;
-        this.destination = {worldID: 24};
+        this.destination = {worldID: 31};
 
         this.transition = false;
         this.transitionType = null;
@@ -6154,9 +6387,9 @@ class Game {
         ctx.textBaseline = "top"; 
         ctx.fillText("MTC 999999", 920, 750);
     }
-
+    // TODO: Set to 180 delay on final
     showPreLevelScreen() {
-        if (this.frame > 180) {
+        if (this.frame > 0) {
             this.gameState.current = this.gameState.play;
             this.loadWorld();
         }
