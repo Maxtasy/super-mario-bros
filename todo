@@ -1,3 +1,4 @@
+- Finish Lakitu (spriteupdate rate slower, left/right movement, throw spikes)
 - Add ScalePlatform collision, update
 - Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
 - Maybe add piranhas into pipe class
