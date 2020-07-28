@@ -19,6 +19,8 @@
 - If we die after clearing 50% of the level, we spawn in the middle, except 4-4
 - If jump is held character jumps a little bit higher, set gravity -.05 or something (bonus yaccel?)
 - Major cleanups
+- Breaking block with coin on top should collect coin
+- Sometimes shells don't kill enemies if they are too close, maybe fix
 
 Game logic:
 
