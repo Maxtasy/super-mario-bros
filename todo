@@ -1,4 +1,4 @@
-- Finish Lakitu (spriteupdate rate slower, left/right movement, throw spikes)
+- Finish Hammer Bros hammerThrow
 - Add ScalePlatform collision, update
 - Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
 - Maybe add piranhas into pipe class
@@ -8,10 +8,6 @@
 - Add jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
 - Add Cannon object that spawns enemy Bullet Bill (don't shoot if character within threshold)
 - Add Enemy type Bullet Bill
-- Add Enemy type Lakitu
-- Add Enemy type Spiny Egg
-- Add Enemy type Spiny
-- Add Enemy type Hammer Bros
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
 - Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
