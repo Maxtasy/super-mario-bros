@@ -1,13 +1,8 @@
-- Finish Hammer Bros hammerThrow
-- Add ScalePlatform collision, update
 - Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
 - Maybe add piranhas into pipe class
 - 2-4: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
 - Fix Bloober movement
-- Update all coins, questionBlocks, fireBars at all times
 - Add jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
-- Add Cannon object that spawns enemy Bullet Bill (don't shoot if character within threshold)
-- Add Enemy type Bullet Bill
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
 - Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
@@ -19,8 +14,8 @@
 - If we die after clearing 50% of the level, we spawn in the middle, except 4-4
 - If jump is held character jumps a little bit higher, set gravity -.05 or something (bonus yaccel?)
 - Major cleanups
-- Breaking block with coin on top should collect coin
 - Sometimes shells don't kill enemies if they are too close, maybe fix
+- Does timer reset after sublevel?
 
 Game logic:
 
