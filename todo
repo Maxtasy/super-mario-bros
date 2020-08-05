@@ -1,8 +1,8 @@
 - Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
-- Maybe add piranhas into pipe class
-- 2-4: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
+- Clean up worldData -> piranhas, add them into pipes
+- 2-4 & 5-4 & 6-2-2: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
 - Fix Bloober movement
-- Add jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
+- Fix jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
 - Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
@@ -16,6 +16,11 @@
 - Major cleanups
 - Sometimes shells don't kill enemies if they are too close, maybe fix
 - Does timer reset after sublevel?
+- Put bowser in enemy class
+- Put axes into tiles with special collision
+- Adjust timeLimit for all levels
+- Only one lakitu on screen at a time
+- Check in whch levels we have infinite bulletBills
 
 Game logic:
 
