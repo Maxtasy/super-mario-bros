@@ -1,7 +1,12 @@
+- Add checkpoints object into TeleportTrigger, requirement to avoid teleport
 - Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
 - Clean up worldData -> piranhas, add them into pipes
+- "Thank you Mario! But our princess is in another castle!"
+- levelEndLine in castle is closest to mushroomRetainer
+- elevatorPlatform.type "falling" does only go down when mario is on it
 - 2-4 & 5-4 & 6-2-2: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
 - Fix Bloober movement
+- Some bowsers throw nails
 - Fix jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)

@@ -622,11 +622,9 @@ const worldData = {
         theme: "underworld",
         spawnLocation: {
             x: 440,
-            y: 120
+            y: 280
         },
         bg: "#000000",
-        gravity: 2.15,
-        music: "underworld",
         worldElements: {
             rectangles: [
                 {x: 0, y: 1000, w: 24},
@@ -4798,7 +4796,7 @@ const worldData = {
             ]
         }
     },
-    //TODO: music?
+    //TODO: Add ScalePlatforms, music?
     63: {
         theme: "castle",
         width: 14320,
@@ -4955,6 +4953,11 @@ const worldData = {
                 {x: 3040, y: 840},
                 {x: 9280, y: 840},
             ],
+            scalePlatforms: [
+                {x: 5640, y: 120, w: 6, ropeStart: 5680, ropeW: 5, platformLeft: {x: 5640, y: 360, w: 2}, platformRight: {x: 5969, y: 680, w: 2}},
+                {x: 6280, y: 120, w: 6, ropeStart: 6320, ropeW: 4, platformLeft: {x: 6280, y: 360, w: 2}, platformRight: {x: 6520, y: 680, w: 2}},
+                {x: 10120, y: 120, w: 6, ropeStart: 6320, ropeW: 4, platformLeft: {x: 10120, y: 440, w: 2}, platformRight: {x: 10360, y: 680, w: 2}},
+            ]
         }
     },
     64: {
@@ -5628,29 +5631,973 @@ const worldData = {
             ]
         }
     },
+    // TODO: TeleportTriggers need checkpoints
     74: {
+        theme: "castle",
+        bg: "#000000",
+        width: 17920,
+        levelEndLine: 17280,
+        spawnLocation: {
+            x: 80,
+            y: 520
+        },
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 120, w: 224, type: "solid", collision: true},
+                {x: 0, y: 200, w: 16, h: 2, type: "solid", collision: true},
+                {x: 0, y: 760, w: 16, h: 4, type: "solid", collision: true},
+                {x: 0, y: 520, w: 2, h: 2, type: "solid", collision: true},
+                {x: 2160, y: 760, w: 5, h: 4, type: "solid", collision: true},
+                {x: 2240, y: 200, w: 4, h: 2, type: "solid", collision: true},
+                {x: 2560, y: 1000, w: 68, h: 1, type: "solid", collision: true},
+                {x: 3120, y: 440, w: 11, h: 4, type: "solid", collision: true},
+                {x: 4320, y: 760, w: 13, h: 1, type: "solid", collision: true},
+                {x: 4400, y: 440, w: 11, h: 1, type: "solid", collision: true},
+                {x: 5600, y: 440, w: 18, h: 4, type: "solid", collision: true},
+                {x: 7040, y: 440, h: 3, type: "solid", collision: true},
+                {x: 7120, y: 440, h: 2, type: "solid", collision: true},
+                {x: 7200, y: 440, w: 2, type: "solid", collision: true},
+                {x: 7440, y: 760, w: 3, h: 3, type: "solid", collision: true},
+                {x: 7920, y: 440, w: 2, type: "solid", collision: true},
+                {x: 8160, y: 440, w: 3, type: "solid", collision: true},
+                {x: 8480, y: 440, w: 4, type: "solid", collision: true},
+                {x: 8560, y: 1000, w: 85, type: "solid", collision: true},
+                {x: 8800, y: 440, w: 6, h: 4, type: "solid", collision: true},
+                {x: 9440, y: 440, w: 3, type: "solid", collision: true},
+                {x: 9840, y: 440, w: 7, type: "solid", collision: true},
+                {x: 10560, y: 440, w: 3, type: "solid", collision: true},
+                {x: 9520, y: 760, w: 3, type: "solid", collision: true},
+                {x: 9920, y: 760, w: 7, type: "solid", collision: true},
+                {x: 10640, y: 760, w: 3, type: "solid", collision: true},
+                {x: 10960, y: 440, h: 4, type: "solid", collision: true},
+                {x: 11040, y: 440, w: 15, type: "solid", collision: true},
+                {x: 11360, y: 760, w: 18, h: 3, type: "solid", collision: true},
+                {x: 13040, y: 760, w: 3, h: 3, type: "solid", collision: true},
+                {x: 13440, y: 760, w: 8, h: 3, type: "solid", collision: true},
+                {x: 14240, y: 760, w: 2, h: 3, type: "solid", collision: true},
+                {x: 14560, y: 760, w: 2, h: 3, type: "solid", collision: true},
+                {x: 14880, y: 760, w: 6, h: 3, type: "solid", collision: true},
+                {x: 16400, y: 680, w: 3, h: 4, type: "solid", collision: true},
+                {x: 16480, y: 200, w: 2, h: 3, type: "solid", collision: true},
+                
+                {x: 1280, y: 1000, w: 11, h: 1, type: "waterTop"},
+                {x: 8000, y: 1000, w: 3, h: 1, type: "waterTop"},
+                {x: 8320, y: 1000, w: 3, h: 1, type: "waterTop"},
+                {x: 15360, y: 1000, w: 13, h: 1, type: "waterTop"},
+                
+                {x: 15360, y: 760, w: 13, h: 1, type: "bowserBridge", collision: true},
+            ],
+            steps: [
+                {x: 160, y: 520, w: 3, type: "solid", reversed: true},
+                {x: 2800, y: 440, w: 4, type: "solid"},
+                {x: 11120, y: 760, w: 3, type: "solid"},
+            ],
+            elevatorPlatforms: [
+                {x: 1440, y: 520, w: 2, movementType: "falling"},
+                {x: 1760, y: 600, w: 2, movementType: "falling"},
+            ],
+            enemies: [
+                {x: 1600, y: 1000, type: "podoboo"},
+                {x: 15680, y: 1000, type: "podoboo"},
+            ],
+            fireBars: [
+                {x: 8240, y: 520, counterClockWise: true}
+            ],
+            tiles: [
+                {x: 2720, y: 680, type: "solid", collision: true},
+                {x: 8240, y: 1000, type: "solid", collision: true},
 
+                {x: 16360, y: 680, type: "bowserBridgeRope"},
+                
+                {x: 17360, y: 840, type: "mushroomRetainerTop"},
+                {x: 17360, y: 920, type: "mushroomRetainerBottom"},
+            ],
+            bowsers: [
+                {x: 15920, y: 600}
+            ],
+            axes: [
+                {x: 16400, y: 600, destination: {worldID: 81}}
+            ],
+            teleportTriggers: [
+                {x: 7040, y: 760, w: 3, h: 3, destination: {worldID: 74, scrollOffset: 2000, spawnLocation: {x: 160, y: 760}}},
+                {x: 12000, y: 520, w: 3, h: 3, destination: {worldID: 74, scrollOffset: 7440, spawnLocation: {x: 160, y: 760}}},
+            ],
+        }
     },
     81: {
+        theme: "overworld",
+        timeLimit: 300,
+        width: 31120,
+        levelEndLine: 30640,
+        spawnLocation: {
+            x: 160,
+            y: 1000
+        },
+        worldElements: {
+            castles: [
+                {x: 0, y: 120},
+                {x: 30400, y: 600},
+                {x: -160, y: 520, name: "rectangle5doors"},
+            ],
+            flags: [
+                {x: 30080, y: 120, destination: {worldID: 82}}
+            ],
+            rectangles: [
+                {x: 0, y: 1000, w: 46},
+                {x: 3920, y: 1000, w: 2},
+                {x: 4160, y: 1000, w: 2},
+                {x: 4400, y: 1000, w: 2},
+                {x: 4640, y: 1000, w: 111},
+                {x: 13760, y: 1000, w: 2},
+                {x: 14160, y: 1000, w: 2},
+                {x: 14400, y: 1000, w: 17},
+                {x: 16160, y: 1000, w: 19},
+                {x: 18160, y: 1000, w: 10},
+                {x: 19040, y: 1000, w: 2},
+                {x: 19360, y: 1000, w: 2},
+                {x: 19680, y: 1000, w: 44},
+                {x: 23440, y: 1000, w: 2},
+                {x: 23840, y: 1000, w: 16},
+                {x: 25920, y: 1000, w: 35},
+                {x: 29280, y: 1000, w: 23},
+                
+                {x: 1120, y: 920, w: 4, type: "fence"},
+                {x: 4960, y: 920, w: 4, type: "fence"},
+                {x: 8800, y: 920, w: 4, type: "fence"},
+                {x: 28000, y: 920, w: 4, type: "fence"},
+                
+                {x: 3040, y: 920, w: 2, type: "fence"},
+                {x: 6880, y: 920, w: 2, type: "fence"},
+                {x: 10720, y: 920, w: 2, type: "fence"},
+                {x: 14560, y: 920, w: 2, type: "fence"},
+                {x: 18400, y: 920, w: 2, type: "fence"},
+                {x: 24320, y: 920, w: 2, type: "fence"},
+                {x: 26080, y: 920, w: 2, type: "fence"},
+                {x: 29920, y: 920, w: 2, type: "fence"},
 
+                {x: 12240, y: 680, w: 1, h: 4, type: "stair", collision: true},
+                {x: 13040, y: 680, w: 1, h: 4, type: "stair", collision: true},
+                
+                {x: 12320, y: 360, w: 4, h: 1, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 12720, y: 360, w: 3, h: 1, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 14720, y: 600, w: 2, h: 1, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 14960, y: 600, w: 5, h: 1, type: "blockShiny", collision: true, individualCheck: true},
+                
+                {x: 16800, y: 840, w: 1, h: 2, type: "stair", collision: true},
+                {x: 24240, y: 840, w: 1, h: 2, type: "stair", collision: true},
+                {x: 24560, y: 840, w: 1, h: 2, type: "stair", collision: true},
+                {x: 28800, y: 840, w: 1, h: 2, type: "stair", collision: true},
+                {x: 28960, y: 680, w: 1, h: 4, type: "stair", collision: true},
+                {x: 29120, y: 520, w: 1, h: 6, type: "stair", collision: true},
+                {x: 29280, y: 360, w: 2, h: 8, type: "stair", collision: true},
+            ],
+            tiles: [
+                {x: 3760, y: 1000, type: "floor", collision: true},
+                {x: 13600, y: 1000, type: "floor", collision: true},
+                {x: 14000, y: 1000, type: "floor", collision: true},
+                {x: 15840, y: 1000, type: "floor", collision: true},
+                {x: 16000, y: 1000, type: "floor", collision: true},
+                {x: 25520, y: 1000, type: "floor", collision: true},
+                {x: 28800, y: 1000, type: "floor", collision: true},
+                {x: 28960, y: 1000, type: "floor", collision: true},
+                {x: 29120, y: 1000, type: "floor", collision: true},
+                
+                {x: 3280, y: 920, type: "fence"},
+                {x: 7120, y: 920, type: "fence"},
+                {x: 10960, y: 920, type: "fence"},
+                {x: 14800, y: 920, type: "fence"},
+                {x: 18640, y: 920, type: "fence"},
+                {x: 22480, y: 920, type: "fence"},
+                {x: 24160, y: 920, type: "fence"},
+                {x: 26320, y: 920, type: "fence"},
+                {x: 30160, y: 920, type: "fence"},
+                
+                {x: 6400, y: 600, type: "secret", item: {type: "oneUp"}},
+                {x: 12640, y: 360, type: "multiCoinBlock"},
+                {x: 12640, y: 680, type: "secret"},
+                {x: 14880, y: 600, type: "blockShiny", collision: true, item: {type: "starMan"}},
+            ],
+            steps: [
+                {x: 22000, y: 520, w: 6}
+            ],
+            trees: [
+                {x: 880, y: 840},
+                {x: 1840, y: 840},
+                {x: 1920, y: 840},
+                {x: 3200, y: 840},
+                {x: 4720, y: 840},
+                {x: 5680, y: 840},
+                {x: 5760, y: 840},
+                {x: 7040, y: 840},
+                {x: 8560, y: 840},
+                {x: 9520, y: 840},
+                {x: 9600, y: 840},
+                {x: 10880, y: 840},
+                {x: 12400, y: 840},
+                {x: 13360, y: 840},
+                {x: 13440, y: 840},
+                {x: 14720, y: 840},
+                {x: 16240, y: 840},
+                {x: 17200, y: 840},
+                {x: 17280, y: 840},
+                {x: 18560, y: 840},
+                {x: 20080, y: 840},
+                {x: 21040, y: 840},
+                {x: 21120, y: 840},
+                {x: 23920, y: 840},
+                {x: 24880, y: 840},
+                {x: 24960, y: 840},
+                {x: 26240, y: 840},
+                {x: 27760, y: 840},
+                
+                {x: 1040, y: 760, big: true},
+                {x: 1680, y: 760, big: true},
+                {x: 3440, y: 760, big: true},
+                {x: 4880, y: 760, big: true},
+                {x: 5520, y: 760, big: true},
+                {x: 7280, y: 760, big: true},
+                {x: 8720, y: 760, big: true},
+                {x: 9360, y: 760, big: true},
+                {x: 11120, y: 760, big: true},
+                {x: 12560, y: 760, big: true},
+                {x: 13200, y: 760, big: true},
+                {x: 14960, y: 760, big: true},
+                {x: 16400, y: 760, big: true},
+                {x: 17040, y: 760, big: true},
+                {x: 18800, y: 760, big: true},
+                {x: 20240, y: 760, big: true},
+                {x: 20880, y: 760, big: true},
+                {x: 22640, y: 760, big: true},
+                {x: 24080, y: 760, big: true},
+                {x: 24720, y: 760, big: true},
+                {x: 26480, y: 760, big: true},
+                {x: 27920, y: 760, big: true},
+                {x: 28560, y: 760, big: true},
+                {x: 30320, y: 760, big: true},
+            ],
+            clouds: [
+                {x: 1440, y: 200},
+                {x: 5280, y: 200},
+                {x: 9120, y: 200},
+                {x: 12960, y: 200},
+                {x: 16800, y: 200},
+                {x: 20640, y: 200},
+                {x: 24480, y: 200},
+                {x: 28320, y: 200},
+                
+                {x: 2160, y: 120},
+                {x: 3600, y: 120},
+                {x: 6000, y: 120},
+                {x: 7440, y: 120},
+                {x: 9840, y: 120},
+                {x: 11280, y: 120},
+                {x: 13680, y: 120},
+                {x: 15120, y: 120},
+                {x: 17520, y: 120},
+                {x: 18960, y: 120},
+                {x: 21360, y: 120},
+                {x: 22800, y: 120},
+                {x: 25200, y: 120},
+                {x: 26640, y: 120},
+                {x: 29040, y: 120},
+                {x: 30480, y: 120},
+                
+                {x: 2400, y: 200, amount: 2},
+                {x: 3840, y: 200, amount: 2},
+                {x: 6240, y: 200, amount: 2},
+                {x: 7680, y: 200, amount: 2},
+                {x: 10080, y: 200, amount: 2},
+                {x: 11520, y: 200, amount: 2},
+                {x: 13920, y: 200, amount: 2},
+                {x: 15360, y: 200, amount: 2},
+                {x: 17760, y: 200, amount: 2},
+                {x: 19200, y: 200, amount: 2},
+                {x: 21600, y: 200, amount: 2},
+                {x: 23040, y: 200, amount: 2},
+                {x: 25440, y: 200, amount: 2},
+                {x: 26880, y: 200, amount: 2},
+                {x: 29280, y: 200, amount: 2},
+                {x: 30720, y: 200, amount: 2},
+            ],
+            pipes: [
+                {x: 2800, y: 680, size: 4, piranha: true},
+                {x: 6080, y: 680, size: 4, piranha: true},
+                {x: 7520, y: 680, size: 4, piranha: true},
+                {x: 8320, y: 680, size: 4, piranha: true, destination: {worldID: 811}},
+                {x: 19360, y: 680, size: 4, piranha: true},
+                
+                {x: 6560, y: 760, size: 3, piranha: true},
+                {x: 11200, y: 760, size: 3, piranha: true},
+                {x: 19040, y: 760, size: 3, piranha: true},
+                {x: 27520, y: 760, size: 3, piranha: true},
+                
+                {x: 9200, y: 840, size: 2, piranha: true},
+                {x: 28400, y: 840, size: 2, piranha: true},
+                
+                {x: 19680, y: 600, size: 5, piranha: true},
+            ],
+            coins: [
+                {x: 5120, y: 600},
+                {x: 7120, y: 600},
+                {x: 7840, y: 600},
+                
+                {x: 8720, y: 280},
+                {x: 8800, y: 280},
+                
+                {x: 17840, y: 600},
+                {x: 17920, y: 600},
+                {x: 22640, y: 600},
+                {x: 22720, y: 600},
+                {x: 23280, y: 600},
+                {x: 23680, y: 600},
+                {x: 25280, y: 600},
+                {x: 25360, y: 600},
+                {x: 25680, y: 600},
+                {x: 25760, y: 600},
+            ],
+            enemies: [
+                {x: 1440, y: 920, type: "buzzyBeetle"},
+                {x: 6480, y: 920, type: "buzzyBeetle"},
+                {x: 20320, y: 920, type: "buzzyBeetle"},
+                {x: 22640, y: 920, type: "buzzyBeetle"},
+                
+                {x: 1840, y: 920},
+                {x: 1960, y: 920},
+                {x: 2080, y: 920},
+                
+                {x: 2400, y: 920},
+                {x: 2520, y: 920},
+                {x: 2640, y: 920},
+                
+                {x: 5520, y: 920},
+                {x: 5640, y: 920},
+                {x: 5760, y: 920},
+                
+                {x: 8640, y: 920},
+                {x: 8760, y: 920},
+                {x: 8880, y: 920},
+                
+                {x: 11840, y: 920},
+                {x: 11960, y: 920},
+                {x: 12080, y: 920},
+
+                {x: 18560, y: 920},
+                {x: 18680, y: 920},
+                {x: 18800, y: 920},
+                
+                {x: 20560, y: 920},
+                {x: 20680, y: 920},
+                {x: 20800, y: 920},
+                
+                {x: 21120, y: 920},
+                {x: 21240, y: 920},
+                {x: 21360, y: 920},
+
+                {x: 21760, y: 920},
+                {x: 21880, y: 920},
+                
+                {x: 3440, y: 840, type: "koopaTroopa"},
+                {x: 3560, y: 840, type: "koopaTroopa"},
+                {x: 4880, y: 840, type: "koopaTroopa"},
+                {x: 9520, y: 840, type: "koopaTroopa"},
+                {x: 9920, y: 840, type: "koopaTroopa"},
+                {x: 10040, y: 840, type: "koopaTroopa"},
+                {x: 10160, y: 840, type: "koopaTroopa"},
+                
+                {x: 10400, y: 840, type: "koopaTroopa"},
+                {x: 10520, y: 840, type: "koopaTroopa"},
+                {x: 10640, y: 840, type: "koopaTroopa"},
+                
+                {x: 16560, y: 840, type: "koopaTroopa"},
+                {x: 16680, y: 840, type: "koopaTroopa"},
+                
+                {x: 24400, y: 840, type: "koopaTroopa"},
+                {x: 26560, y: 840, type: "koopaTroopa"},
+                
+                {x: 27120, y: 840, type: "koopaTroopa"},
+                {x: 27240, y: 840, type: "koopaTroopa"},
+                {x: 27360, y: 840, type: "koopaTroopa"},
+                
+                {x: 12880, y: 840, type: "koopaParatroopa"},
+                {x: 13760, y: 840, type: "koopaParatroopa"},
+                {x: 14160, y: 840, type: "koopaParatroopa"},
+            ],
+        }
     },
     811: {
-
+        theme: "underworld",
+        spawnLocation: {
+            x: 440,
+            y: 280
+        },
+        bg: "#000000",
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 24},
+                {x: 0, y: 120, w: 5, h: 11, type: "block", collision: true},
+                {x: 560, y: 120, w: 10, h: 4, type: "block", collision: true, individualCheck: true},
+                {x: 560, y: 680, w: 9, h: 1, type: "block", collision: true, individualCheck: true},
+                {x: 1360, y: 120, w: 2, h: 9, type: "block", collision: true},
+                {x: 1680, y: 120, w: 3, h: 11, type: "block", collision: true},
+                {x: 1520, y: 120, h: 9, type: "pipeVerticalLeft"},
+                {x: 1600, y: 120, h: 11, type: "pipeVerticalRight"},
+            ],
+            tiles: [
+                {x: 1520, y: 840, type: "pipeConnectorTopLeft"},
+                {x: 1520, y: 920, type: "pipeConnectorBottomLeft"},
+                {x: 1280, y: 680, type: "multiCoinBlock"},
+            ],
+            pipes: [
+                {x: 1360, y: 840, opening: "left", destination: { worldID: 81, scrollOffset: 8960, spawnLocation: {x: 280, y: 1000}, transitionType: "pipeOutTop" }},
+            ],
+            coins: [
+                {x: 640, y: 600},
+                {x: 720, y: 600},
+                {x: 800, y: 600},
+                {x: 880, y: 600},
+                {x: 960, y: 600},
+                {x: 1040, y: 600},
+                {x: 1120, y: 600},
+                {x: 1200, y: 600},
+                
+                {x: 560, y: 920},
+                {x: 640, y: 920},
+                {x: 720, y: 920},
+                {x: 800, y: 920},
+                {x: 880, y: 920},
+                {x: 960, y: 920},
+                {x: 1040, y: 920},
+                {x: 1120, y: 920},
+                {x: 1200, y: 920},
+            ]
+        }
     },
     82: {
+        theme: "overworld",
+        width: 18160,
+        levelEndLine: 17840,
+        spawnLocation: {
+            x: 160, 
+            y: 1000
+        },
+        worldElements: {
+            castles: [
+                {x: 0, y: 600},
+                {x: 17600, y: 600},
+            ],
+            flags: [
+                {x: 17280, y: 120, destination: {worldID: 83}}
+            ],
+            rectangles: [
+                {x: 0, y: 1000, w: 15},
+                {x: 1280, y: 1000, w: 5},
+                {x: 1760, y: 1000, w: 14},
+                {x: 2960, y: 1000, w: 8},
+                {x: 3680, y: 1000, w: 4},
+                {x: 4240, y: 1000, w: 3},
+                {x: 4560, y: 1000, w: 6},
+                {x: 5120, y: 1000, w: 14},
+                {x: 6400, y: 1000, w: 4},
+                {x: 6800, y: 1000, w: 53},
+                {x: 11120, y: 1000, w: 5},
+                {x: 12320, y: 1000, w: 20},
+                {x: 14320, y: 1000, w: 23},
+                {x: 16480, y: 1000, w: 21},
+                
+                {x: 3040, y: 920, w: 2, type: "fence"},
+                {x: 5120, y: 920, w: 2, type: "fence"},
+                {x: 6880, y: 920, w: 2, type: "fence"},
+                {x: 8800, y: 920, w: 4, type: "fence"},
+                {x: 10720, y: 920, w: 2, type: "fence"},
+                {x: 12640, y: 920, w: 2, type: "fence"},
+                {x: 16640, y: 920, w: 2, type: "fence"},
+                
+                {x: 1760, y: 600, w: 4, h: 5, type: "stair", collision: true},
+                {x: 2000, y: 360, w: 1, h: 3, type: "stair", collision: true},
+                
+                {x: 3600, y: 360, w: 31, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 6160, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 8800, y: 680, w: 2, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 16240, y: 600, w: 1, h: 5, type: "stair", collision: true},
+                {x: 16480, y: 360, w: 2, h: 8, type: "stair", collision: true},
+            ],
+            tiles: [
+                {x: 4080, y: 1000, type: "floor", collision: true},
+                {x: 11600, y: 1000, type: "floor", collision: true},
+                {x: 11760, y: 1000, type: "floor", collision: true},
+                {x: 14000, y: 1000, type: "floor", collision: true},
+                {x: 16240, y: 1000, type: "floor", collision: true},
+                
+                {x: 1120, y: 920, type: "fence"},
+                {x: 1280, y: 920, type: "fence"},
+                {x: 3280, y: 920, type: "fence"},
+                {x: 4960, y: 920, type: "fence"},
+                {x: 7120, y: 920, type: "fence"},
+                {x: 10960, y: 920, type: "fence"},
+                
+                {x: 2320, y: 680, type: "questionBlock"},
+                {x: 2400, y: 680, type: "questionBlock"},
+                {x: 2480, y: 680, type: "questionBlock"},
+                {x: 2560, y: 680, type: "questionBlock"},
 
+                {x: 3440, y: 360, type: "blockShiny", collision: true},
+                {x: 3520, y: 360, type: "blockShiny", collision: true, item: {type: "oneUp"}},
+                {x: 7920, y: 680, type: "blockShiny", collision: true},
+                {x: 8000, y: 680, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 9440, y: 680, type: "blockShiny", collision: true},
+                {x: 9520, y: 680, type: "stair", collision: true},
+                {x: 9600, y: 680, type: "multiCoinBlock"},
+                {x: 10000, y: 920, type: "cannonStand", collision: true},
+            ],
+            steps: [
+                {x: 1360, y: 680, w: 4},
+                {x: 1760, y: 360, w: 3},
+                {x: 14560, y: 600, w: 5},
+                {x: 15920, y: 760, w: 3},
+            ],
+            trees: [
+                {x: 880, y: 840},
+                {x: 3200, y: 840},
+                {x: 4720, y: 840},
+                {x: 5680, y: 840},
+                {x: 5760, y: 840},
+                {x: 7040, y: 840},
+                {x: 8560, y: 840},
+                {x: 9520, y: 840},
+                {x: 9600, y: 840},
+                {x: 10880, y: 840},
+                {x: 12400, y: 840},
+                {x: 13360, y: 840},
+                {x: 13440, y: 840},
+                {x: 17200, y: 840},
+                
+                {x: 1040, y: 760, big: true},
+                {x: 3440, y: 760, big: true},
+                {x: 4880, y: 760, big: true},
+                {x: 5520, y: 760, big: true},
+                {x: 7280, y: 760, big: true},
+                {x: 8720, y: 760, big: true},
+                {x: 9360, y: 760, big: true},
+                {x: 11120, y: 760, big: true},
+                {x: 13200, y: 760, big: true},
+                {x: 14960, y: 760, big: true},
+                {x: 17040, y: 760, big: true},
+            ],
+            clouds: [
+                {x: 0, y: 200, amount: 2},
+                {x: 2400, y: 200, amount: 2},
+                {x: 3840, y: 200, amount: 2},
+                {x: 6240, y: 200, amount: 2},
+                {x: 7680, y: 200, amount: 2},
+                {x: 10080, y: 200, amount: 2},
+                {x: 11520, y: 200, amount: 2},
+                {x: 13920, y: 200, amount: 2},
+                {x: 15360, y: 200, amount: 2},
+                {x: 17760, y: 200, amount: 2},
+                
+                {x: 1440, y: 200},
+                {x: 5280, y: 200},
+                {x: 9120, y: 200},
+                {x: 12960, y: 200},
+                {x: 16800, y: 200},
+                
+                {x: 2160, y: 120},
+                {x: 3600, y: 120},
+                {x: 6000, y: 120},
+                {x: 7440, y: 120},
+                {x: 9840, y: 120},
+                {x: 11280, y: 120},
+                {x: 13680, y: 120},
+                {x: 15120, y: 120},
+                {x: 17520, y: 120},
+            ],
+            pipes: [
+                {x: 10480, y: 840, piranha: true},
+                {x: 11360, y: 840, piranha: true},
+                {x: 12480, y: 680, size: 4, piranha: true, destination: {worldID: 821}},
+                {x: 13040, y: 840, piranha: true},
+            ],
+            enemies: [
+                {x: 1680, y: 120, type: "lakitu"},
+                {x: 1440, y: 680, type: "koopaParatroopa"},
+                {x: 1920, y: 200, type: "koopaParatroopa"},
+                {x: 4560, y: 840, type: "koopaParatroopa"},
+                {x: 5280, y: 840, type: "koopaParatroopa"},
+                {x: 5520, y: 840, type: "koopaParatroopa"},
+                {x: 7360, y: 840, type: "koopaParatroopa"},
+                {x: 7600, y: 840, type: "koopaParatroopa"},
+                {x: 11120, y: 840, type: "koopaParatroopa"},
+                {x: 13600, y: 840, type: "koopaParatroopa"},
+                {x: 13760, y: 840, type: "koopaParatroopa"},
+                {x: 14000, y: 680, type: "koopaParatroopa"},
+                {x: 16240, y: 440, type: "koopaParatroopa"},
+                
+                {x: 8880, y: 920, type: "buzzyBeetle"},
+                {x: 9680, y: 920, type: "buzzyBeetle"},
+                {x: 9840, y: 920, type: "buzzyBeetle"},
+                {x: 15120, y: 920, type: "buzzyBeetle"},
+                
+                {x: 14720, y: 680},
+                {x: 14880, y: 520},
+            ],
+            jumpingBoards: [
+                {x: 3520, y: 840}
+            ],
+            cannons: [
+                {x: 6800, y: 840},
+                {x: 8400, y: 840},
+                {x: 14000, y: 840},
+                {x: 7440, y: 760},
+                {x: 10000, y: 760},
+                {x: 15280, y: 760},
+                {x: 7440, y: 920},
+                {x: 9200, y: 920},
+                {x: 15280, y: 920},
+                {x: 9520, y: 600},
+            ]
+        }
     },
     821: {
-
+        theme: "underworld",
+        width: 1920,
+        bg: "#000000",
+        spawnLocation: {
+            x: 440,
+            y: 280
+        },
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 24},
+                {x: 0, y: 120, w: 5, h: 11, type: "block", collision: true},
+                {x: 1680, y: 120, w: 3, h: 11, type: "block", collision: true},
+                {x: 640, y: 120, w: 6, h: 1, type: "block", collision: true, individualCheck: true},
+                {x: 640, y: 440, w: 1, h: 2, type: "block", collision: true, individualCheck: true},
+                {x: 720, y: 520, w: 5, h: 1, type: "block", collision: true, individualCheck: true},
+                {x: 1120, y: 120, w: 1, h: 6, type: "block", collision: true, individualCheck: true},
+                {x: 1200, y: 440, w: 2, h: 1, type: "block", collision: true, individualCheck: true},
+                
+                {x: 1520, y: 120, h: 9, type: "pipeVerticalLeft", collision: true},
+                {x: 1600, y: 120, h: 11, type: "pipeVerticalRight", collision: true},
+            ],
+            tiles: [
+                {x: 1440, y: 520, type: "multiCoinBlock"},
+                {x: 1520, y: 840, type: "pipeConnectorTopLeft"},
+                {x: 1520, y: 920, type: "pipeConnectorBottomLeft"},
+            ],
+            coins: [
+                {x: 720, y: 360},
+                {x: 800, y: 360},
+                {x: 880, y: 360},
+                {x: 960, y: 360},
+                {x: 1040, y: 360},
+                {x: 720, y: 440},
+                {x: 800, y: 440},
+                {x: 880, y: 440},
+                {x: 960, y: 440},
+                {x: 1040, y: 440},
+            ],
+            pipes: [
+                {x: 1360, y: 840, opening: "left", destination: {worldID: 82, scrollOffset: 12640, spawnLocation: {x: 440, y: 1000}, transitionType: "pipeOutTop"}}
+            ]
+        }
     },
     83: {
+        theme: "overworld",
+        width: 18320, 
+        levelEndLine: 18000,
+        timeLimit: 300,
+        spawnLocation: {
+            x: 160, 
+            y: 1000
+        },
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 1000, w: 69},
+                {x: 5680, y: 1000, w: 4},
+                {x: 6160, y: 1000, w: 47},
+                {x: 10080, y: 1000, w: 2},
+                {x: 10400, y: 1000, w: 67},
+                {x: 16640, y: 1000, w: 21},
+                
+                {x: 1920, y: 520, w: 8, type: "castleTop"},
+                {x: 1920, y: 600, h: 5, w: 8, type: "block"},
+                {x: 2960, y: 520, w: 14, type: "castleTop"},
+                {x: 2960, y: 600, h: 5, w: 14, type: "block"},
+                {x: 6320, y: 520, w: 6, type: "castleTop"},
+                {x: 6320, y: 600, h: 5, w: 6, type: "block"},
+                {x: 7040, y: 520, w: 6, type: "castleTop"},
+                {x: 7040, y: 600, h: 5, w: 6, type: "block"},
+                {x: 7760, y: 520, w: 10, type: "castleTop"},
+                {x: 7760, y: 600, h: 5, w: 10, type: "block"},
+                {x: 10560, y: 520, w: 34, type: "castleTop"},
+                {x: 10560, y: 600, h: 5, w: 34, type: "block"},
+                {x: 13760, y: 520, w: 20, type: "castleTop"},
+                {x: 13760, y: 600, h: 5, w: 20, type: "block"},
 
+                {x: 1120, y: 920, w: 4, type: "fence"},
+                {x: 4960, y: 920, w: 4, type: "fence"},
+                {x: 8880, y: 920, w: 3, type: "fence"},
+                {x: 16640, y: 920, w: 2, type: "fence"},
+                
+                {x: 4800, y: 360, w: 6, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 4800, y: 680, w: 8, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 9360, y: 360, w: 6, type: "blockShiny", collision: true, individualCheck: true},
+                {x: 9200, y: 680, w: 8, type: "blockShiny", collision: true, individualCheck: true},
+                
+                {x: 7600, y: 760, h: 3, type: "stair", collision: true},
+                {x: 8720, y: 680, w: 2, h: 3, type: "stair", collision: true},
+                {x: 15600, y: 840, h: 2, type: "stair", collision: true},
+                {x: 16320, y: 360, w: 2, type: "stair", collision: true},
+            ],
+            tiles: [
+                {x: 2720, y: 920, type: "cannonStand", collision: true},
+                {x: 5280, y: 360, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 5360, y: 360, type: "blockShiny", collision: true},
+                {x: 9200, y: 360, type: "blockShiny", collision: true},
+                {x: 9280, y: 360, type: "blockShiny", collision: true, item: {type: "magicMushroom"}},
+                {x: 9660, y: 920, type: "fence"},
+                {x: 15200, y: 680, type: "multiCoinBlock"},
+                {x: 15840, y: 840, type: "stair", collision: true},
+                {x: 16000, y: 680, type: "stair", collision: true},
+                {x: 16160, y: 520, type: "stair", collision: true},
+            ],
+            steps: [
+                {x: 5680, y: 680, w: 4, reversed: true}
+            ],
+            pipes: [
+                {x: 4240, y: 680, size: 4, piranhas: true},
+                {x: 10080, y: 680, size: 4, piranhas: true},
+                {x: 13440, y: 760, size: 3, piranhas: true},
+            ],
+            clouds: [
+                {x: 0, y: 200, amount: 2},
+                {x: 2400, y: 200, amount: 2},
+                {x: 3840, y: 200, amount: 2},
+                {x: 6240, y: 200, amount: 2},
+                {x: 7680, y: 200, amount: 2},
+                {x: 10080, y: 200, amount: 2},
+                {x: 11520, y: 200, amount: 2},
+                {x: 13920, y: 200, amount: 2},
+                {x: 15360, y: 200, amount: 2},
+                
+                {x: 1440, y: 200},
+                {x: 5280, y: 200},
+                {x: 9120, y: 200},
+                {x: 12960, y: 200},
+                {x: 16800, y: 200},
+                
+                {x: 2160, y: 120},
+                {x: 3600, y: 120},
+                {x: 6000, y: 120},
+                {x: 7440, y: 120},
+                {x: 9840, y: 120},
+                {x: 11280, y: 120},
+                {x: 13680, y: 120},
+                {x: 15120, y: 120},
+                {x: 17520, y: 120},
+            ],
+            trees: [
+                {x: 880, y: 840},
+                {x: 1840, y: 840},
+                {x: 4720, y: 840},
+                {x: 8560, y: 840},
+                {x: 9520, y: 840},
+                {x: 9600, y: 840},
+                {x: 13360, y: 840},
+                {x: 17200, y: 840},
+                {x: 17280, y: 840},
+                
+                {x: 1040, y: 760, big: true},
+                {x: 1680, y: 760, big: true},
+                {x: 4880, y: 760, big: true},
+                {x: 9360, y: 760, big: true},
+                {x: 17040, y: 760, big: true},
+            ],
+            castles: [
+                {x: 0, y: 600},
+                {x: 17760, y: 120},
+                {x: 17600, y: 520, name: "rectangle5doors"},
+            ],
+            flags: [
+                {x: 17120, y: 120, destination: {worldID: 84}}
+            ],
+            cannons: [
+                {x: 1440, y: 840},
+                {x: 2720, y: 760},
+                {x: 6880, y: 840},
+            ],
+            enemies: [
+                {x: 2400, y: 840, type: "koopaParatroopa"},
+                {x: 7440, y: 840, type: "koopaParatroopa"},
+                
+                {x: 5040, y: 840, type: "hammerBro"},
+                {x: 9520, y: 840, type: "hammerBro"},
+                {x: 11680, y: 840, type: "hammerBro"},
+                {x: 12720, y: 840, type: "hammerBro"},
+                {x: 14160, y: 840, type: "hammerBro"},
+                {x: 14800, y: 840, type: "hammerBro"},
+                
+                {x: 5200, y: 520, type: "hammerBro"},
+                {x: 9360, y: 520, type: "hammerBro"},
+                
+                {x: 10960, y: 840, type: "koopaTroopa"},
+            ]
+        }
     },
     84: {
-
+        theme: "castle",
+        bg: "#000000",
+        width: 25600,
+        levelEndLine: 25040,
+        spawnLocation: {
+            x: 80, 
+            y: 520
+        },
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 120, w: 320, type: "solid", collision: true},
+                {x: 0, y: 520, w: 2, h: 4, type: "solid", collision: true},
+                {x: 0, y: 760, w: 6, h: 3, type: "solid", collision: true},
+                {x: 880, y: 1000, w: 8, type: "solid", collision: true},
+                {x: 1680, y: 1000, w: 30, type: "solid", collision: true},
+                {x: 4240, y: 1000, w: 9, type: "solid", collision: true},
+                {x: 4960, y: 760, w: 4, h: 4, type: "solid", collision: true},
+                {x: 6000, y: 760, w: 6, h: 4, type: "solid", collision: true},
+                {x: 6080, y: 440, w: 4, h: 1, type: "solid", collision: true},
+                {x: 6640, y: 760, w: 7, h: 4, type: "solid", collision: true},
+                {x: 7360, y: 760, w: 4, h: 4, type: "solid", collision: true},
+                {x: 7680, y: 1000, w: 19, h: 1, type: "solid", collision: true},
+                {x: 9360, y: 1000, w: 5, h: 1, type: "solid", collision: true},
+                {x: 9920, y: 1000, w: 8, h: 1, type: "solid", collision: true},
+                {x: 10720, y: 1000, w: 8, h: 1, type: "solid", collision: true},
+                {x: 11760, y: 1000, w: 48, h: 1, type: "solid", collision: true},
+                {x: 12160, y: 680, w: 2, h: 1, type: "solid", collision: true},
+                {x: 15840, y: 760, w: 6, h: 4, type: "solid", collision: true},
+                {x: 16480, y: 760, w: 6, h: 4, type: "solid", collision: true},
+                {x: 17120, y: 760, w: 6, h: 4, type: "solid", collision: true},
+                {x: 17920, y: 760, w: 4, h: 4, type: "solid", collision: true},
+                {x: 18400, y: 760, w: 26, h: 4, type: "solid", collision: true},
+                {x: 20480, y: 1000, w: 3, h: 1, type: "solid", collision: true},
+                {x: 20880, y: 1000, w: 5, h: 1, type: "solid", collision: true},
+                {x: 21440, y: 1000, w: 9, h: 1, type: "solid", collision: true},
+                {x: 22560, y: 760, w: 6, h: 4, type: "solid", collision: true},
+                {x: 22560, y: 200, w: 6, h: 2, type: "solid", collision: true},
+                {x: 24080, y: 680, w: 3, h: 5, type: "solid", collision: true},
+                {x: 24160, y: 200, w: 2, h: 3, type: "solid", collision: true},
+                
+                {x: 480, y: 1000, w: 5, type: "waterTop"},
+                {x: 5280, y: 1000, w: 9, type: "waterTop"},
+                {x: 11520, y: 1000, w: 3, type: "waterTop"},
+                {x: 17600, y: 1000, w: 4, type: "waterTop"},
+                {x: 22160, y: 1000, w: 5, type: "waterTop"},
+                {x: 23040, y: 1000, w: 13, type: "waterTop"},
+                
+                {x: 23040, y: 760, w: 13, type: "bowserBridge", collision: true},
+            ],
+            elevatorPlatforms: [
+                {x: 5600, y: 1000, w: 2, movementType: "leftRight"}
+            ],
+            bowsers: [
+                {x: 23600, y: 680}
+            ],
+            enemies: [
+                {x: 4480, y: 920},
+                {x: 4600, y: 920},
+                {x: 4720, y: 920},
+                
+                {x: 10240, y: 920, type: "buzzyBeetle"},
+                {x: 10400, y: 920, type: "buzzyBeetle"},
+                
+                {x: 11120, y: 840, type: "koopaParatroopa"},
+                {x: 11280, y: 840, type: "koopaParatroopa"},
+                {x: 12400, y: 840, type: "koopaParatroopa"},
+                {x: 12560, y: 840, type: "koopaParatroopa"},
+                
+                {x: 21840, y: 840, type: "hammerBro"},
+                
+                {x: 22320, y: 1000, type: "podoboo"},
+            ],
+            tiles: [
+                {x: 12000, y: 680, type: "secret"},
+                {x: 15760, y: 1000, type: "solid", collision: true},
+                {x: 24000, y: 680, type: "bowserBridgeRope"},
+                {x: 25040, y: 840, type: "pricessPeachTop"},
+                {x: 25040, y: 920, type: "pricessPeachBottom"},
+            ],
+            axes: [
+                {x: 24080, y: 600, destination: {"WON THE GAME!"}}
+            ],
+            steps: [
+                {x: 160, y: 520, w: 4, type: "solid", reversed: true},
+            ],
+            pipes: [
+                {x: 1520, y: 840, size: 3, piranha: true},
+                {x: 4080, y: 840, size: 3, piranha: true, destination: {worldID: 84, scrollOffset: 1120, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+                {x: 6480, y: 600, size: 6, piranha: true, destination: {worldID: 84, scrollOffset: 8800, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+                {x: 7200, y: 520, size: 7},
+                {x: 9200, y: 840, size: 3, piranha: true},
+                {x: 9760, y: 760, size: 4, piranha: true},
+                {x: 10560, y: 840, size: 3, piranha: true, destination: {worldID: 84, scrollOffset: 1120, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+                {x: 11360, y: 760, size: 4, piranha: true},
+                {x: 12160, y: 440, size: 3, piranha: true, destination: {worldID: 84, scrollOffset: 15200, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+                {x: 15600, y: 840, size: 3},
+                {x: 16320, y: 600, size: 6},
+                {x: 16960, y: 520, size: 7, piranha: true, destination: {worldID: 84, scrollOffset: 1120, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+                {x: 18240, y: 600, size: 6, piranha: true, destination: {worldID: 841, transition: "pipeOutTop"}},
+                {x: 20720, y: 840, size: 3},
+                {x: 21280, y: 840, size: 3, piranha: true, destination: {worldID: 84, scrollOffset: 1120, spawnLocation: {x: 440, y: 1000}, transition: "pipeOutTop"}},
+            ],
+            teleportTriggers: [
+                {x: 7520, y: 200, w: 2, h: 7, destination: {worldID: 84, scrollOffset: 2240, spawnLocation: {x: 320, y: 1000}}},
+                {x: 13920, y: 200, w: 2, h: 10, destination: {worldID: 84, scrollOffset: 8560, spawnLocation: {x: 400, y: 1000}}},
+                {x: 20320, y: 200, w: 2, h: 7, destination: {worldID: 84, scrollOffset: 14960, spawnLocation: {x: 400, y: 1000}}},
+            ]
+        }
     },
     841: {
-
+        theme: "water",
+        waterLevel: true,
+        with: 5760,
+        spawnLocation: {
+            x: 280,
+            y: 1000
+        },
+        worldElements: {
+            rectangles: [
+                {x: 0, y: 120, w: 2, h: 12, type: "solid", collision: true},
+                {x: 1440, y: 1000, w: 54, h: 1, type: "solid", collision: true},
+                {x: 1440, y: 120, w: 54, h: 1, type: "solid", collision: true},
+                {x: 480, y: 200, w: 12, h: 2, type: "solid", collision: true},
+                {x: 480, y: 760, w: 12, h: 2, type: "solid", collision: true},
+                {x: 880, y: 360, w: 7, h: 1, type: "solid", collision: true},
+                {x: 880, y: 680, w: 7, h: 1, type: "solid", collision: true},
+                {x: 3120, y: 200, w: 3, h: 3, type: "solid", collision: true},
+                {x: 3120, y: 760, w: 3, h: 3, type: "solid", collision: true},
+                {x: 5360, y: 200, w: 5, h: 3, type: "solid", collision: true},
+                {x: 5360, y: 680, w: 5, h: 4, type: "solid", collision: true},
+                {x: 5520, y: 440, w: 3, h: 3, type: "solid", collision: true},
+            ],
+            tiles: [
+                {x: 160, y: 1000, type: "solid", collision: true},
+                {x: 320, y: 1000, type: "solid", collision: true},
+            ],
+            pipes: [
+                {x: 240, y: 840, size: 3},
+                {x: 5440, y: 520, size: 1, opening: "left", destination: {worldID: 84, scrollOffset: 20480, spawnLocation: {x: 260, y: 1000}, transition: "pipeOutTop"}},
+            ],
+            fireBars: [
+                {x: 1600, y: 520, counterClockwise: true, noCenterTile: true},
+                {x: 3200, y: 440, counterClockwise: true, noCenterTile: true},
+                {x: 4480, y: 600, counterClockwise: true, noCenterTile: true},
+                {x: 2480, y: 760, noCenterTile: true},
+                {x: 5120, y: 520, noCenterTile: true},
+            ],
+            enemies: [
+                {x: 2240, y: 840, type: "bloober"},
+                {x: 4080, y: 760, type: "bloober"},
+                {x: 4240, y: 440, type: "bloober"},
+            ],
+        }
     }
 }
 
