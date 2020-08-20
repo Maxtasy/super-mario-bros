@@ -26,6 +26,7 @@
 - Adjust timeLimit for all levels
 - Only one lakitu on screen at a time
 - Check in whch levels we have infinite bulletBills
+- Sometimes enemies are in wrong place after scrollOffset (lvl 1 near flag)
 
 Game logic:
 

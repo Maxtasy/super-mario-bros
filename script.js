@@ -2,7 +2,7 @@ const cvs = document.querySelector("#game-canvas");
 const ctx = cvs.getContext("2d");
 const page = document.documentElement;
 
-const GAME_VOLUME = 0.2;
+const GAME_VOLUME = 0.1;
 
 const characterSprites = new Image();
 characterSprites.src = "sprites/character.png";
@@ -217,9 +217,6 @@ const worldData = {
             rectangles: [
                 {x: 0, y: 1000, w: 160},
             ],
-            jumpingBoards: [
-                {x: 500, y: 840},
-            ]
         }
     },
     11: {
@@ -328,7 +325,7 @@ const worldData = {
                 {x: 2240, y: 840},
                 {x: 3040, y: 760, size: 3},
                 {x: 3680, y: 680, size: 4},
-                {x: 4560, y: 680, size: 4, destination: {worldID: 111, scrollOffset: null, spawnLocation: null, transitionType: null}},
+                {x: 4560, y: 680, size: 4, destination: {worldID: 111}},
                 {x: 13040, y: 840},
                 {x: 14320, y: 840},
             ],
@@ -829,7 +826,6 @@ const worldData = {
             ]
         }
     },
-    // TODO: Fix fireBars
     14: {
         theme: "castle",
         spawnLocation: {
@@ -6525,7 +6521,7 @@ const worldData = {
                 {x: 25040, y: 920, type: "pricessPeachBottom"},
             ],
             axes: [
-                {x: 24080, y: 600, destination: {"WON THE GAME!"}}
+                {x: 24080, y: 600, destination: {worldID: 11}}
             ],
             steps: [
                 {x: 160, y: 520, w: 4, type: "solid", reversed: true},
@@ -7684,8 +7680,8 @@ class Pipe {
 
     build() {
         if (this.piranha) {
-            if (!this.parent.piranhas) this.parent.piranhas = [];
-            this.parent.piranhas.push(new Piranha(this.parent, this.x + this.blocksize / 2, this.y - this.blocksize * 2, this.theme, this.isWarp))
+            if (!this.parent.worldElements.piranhas) this.parent.piranhas = [];
+            this.parent.worldElements.piranhas.push(new Piranha(this.parent, this.x + this.blocksize / 2, this.y - this.blocksize * 2, this.theme, this.isWarp))
         }
 
         this.parts = [];
@@ -8982,6 +8978,7 @@ class Piranha {
 
 class FireBar {
     constructor(parent, x, y, length, counterClockWise, noCenterTile) {
+        this.typeName = "FireBar";
         this.parent = parent;
         this.blocksize = this.parent.blocksize;
         this.x = x;
@@ -9012,7 +9009,11 @@ class FireBar {
     }
 
     build() {
-        if (!this.noCenterTile) this.centerTile = new Tile(this, this.x, this.y, this.theme, "disabled", true);
+        if (!this.noCenterTile) {
+            if (!this.parent.worldElements.tiles) this.parent.tiles = [];
+            this.parent.worldElements.tiles.push(new Tile(this.parent, this.x, this.y, this.theme, "disabled", true));
+        }
+
         this.parts = [];
 
         for (let i = 0; i < this.length; i++) {
@@ -9060,14 +9061,11 @@ class FireBar {
 
     scroll(deltaX) {
         this.x -= deltaX;
-        if (this.CenterTile) this.centerTile.scroll(deltaX);
         this.updateBoundingBox();
     }
 
     draw() {
         if (!this.onScreen) return;
-
-        if (this.centerTile) this.centerTile.draw();
 
         this.parts.forEach(part => {
             ctx.drawImage(this.sprites, this.sX, this.sY, 40, 40, this.centerX + part.x - 20, this.centerY + part.y - 20, 40, 40);
@@ -9396,7 +9394,7 @@ class Item {
 
     collisionCheckSteps(list) {
         list.forEach(item => {
-            if (item.onScreen) this.collisionCheckRectangles(item.rectangles);
+            if (item.onScreen) this.collisionCheckRectangles(item.parts);
         });
     }
 
@@ -10149,6 +10147,7 @@ class Character {
             return;
         }
         if (this.top > this.parent.parent.screensize.height) {
+            this.yVel = 0;
             this.y = 160;
             this.x = 80;
             this.updateBoundingBox();
@@ -10654,7 +10653,6 @@ class Character {
         list.forEach(item => {
             if (!item.onScreen) return;
             
-            this.collisionCheckTiles([item.centerTile]);
             item.parts.forEach(part => {
                 if (this.bottom > part.top && 
                     this.top + this.hitboxOffsetTop < part.bottom && 
@@ -11059,14 +11057,14 @@ class World {
                 else if (key === "clouds") this.worldElements.clouds.push(new Cloud(this, element.x, element.y, element.theme, element.amount));
                 else if (key === "vines") this.worldElements.vines.push(new Vine(this, element.x, element.y, element.needsGrow, element.h));
                 else if (key === "bushes") this.worldElements.bushes.push(new Bush(this, element.x, element.y, element.theme, element.amount));
-                else if (key === "pipes") this.worldElements.pipes.push(new Pipe(this, element.x, element.y, element.size, element.theme, element.opening, element.destination));
+                else if (key === "pipes") this.worldElements.pipes.push(new Pipe(this, element.x, element.y, element.size, element.theme, element.opening, element.piranha, element.isWarp, element.destination));
                 else if (key === "castles") this.worldElements.castles.push(new Castle(this, element.x, element.y, element.theme, element.name));
                 else if (key === "enemies") this.worldElements.enemies.push(new Enemy(this, element.x, element.y, element.theme, element.type, element.facingRight));
                 else if (key === "coins") this.worldElements.coins.push(new Coin(this, element.x, element.y, element.theme));
                 else if (key === "elevatorPlatforms") this.worldElements.elevatorPlatforms.push(new ElevatorPlatform(this, element.x, element.y, element.w, element.movementType, element.type));
                 else if (key === "flags") this.worldElements.flags.push(new Flag(this, element.x, element.y, element.h, element.theme, element.destination));
                 else if (key === "piranhas") this.worldElements.piranhas.push(new Piranha(this, element.x, element.y, element.theme, element.once));
-                else if (key === "fireBars") this.worldElements.fireBars.push(new FireBar(this, element.x, element.y, element.w, element.counterClockWise));
+                else if (key === "fireBars") this.worldElements.fireBars.push(new FireBar(this, element.x, element.y, element.length, element.counterClockWise, element.noCenterTile));
                 else if (key === "bowsers") this.worldElements.bowsers.push(new Bowser(this, element.x, element.y));
                 else if (key === "axes") this.worldElements.axes.push(new Axe(this, element.x, element.y, element.destination));
                 else if (key === "scalePlatforms") this.worldElements.scalePlatforms.push(new ScalePlatform(this, element.x, element.y, element.w, element.theme, element.ropeStart, element.ropeW, element.platformLeft, element.platformRight));
@@ -11085,7 +11083,7 @@ class World {
         if (type === "spinyEgg" || type === "hammer" || this.type === "cheepCheep") {
             if (!this.worldElements.enemies) this.worldElements.enemies = [];
             this.worldElements.enemies.push(new Enemy(this, x, y, theme, type));
-        } else if (type === "coinItem" || type === "fireFlower" || type === "magicMushroom" || type === "starman" || type === "brokenTileTopLeft" || type === "brokenTileTopRight" || type === "brokenTileBottomLeft" || type === "brokenTileBottomRight") {
+        } else if (type === "coinItem" || type === "fireFlower" || type === "magicMushroom" || type === "starman" || type === "oneUp" || type === "brokenTileTopLeft" || type === "brokenTileTopRight" || type === "brokenTileBottomLeft" || type === "brokenTileBottomRight") {
             if (!this.worldElements.items) this.worldElements.items = [];
             this.worldElements.items.push(new Item(this, x, y, theme, type));
         } else if (type === "bowserFlame") {
@@ -11378,6 +11376,7 @@ class Game {
         this.worldNum = 1;
         this.levelNum = 1;
         this.lives = 3;
+        // this.destination = {worldID: "test"};
         this.destination = {worldID: 11};
 
         this.transition = false;
