@@ -206,6 +206,8 @@ const spriteOffsets = {
 
 const worldData = {
     "test": {
+        worldNum: "dev",
+        levelNum: "test",
         timeLimit: 400,
         theme: "overworld",
         spawnLocation: {
@@ -217,9 +219,17 @@ const worldData = {
             rectangles: [
                 {x: 0, y: 1000, w: 160},
             ],
+            coins: [
+                {x: 400, y: 760}
+            ],
+            tiles: [
+                {x: 400, y: 840, type: "blockShiny", collision: true}
+            ]
         }
     },
     11: {
+        worldNum: 1,
+        levelNum: 1,
         theme: "overworld",
         spawnLocation: {
             x: 160,
@@ -356,9 +366,11 @@ const worldData = {
             ],
         }
     },
-    //TODO: Which music is playing here?
     111: {
+        worldNum: 1,
+        levelNum: 1,
         theme: "underworld",
+        music: "underworld",
         spawnLocation: {
             x: 440,
             y: 280
@@ -410,6 +422,8 @@ const worldData = {
         }
     },
     12: {
+        worldNum: 1,
+        levelNum: 2,
         theme: "underworld",
         spawnLocation: {
             x: 160,
@@ -517,13 +531,13 @@ const worldData = {
                 {x: 13440, y: 680, type: "pipeConnectorBottomLeft"},
             ],
             pipes: [
-                {x: 8240, y: 760, size: 3, destination: {worldID: 122}},
-                {x: 8720, y: 680, size: 4},
-                {x: 9200, y: 840},
+                {x: 8240, y: 760, size: 3, piranha: true, destination: {worldID: 122}},
+                {x: 8720, y: 680, size: 4, piranha: true},
+                {x: 9200, y: 840, piranha: true},
                 {x: 13280, y: 600, opening: "left", destination: {worldID: 123, transitionType: "pipeOutTop"}},
-                {x: 14240, y: 760, size: 3, destination: {worldID: 41}},
-                {x: 14560, y: 760, size: 3, destination: {worldID: 31}},
-                {x: 14880, y: 760, size: 3, destination: {worldID: 21}},
+                {x: 14240, y: 760, size: 3, piranha: true, isWarp: true, destination: {worldID: 41}},
+                {x: 14560, y: 760, size: 3, piranha: true, isWarp: true, destination: {worldID: 31}},
+                {x: 14880, y: 760, size: 3, piranha: true, isWarp: true, destination: {worldID: 21}},
             ],
             coins: [
                 {x: 3200, y: 600},
@@ -572,18 +586,12 @@ const worldData = {
                 {x: 10800, y: 600},
                 {x: 10920, y: 600},
                 {x: 11680, y: 840, theme: "castle", type: "koopaTroopa"},
-            ],
-            piranhas: [
-                {x: 8280, y: 600},
-                {x: 8760, y: 520},
-                {x: 9240, y: 680},
-                {x: 14280, y: 600, once: true},
-                {x: 14600, y: 600, once: true},
-                {x: 14920, y: 600, once: true},
             ]
         }
     },
     121: {
+        worldNum: 1,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 480,
@@ -616,6 +624,8 @@ const worldData = {
         }
     },
     122: {
+        worldNum: 1,
+        levelNum: 2,
         theme: "underworld",
         spawnLocation: {
             x: 440,
@@ -664,6 +674,8 @@ const worldData = {
         }
     },
     123: {
+        worldNum: 1,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 280,
@@ -701,7 +713,10 @@ const worldData = {
         }
     },
     13: {
+        worldNum: 1,
+        levelNum: 3,
         theme: "overworld",
+        timeLimit: 300,
         spawnLocation: {
             x: 160,
             y: 1000
@@ -827,6 +842,8 @@ const worldData = {
         }
     },
     14: {
+        worldNum: 1,
+        levelNum: 4,
         theme: "castle",
         spawnLocation: {
             x: 80,
@@ -835,7 +852,7 @@ const worldData = {
         bg: "#000000",
         width: 12800,
         timeLimit: 300,
-        levelEndLine: 12160,
+        levelEndLine: 12240,
         worldElements: {
             rectangles: [
                 {x: 0, y: 120, w: 23, h: 3, type: "solid", collision: true},
@@ -916,12 +933,16 @@ const worldData = {
             ]
         }
     },
-    // TODO: Add jumpingBoard, vine to new level
     21: {
+        worldNum: 2,
+        levelNum: 1,
         theme: "overworld",
         spawnLocation: {
             x: 160,
             y: 1000
+        },
+        vineLevel: {
+            worldID: 211
         },
         width: 17040,
         levelEndLine: 16560,
@@ -996,14 +1017,14 @@ const worldData = {
                 {x: 16720, y: 920, type: "fence"},
             ],
             pipes: [
-                {x: 3680, y: 680, size: 4},
-                {x: 5920, y: 680, size: 4},
-                {x: 8240, y: 680, size: 4, destination: {worldID: 212}},
-                {x: 9200, y: 840, size: 2},
-                {x: 9760, y: 680, size: 4},
-                {x: 10080, y: 760, size: 3},
-                {x: 10400, y: 600, size: 5},
-                {x: 14080, y: 760, size: 3},
+                {x: 3680, y: 680, size: 4, piranha: true},
+                {x: 5920, y: 680, size: 4, piranha: true},
+                {x: 8240, y: 680, size: 4, piranha: true, destination: {worldID: 212}},
+                {x: 9200, y: 840, size: 2, piranha: true},
+                {x: 9760, y: 680, size: 4, piranha: true},
+                {x: 10080, y: 760, size: 3, piranha: true},
+                {x: 10400, y: 600, size: 5, piranha: true},
+                {x: 14080, y: 760, size: 3, piranha: true},
             ],
             clouds: [
                 {x: 1440, y: 200},
@@ -1055,16 +1076,6 @@ const worldData = {
                 {x: 13680, y: 840, type: "koopaParatroopa"},
                 {x: 14800, y: 840, type: "koopaTroopa"},
             ],
-            piranhas: [
-                {x: 3720, y: 520},
-                {x: 5960, y: 520},
-                {x: 8280, y: 520},
-                {x: 9240, y: 680},
-                {x: 9800, y: 520},
-                {x: 10120, y: 600},
-                {x: 10440, y: 440},
-                {x: 14120, y: 600},
-            ],
             trees: [
                 {x: 880, y: 840},
                 {x: 1040, y: 760, big: true},
@@ -1100,10 +1111,14 @@ const worldData = {
             flags: [
                 {x: 16000, y: 120, destination: {worldID: 22}}
             ],
+            jumpingBoards: [
+                {x: 15040, y: 840}
+            ]
         }
     },
-    // TODO: teleportTrigger, music
     211: {
+        worldNum: 2,
+        levelNum: 1,
         spawnLocation: {
             x: 320,
             y: 1000
@@ -1170,7 +1185,10 @@ const worldData = {
         }
     },
     212: {
+        worldNum: 2,
+        levelNum: 1,
         theme: "underworld",
+        music: "underworld",
         spawnLocation: {
             x: 480,
             y: 120
@@ -1178,7 +1196,6 @@ const worldData = {
         bg: "#000000",
         width: 1920,
         gravity: 2.15,
-        //TODO: Which music is playing here?
         worldElements: {
             rectangles: [
                 {x: 0, y: 1000, w: 24},
@@ -1223,8 +1240,9 @@ const worldData = {
             ],
         }
     },
-    // TODO: Water specific fixes (movement, sprint, sprites)
     22: {
+        worldNum: 2,
+        levelNum: 2,
         theme: "water",
         width: 15360,
         gravity: .5,
@@ -1241,9 +1259,9 @@ const worldData = {
                 {x: 11200, y: 1000, w: 17, type: "rock", collision: true},
                 {x: 13120, y: 1000, w: 28, type: "rock", collision: true},
 
-                {x: 0, y: 120, w: 78, type: "waterTop"},
-                {x: 6400, y: 120, w: 51, type: "waterTop"},
-                {x: 10560, y: 120, w: 56, type: "waterTop"},
+                {x: 0, y: 120, w: 78, type: "waterTop", collision: true},
+                {x: 6400, y: 120, w: 51, type: "waterTop", collision: true},
+                {x: 10560, y: 120, w: 56, type: "waterTop", collision: true},
                 
                 {x: 1440, y: 680, w: 3, type: "rock", collision: true},
                 {x: 3360, y: 680, w: 2, type: "rock", collision: true},
@@ -1337,6 +1355,8 @@ const worldData = {
         }
     },
     221: {
+        worldNum: 2,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 480,
@@ -1367,6 +1387,8 @@ const worldData = {
         }
     },
     222: {
+        worldNum: 2,
+        levelNum: 2,
         spawnLocation: {
             x: 280,
             y: 1000
@@ -1403,7 +1425,10 @@ const worldData = {
         }
     },
     23: {
+        worldNum: 2,
+        levelNum: 3,
         width: 18960,
+        timeLimit: 300,
         levelEndLine: 18640,
         hasCheepCheeps: true,
         cheepCheepSpawnLine: 1200,
@@ -1572,11 +1597,14 @@ const worldData = {
         }
     },
     24: {
+        worldNum: 2,
+        levelNum: 4,
         spawnLocation: {
             x: 40, 
             y: 520
         },
-        levelEndLine: 12160,
+        timeLimit: 300,
+        levelEndLine: 12240,
         bg: "#000000",
         theme: "castle",
         width: 12800,
@@ -1684,8 +1712,9 @@ const worldData = {
             ]
         }
     },
-    // TODO: Add jumpingBoard
     31: {
+        worldNum: 3,
+        levelNum: 1,
         bg: "#000000",
         theme: "overworld",
         spawnLocation: {
@@ -1778,18 +1807,11 @@ const worldData = {
                 {x: 16720, y: 920, type: "fence"},
             ],
             pipes: [
-                {x: 2560, y: 760, size: 3, theme: "castle"},
-                {x: 3040, y: 680, size: 4, theme: "castle", destination: {worldID: 311}},
-                {x: 4560, y: 760, size: 3, theme: "castle"},
-                {x: 5360, y: 840, size: 2, theme: "castle"},
-                {x: 8240, y: 680, size: 4, theme: "castle"},
-            ],
-            piranhas: [
-                {x: 2600, y: 600},
-                {x: 3080, y: 520},
-                {x: 4600, y: 600},
-                {x: 5400, y: 680},
-                {x: 8280, y: 520},
+                {x: 2560, y: 760, size: 3, piranha: true, theme: "castle"},
+                {x: 3040, y: 680, size: 4, piranha: true, theme: "castle", destination: {worldID: 311}},
+                {x: 4560, y: 760, size: 3, piranha: true, theme: "castle"},
+                {x: 5360, y: 840, size: 2, piranha: true, theme: "castle"},
+                {x: 8240, y: 680, size: 4, piranha: true, theme: "castle"},
             ],
             steps: [
                 {x: 5840, y: 680, w: 4},
@@ -1901,9 +1923,11 @@ const worldData = {
             ],
         }
     },
-    // TODO: Not sure about music
     311: {
+        worldNum: 3,
+        levelNum: 1,
         theme: "underworld",
+        music: "underworld",
         width: 1920,
         bg: "#000000",
         spawnLocation: {
@@ -1960,8 +1984,9 @@ const worldData = {
             ]
         }
     },
-    // TODO: Not sure about music
     312: {
+        worldNum: 3,
+        levelNum: 1,
         bg: "#000000",
         theme: "overworld",
         width: 7520,
@@ -2056,6 +2081,9 @@ const worldData = {
         }
     },
     32: {
+        worldNum: 3,
+        levelNum: 2,
+        timeLimit: 300,
         theme: "overworld",
         width: 17520,
         levelEndLine: 17280,
@@ -2214,10 +2242,7 @@ const worldData = {
                 {x: 13680, y: 440},
             ],
             pipes: [
-                {x: 13520, y: 760, size: 3, theme: "castle"}
-            ],
-            piranhas: [
-                {x: 13560, y: 600}
+                {x: 13520, y: 760, size: 3, piranha: true, theme: "castle"}
             ],
             steps: [
                 {x: 15360, y: 360, w: 8},
@@ -2227,9 +2252,10 @@ const worldData = {
             ]
         }
     },
-    // TODO: Fix movementType "falling"
     33: {
-        theme: "overworld",
+        worldNum: 3,
+        levelNum: 3,
+        timeLimit: 300,
         bg: "#000000",
         spawnLocation: {
             x: 160,
@@ -2387,10 +2413,13 @@ const worldData = {
         }
     },
     34: {
+        worldNum: 3,
+        levelNum: 4,
         theme: "castle",
         bg: "#000000",
+        timeLimit: 300,
         width: 12800,
-        levelEndLine: 12160,
+        levelEndLine: 12240,
         spawnLocation: {
             x: 80,
             y: 520
@@ -2511,6 +2540,8 @@ const worldData = {
         }
     },
     41: {
+        worldNum: 4,
+        levelNum: 1,
         theme: "overworld",
         width: 19200,
         levelEndLine: 18560,
@@ -2652,16 +2683,10 @@ const worldData = {
                 {x: 15440, y: 120, type: "lakitu"},
             ],
             pipes: [
-                {x: 1680, y: 760, size: 3, opening: "top"},
-                {x: 9280, y: 680, size: 4, opening: "top"},
-                {x: 10560, y: 680, size: 4, opening: "top", destination: {worldID: 411}},
-                {x: 13040, y: 840, opening: "top"},
-            ],
-            piranhas: [
-                {x: 1720, y: 600},
-                {x: 9320, y: 520},
-                {x: 10600, y: 520},
-                {x: 13080, y: 680},
+                {x: 1680, y: 760, size: 3, piranha: true},
+                {x: 9280, y: 680, size: 4, piranha: true},
+                {x: 10560, y: 680, size: 4, piranha: true, destination: {worldID: 411}},
+                {x: 13040, y: 840, piranha: true},
             ],
             steps: [
                 {x: 16640, y: 360, w: 8}
@@ -2672,6 +2697,8 @@ const worldData = {
         }
     },
     411: {
+        worldNum: 4,
+        levelNum: 1,
         theme: "underworld",
         bg: "#000000",
         width: 1920,
@@ -2725,6 +2752,8 @@ const worldData = {
         }
     },
     42: {
+        worldNum: 4,
+        levelNum: 2,
         theme: "underworld",
         bg: "#000000",
         spawnLocation: {
@@ -2855,21 +2884,6 @@ const worldData = {
                 {x: 14320, y: 920, type: "buzzyBeetle"},
                 {x: 12320, y: 680, type: "buzzyBeetle"},
             ],
-            piranhas: [
-                {x: 5800, y: 600},
-                {x: 6760, y: 600},
-                {x: 7160, y: 600},
-                {x: 11080, y: 600},
-                {x: 17160, y: 600, once: true},
-                
-                {x: 6280, y: 280},
-                {x: 14440, y: 280},
-                
-                {x: 8600, y: 520},
-                {x: 11400, y: 520},
-                
-                {x: 10520, y: 680},
-            ],
             elevatorPlatforms: [
                 {x: 4720, y: 360, movementType: "down"},
                 
@@ -2887,25 +2901,26 @@ const worldData = {
                 {x: 13840, y: 680, w: 4},
             ],
             pipes: [
-                {x: 10480, y: 840, size: 2, opening: "top"},
-
-                {x: 5760, y: 760, size: 3, opening: "top"},
-                {x: 6720, y: 760, size: 3, opening: "top", destination: {worldID: 423}},
-                {x: 7120, y: 760, size: 3, opening: "top"},
-                {x: 11040, y: 760, size: 3, opening: "top"},
-                {x: 17120, y: 760, size: 3, opening: "top", destination: {worldID: 51}},
+                {x: 5760, y: 760, size: 3, piranha: true},
+                {x: 6720, y: 760, size: 3, piranha: true, destination: {worldID: 423}},
+                {x: 7120, y: 760, size: 3, piranha: true},
+                {x: 11040, y: 760, size: 3, piranha: true},
+                {x: 17120, y: 760, size: 3, piranha: true, destination: {worldID: 51}},
                 
-                {x: 8560, y: 680, size: 4, opening: "top"},
-                {x: 11360, y: 680, size: 4, opening: "top"},
+                {x: 8560, y: 680, size: 4, piranha: true},
+                {x: 10480, y: 840, size: 2},
+                {x: 11360, y: 680, size: 4, piranha: true},
 
-                {x: 6240, y: 440, size: 7, opening: "top"},
-                {x: 14400, y: 440, size: 7, opening: "top"},
+                {x: 6240, y: 440, size: 7, piranha: true},
+                {x: 14400, y: 440, size: 7, piranha: true},
                 
                 {x: 14960, y: 600, size: 2, opening: "left", destination: {worldID: 424, spawnLocation: {x: 280, y: 1000}, transitionType: "pipeOutTop"}},
             ],
         }
     },
     421: {
+        worldNum: 4,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 480,
@@ -2938,6 +2953,8 @@ const worldData = {
         }
     },
     422: {
+        worldNum: 4,
+        levelNum: 2,
         theme: "overworld",
         width: 5120,
         spawnLocation: {
@@ -3019,14 +3036,9 @@ const worldData = {
                 {x: 1440, y: 120, amount: 2},
             ],
             pipes: [
-                {x: 4000, y: 760, size: 3, theme: "orange", opening: "top", destination: {worldID: 81}},
-                {x: 4320, y: 760, size: 3, theme: "orange", opening: "top", destination: {worldID: 71}},
-                {x: 4640, y: 760, size: 3, theme: "orange", opening: "top", destination: {worldID: 61}},
-            ],
-            piranhas: [
-                {x: 4040, y: 600, once: true},
-                {x: 4360, y: 600, once: true},
-                {x: 4680, y: 600, once: true},
+                {x: 4000, y: 760, size: 3, piranha: true, isWarp: true, theme: "orange", destination: {worldID: 81}},
+                {x: 4320, y: 760, size: 3, piranha: true, isWarp: true, theme: "orange", destination: {worldID: 71}},
+                {x: 4640, y: 760, size: 3, piranha: true, isWarp: true, theme: "orange", destination: {worldID: 61}},
             ],
             vines: [
                 {x: 320, y: 1000, needsGrow: false, h: 5}
@@ -3037,6 +3049,8 @@ const worldData = {
         }
     },
     423: {
+        worldNum: 4,
+        levelNum: 2,
         theme: "underworld",
         width: 1920,
         bg: "#000000",
@@ -3081,16 +3095,15 @@ const worldData = {
         }
     },
     424: {
+        worldNum: 4,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 280,
             y: 1000
         },
-        bg: "#63adfe",
         width: 2560,
         levelEndLine: 2320,
-        gravity: 2.15,
-        music: "overworld",
         worldElements: {
             rectangles: [
                 {x: 0, y: 1000, w: 32},
@@ -3118,6 +3131,9 @@ const worldData = {
         }
     },
     43: {
+        worldNum: 4,
+        levelNum: 3,
+        timeLimit: 300,
         theme: "overworld",
         width: 12720,
         levelEndLine: 12400,
@@ -3313,10 +3329,12 @@ const worldData = {
         }
     },
     44: {
+        worldNum: 4,
+        levelNum: 4,
         theme: "castle",
         bg: "#000000",
         width: 15360,
-        levelEndLine: 14720,
+        levelEndLine: 14800,
         spawnLocation: {
             x: 80,
             y: 520
@@ -3391,7 +3409,7 @@ const worldData = {
                 {x: 14800, y: 920, type: "mushroomRetainerBottom"},
             ],
             pipes: [
-                {x: 3200, y: 760, size: 3, opening: "top"},
+                {x: 3200, y: 760, size: 3},
             ],
             piranhas: [
                 {x: 3240, y: 600, theme: "underworld"},
@@ -3418,7 +3436,9 @@ const worldData = {
         }
     },
     51: {
-        theme: "overworld",
+        worldNum: 5,
+        levelNum: 1,
+        timeLimit: 300,
         width: 16640,
         spawnLocation: {
             x: 160,
@@ -3585,6 +3605,8 @@ const worldData = {
         }
     },
     511: {
+        worldNum: 5,
+        levelNum: 1,
         theme: "underworld",
         width: 1920,
         bg: "#000000",
@@ -3629,6 +3651,8 @@ const worldData = {
         }
     },
     52: {
+        worldNum: 5,
+        levelNum: 2,
         theme: "overworld",
         width: 17040,
         levelEndLine: 16560,
@@ -3830,6 +3854,8 @@ const worldData = {
         }
     },
     521: {
+        worldNum: 5,
+        levelNum: 2,
         theme: "water",
         waterLevel: true,
         gravity: .5,
@@ -3840,9 +3866,9 @@ const worldData = {
         },
         worldElements: {
             rectangles: [
-                {x: 0, y: 120, w: 26, type: "waterTop"},
-                {x: 2240, y: 120, w: 4, type: "waterTop"},
-                {x: 2720, y: 120, w: 27, type: "waterTop"},
+                {x: 0, y: 120, w: 26, type: "waterTop", collision: true},
+                {x: 2240, y: 120, w: 4, type: "waterTop", collision: true},
+                {x: 2720, y: 120, w: 27, type: "waterTop", collision: true},
 
                 {x: 0, y: 1000, w: 22, type: "rock", collision: true},
                 {x: 2720, y: 1000, w: 4, type: "rock", collision: true},
@@ -3909,8 +3935,10 @@ const worldData = {
             ]
         }
     },
-    // TODO: teleportTrigger, music
+    // TODO: teleportTrigger
     522: {
+        worldNum: 5,
+        levelNum: 2,
         spawnLocation: {
             x: 320,
             y: 1000
@@ -3977,7 +4005,9 @@ const worldData = {
         }
     },
     53: {
-        theme: "overworld",
+        worldNum: 5,
+        levelNum: 3,
+        timeLimit: 300,
         spawnLocation: {
             x: 160,
             y: 1000
@@ -4104,9 +4134,12 @@ const worldData = {
         }
     },
     54: {
+        worldNum: 5,
+        levelNum: 4,
         theme: "castle", 
+        timeLimit: 300,
         width: 12800,
-        levelEndLine: 12160,
+        levelEndLine: 12240,
         spawnLocation: {
             x: 80,
             y: 520
@@ -4212,7 +4245,8 @@ const worldData = {
         }
     },
     61: {
-        theme: "overworld",
+        worldNum: 6,
+        levelNum: 1,
         bg: "#000000",
         width: 15920,
         levelEndLine: 15600,
@@ -4355,7 +4389,8 @@ const worldData = {
         }
     },
     62: {
-        theme: "overworld",
+        worldNum: 6,
+        levelNum: 2,
         width: 18160, 
         levelEndLine: 17840,
         bg: "#000000",
@@ -4521,6 +4556,8 @@ const worldData = {
         }
     },
     621: {
+        worldNum: 6,
+        levelNum: 2,
         theme: "underworld",
         width: 1920,
         bg: "#000000",
@@ -4565,6 +4602,8 @@ const worldData = {
         }
     },
     622: {
+        worldNum: 6,
+        levelNum: 2,
         theme: "water",
         waterLevel: true,
         gravity: .5,
@@ -4575,9 +4614,9 @@ const worldData = {
         },
         worldElements: {
             rectangles: [
-                {x: 0, y: 120, w: 26, type: "waterTop"},
-                {x: 2240, y: 120, w: 4, type: "waterTop"},
-                {x: 2720, y: 120, w: 27, type: "waterTop"},
+                {x: 0, y: 120, w: 26, type: "waterTop", collision: true},
+                {x: 2240, y: 120, w: 4, type: "waterTop", collision: true},
+                {x: 2720, y: 120, w: 27, type: "waterTop", collision: true},
 
                 {x: 0, y: 1000, w: 22, type: "rock", collision: true},
                 {x: 2720, y: 1000, w: 4, type: "rock", collision: true},
@@ -4644,8 +4683,9 @@ const worldData = {
             ]
         }
     },
-    // TODO: music?
     623: {
+        worldNum: 6,
+        levelNum: 2,
         bg: "#000000",
         theme: "overworld",
         width: 7520,
@@ -4740,6 +4780,8 @@ const worldData = {
         }
     },
     624: {
+        worldNum: 6,
+        levelNum: 2,
         theme: "underworld",
         bg: "#000000",
         width: 1920,
@@ -4792,13 +4834,14 @@ const worldData = {
             ]
         }
     },
-    //TODO: Add ScalePlatforms, music?
     63: {
+        worldNum: 6,
+        levelNum: 3,
         theme: "castle",
+        music: "overworld",
         width: 14320,
         levelEndLine: 14000,
         timeLimit: 300,
-        music: "overworld",
         spawnLocation: {
             x: 160, 
             y: 1000
@@ -4957,15 +5000,17 @@ const worldData = {
         }
     },
     64: {
+        worldNum: 6,
+        levelNum: 4,
         theme: "castle",
+        timeLimit: 300,
         spawnLocation: {
             x: 80,
             y: 520
         },
         bg: "#000000",
         width: 12800,
-        timeLimit: 300,
-        levelEndLine: 12160,
+        levelEndLine: 12240,
         worldElements: {
             rectangles: [
                 {x: 0, y: 120, w: 23, h: 3, type: "solid", collision: true},
@@ -5051,6 +5096,8 @@ const worldData = {
         }
     },
     71: {
+        worldNum: 7,
+        levelNum: 1,
         theme: "overworld",
         width: 15360,
         levelEndLine: 14880,
@@ -5210,9 +5257,11 @@ const worldData = {
             ]
         }
     },
-    //TODO: Which music is playing here?
     711: {
+        worldNum: 7,
+        levelNum: 1,
         theme: "underworld",
+        music: "underworld",
         spawnLocation: {
             x: 440,
             y: 280
@@ -5264,6 +5313,8 @@ const worldData = {
         }
     },
     72: {
+        worldNum: 7,
+        levelNum: 2,
         theme: "water",
         width: 15360,
         gravity: .5,
@@ -5280,9 +5331,9 @@ const worldData = {
                 {x: 11200, y: 1000, w: 17, type: "rock", collision: true},
                 {x: 13120, y: 1000, w: 28, type: "rock", collision: true},
 
-                {x: 0, y: 120, w: 78, type: "waterTop"},
-                {x: 6400, y: 120, w: 51, type: "waterTop"},
-                {x: 10560, y: 120, w: 56, type: "waterTop"},
+                {x: 0, y: 120, w: 78, type: "waterTop", collision: true},
+                {x: 6400, y: 120, w: 51, type: "waterTop", collision: true},
+                {x: 10560, y: 120, w: 56, type: "waterTop", collision: true},
                 
                 {x: 1440, y: 680, w: 3, type: "rock", collision: true},
                 {x: 3360, y: 680, w: 2, type: "rock", collision: true},
@@ -5383,6 +5434,8 @@ const worldData = {
         }
     },
     721: {
+        worldNum: 7,
+        levelNum: 2,
         theme: "overworld",
         spawnLocation: {
             x: 480,
@@ -5413,6 +5466,8 @@ const worldData = {
         }
     },
     722: {
+        worldNum: 7,
+        levelNum: 2,
         spawnLocation: {
             x: 280,
             y: 1000
@@ -5449,7 +5504,10 @@ const worldData = {
         }
     },
     73: {
+        worldNum: 7,
+        levelNum: 3,
         width: 18960,
+        timeLimit: 300,
         levelEndLine: 18640,
         hasCheepCheeps: true,
         cheepCheepSpawnLine: 1200,
@@ -5629,10 +5687,12 @@ const worldData = {
     },
     // TODO: TeleportTriggers need checkpoints
     74: {
+        worldNum: 7,
+        levelNum: 4,
         theme: "castle",
         bg: "#000000",
         width: 17920,
-        levelEndLine: 17280,
+        levelEndLine: 17360,
         spawnLocation: {
             x: 80,
             y: 520
@@ -5721,7 +5781,8 @@ const worldData = {
         }
     },
     81: {
-        theme: "overworld",
+        worldNum: 8,
+        levelNum: 1,
         timeLimit: 300,
         width: 31120,
         levelEndLine: 30640,
@@ -6021,6 +6082,8 @@ const worldData = {
         }
     },
     811: {
+        worldNum: 8,
+        levelNum: 1,
         theme: "underworld",
         spawnLocation: {
             x: 440,
@@ -6069,7 +6132,8 @@ const worldData = {
         }
     },
     82: {
-        theme: "overworld",
+        worldNum: 8,
+        levelNum: 2,
         width: 18160,
         levelEndLine: 17840,
         spawnLocation: {
@@ -6254,6 +6318,8 @@ const worldData = {
         }
     },
     821: {
+        worldNum: 8,
+        levelNum: 2,
         theme: "underworld",
         width: 1920,
         bg: "#000000",
@@ -6298,10 +6364,11 @@ const worldData = {
         }
     },
     83: {
-        theme: "overworld",
+        worldNum: 8,
+        levelNum: 3,
+        timeLimit: 300,
         width: 18320, 
         levelEndLine: 18000,
-        timeLimit: 300,
         spawnLocation: {
             x: 160, 
             y: 1000
@@ -6441,6 +6508,8 @@ const worldData = {
         }
     },
     84: {
+        worldNum: 8,
+        levelNum: 4,
         theme: "castle",
         bg: "#000000",
         width: 25600,
@@ -6551,20 +6620,25 @@ const worldData = {
         }
     },
     841: {
+        worldNum: 8,
+        levelNum: 4,
         theme: "water",
         waterLevel: true,
-        with: 5760,
+        width: 5760,
+        gravity: .5,
         spawnLocation: {
             x: 280,
             y: 1000
         },
         worldElements: {
             rectangles: [
+                {x: 160, y: 120, w: 4, type: "waterTop", collision: true},
+
                 {x: 0, y: 120, w: 2, h: 12, type: "solid", collision: true},
                 {x: 1440, y: 1000, w: 54, h: 1, type: "solid", collision: true},
                 {x: 1440, y: 120, w: 54, h: 1, type: "solid", collision: true},
-                {x: 480, y: 200, w: 12, h: 2, type: "solid", collision: true},
-                {x: 480, y: 760, w: 12, h: 2, type: "solid", collision: true},
+                {x: 480, y: 120, w: 12, h: 3, type: "solid", collision: true},
+                {x: 480, y: 760, w: 12, h: 4, type: "solid", collision: true},
                 {x: 880, y: 360, w: 7, h: 1, type: "solid", collision: true},
                 {x: 880, y: 680, w: 7, h: 1, type: "solid", collision: true},
                 {x: 3120, y: 200, w: 3, h: 3, type: "solid", collision: true},
@@ -6575,7 +6649,7 @@ const worldData = {
             ],
             tiles: [
                 {x: 160, y: 1000, type: "solid", collision: true},
-                {x: 320, y: 1000, type: "solid", collision: true},
+                {x: 400, y: 1000, type: "solid", collision: true},
             ],
             pipes: [
                 {x: 240, y: 840, size: 3},
@@ -6918,14 +6992,13 @@ class Tile {
 
         if (this.type === "multiCoinBlock") {
             this.collision = true;
-            //TODO: Calculate this time with global frame_rate (10sec)
             this.states = {
                 current: "inactive",
                 inactive: "inactive",
                 active: "active",
                 lastHit: "lastHit"
             };
-            this.timer = 10 * 60;
+            this.timer = 8 * 60;
         }
 
         this.setSpriteOffsets();
@@ -7680,7 +7753,7 @@ class Pipe {
 
     build() {
         if (this.piranha) {
-            if (!this.parent.worldElements.piranhas) this.parent.piranhas = [];
+            if (!this.parent.worldElements.piranhas) this.parent.worldElements.piranhas = [];
             this.parent.worldElements.piranhas.push(new Piranha(this.parent, this.x + this.blocksize / 2, this.y - this.blocksize * 2, this.theme, this.isWarp))
         }
 
@@ -8043,9 +8116,7 @@ class Coin {
     }
 
     destroy() {
-        const g = this.parent.parent;
-        g.audioFiles.sounds.coin.currentTime = 0;
-        g.audioFiles.sounds.coin.play();
+        this.parent.parent.coinCollected();
 
         const index = this.parent.worldElements.coins.indexOf(this);
         this.parent.worldElements.coins.splice(index, 1);
@@ -8083,7 +8154,7 @@ class Enemy {
                 yVel: 0,
                 stompable: true,
                 shootable: true,
-                worldCollision: true,
+                worldCollision: true
             },
             buzzyBeetle: {
                 w: 1,
@@ -8271,6 +8342,7 @@ class Enemy {
         this.yInitial = this.y;
         this.yOld = this.y;
         this.theme = theme;
+        this.pointValue = 100;
         if (!this.theme) this.theme = this.parent.theme;
         this.type = type || "goomba";
         this.sprites = enemySprites;
@@ -8407,6 +8479,7 @@ class Enemy {
     }
 
     flatDeath() {
+        this.parent.parent.score += this.pointValue;
         this.collision = false;
         this.animate = false;
         this.xVel = 0;
@@ -8415,6 +8488,9 @@ class Enemy {
     }
 
     destroy() {
+        if (!this.despawnTimer) {
+            this.parent.parent.score += this.pointValue;
+        }
         const index = this.parent.worldElements.enemies.indexOf(this);
         this.parent.worldElements.enemies.splice(index, 1);
     }
@@ -9734,6 +9810,7 @@ class Character {
             this.jumpForce = 40;
         }
         this.xVelMaxWalk = 10;
+        this.xVelMaxSwim = 5;
         this.xVelMaxSprint = 15;
         this.xVelMax = this.xVelMaxWalk;
         this.sprites = characterSprites;
@@ -9764,6 +9841,7 @@ class Character {
         }
         this.frames = {
             running: [80, 160, 240],
+            swimming: [720, 800, 880, 960, 1040],
             growing: [
                 {sX: 0, sY: 0, h: 2},
                 {sX: 1200, sY: 0, h: 2},
@@ -9902,7 +9980,7 @@ class Character {
             if (g.transitionTimer == 0) {
                 g.transition = false;
                 g.transitionType = null;
-                g.loadWorld(this.h, this.state.current);
+                g.loadWorld(this.h, this.state.current, g.time);
             }
             this.xVel = 0;
             this.yVel = 3;
@@ -9910,7 +9988,6 @@ class Character {
 
             g.transitionTimer--;
         } else if (g.transitionType === "pipeOutTop") {
-            // this.collision = false;
             if (g.transitionTimer == 0) {
                 g.transition = false;
                 g.transitionType = null;
@@ -9929,7 +10006,7 @@ class Character {
                     g.music.pause();
                     g.music.currentTime = 0;
                 }
-                g.loadWorld(this.h, this.state.current);
+                g.loadWorld(this.h, this.state.current, g.time);
             }
             this.xVel = 3;
             this.yVel = 0;
@@ -10054,13 +10131,17 @@ class Character {
         if (g.keyStates.right && !g.keyStates.left && !g.keyStates.down) {
             this.facingRight = true;
             if (this.xVel >= 0) {
-                if (g.keyStates.sprint) {
+                if (g.keyStates.sprint && !this.parent.waterLevel) {
                     this.xAccel = this.xAccelSprint;
                     this.xVelMax = this.xVelMaxSprint;
                     if (!this.inAir) this.movement.current = this.movement.running;
                 } else {
+                    if (this.parent.waterLevel) {
+                        this.xVelMax = this.xVelMaxSwim;
+                    } else {
+                        this.xVelMax = this.xVelMaxWalk;
+                    }
                     this.xAccel = this.xAccelWalk;
-                    this.xVelMax = this.xVelMaxWalk;
                     if (!this.inAir) this.movement.current = this.movement.walking;
                 }
             } else {
@@ -10071,13 +10152,17 @@ class Character {
         } else if (g.keyStates.left && !g.keyStates.right && !g.keyStates.down) {
             this.facingRight = false;
             if (this.xVel <= 0) {
-                if (g.keyStates.sprint) {
+                if (g.keyStates.sprint && !this.parent.waterLevel) {
                     this.xAccel = -this.xAccelSprint;
                     this.xVelMax = -this.xVelMaxSprint;
                     if (!this.inAir) this.movement.current = this.movement.running;
                 } else {
+                    if (this.parent.waterLevel) {
+                        this.xVelMax = -this.xVelMaxSwim;
+                    } else {
+                        this.xVelMax = -this.xVelMaxWalk;
+                    }
                     this.xAccel = -this.xAccelWalk;
-                    this.xVelMax = -this.xVelMaxWalk;
                     if (!this.inAir) this.movement.current = this.movement.walking;
                 }
             } else {
@@ -10199,19 +10284,16 @@ class Character {
                     } else if (item.type === "multiCoinBlock") {
                         if (item.states.current === item.states.inactive) {
                             w.spawnObject(item.x, item.y - item.blocksize, item.theme, "coinItem");
-                            g.audioFiles.sounds.coin.currentTime = 0;
-                            g.audioFiles.sounds.coin.play();
+                            g.coinCollected();
                             item.bounce();
                             item.states.current = item.states.active;
                         } else if (item.states.current === item.states.active) {
                             w.spawnObject(item.x, item.y - item.blocksize, item.theme, "coinItem");
-                            g.audioFiles.sounds.coin.currentTime = 0;
-                            g.audioFiles.sounds.coin.play();
+                            g.coinCollected();
                             item.bounce();
                         } else if (item.states.current === item.states.lastHit) {
                             w.spawnObject(item.x, item.y - item.blocksize, item.theme, "coinItem");
-                            g.audioFiles.sounds.coin.currentTime = 0;
-                            g.audioFiles.sounds.coin.play();
+                            g.coinCollected();
                             item.bounce();
                             item.type = "disabled";
                             item.setSpriteOffsets()
@@ -10243,8 +10325,7 @@ class Character {
                             g.audioFiles.sounds.powerupAppears.play();
                         } else if (item.item.type === "coinItem") {
                             w.spawnObject(item.x, item.y - item.blocksize, item.item.theme, "coinItem");
-                            g.audioFiles.sounds.coin.currentTime = 0;
-                            g.audioFiles.sounds.coin.play();
+                            g.coinCollected();
                         } else if (item.item.type === "vine") {
                             w.spawnObject(item.x, item.y - item.blocksize, "overworld", "vine");
                             g.audioFiles.sounds.powerupAppears.currentTime = 0;
@@ -10714,17 +10795,24 @@ class Character {
                 this.bottom > item.top &&
                 this.bottomOld <= item.top)
             {
-                this.y = item.top - this.h * this.blocksize;
-                this.yOld = this.y;
-
-                if (item.movementType === "down") this.yVel = item.yVel;
-                else this.yVel = 0;
-
-                if (item.movementType === "touchRight") item.xVel = 5;
-
-                this.inAir = false;
-
-                this.updateBoundingBox();
+                if (item.movementType === "falling") {
+                    item.y += 10;
+                    this.y = this.yOld + 10;
+                    this.inAir = false;
+                    this.yVel = 0;
+                } else {
+                    this.y = item.top - this.h * this.blocksize;
+                    this.yOld = this.y;
+    
+                    if (item.movementType === "down") this.yVel = item.yVel;
+                    else this.yVel = 0;
+    
+                    if (item.movementType === "touchRight") item.xVel = 5;
+    
+                    this.inAir = false;
+    
+                    this.updateBoundingBox();
+                }
             }
         });
     }
@@ -10899,6 +10987,10 @@ class Character {
 
     setMovement() {
         if (this.parent.parent.transition || this.onVine) return;
+        if (this.parent.waterLevel) {
+            this.movement.current = this.movement.swimming;
+            return;
+        }
         if (this.movement.current === this.movement.sliding && this.xVel == 0) this.movement.current = this.movement.standing;
         else if (this.movement.current === this.movement.running && this.xVel == 0) this.movement.current = this.movement.standing;
         else if (this.movement.current === this.movement.walking && this.xVel == 0) this.movement.current = this.movement.standing;
@@ -10963,6 +11055,11 @@ class Character {
             this.sX = 640;
         } else if (this.movement.current === this.movement.crouching) {
             this.sX = 480
+        } else if (this.movement.current === this.movement.swimming) {
+            if (g.frame % 5 === 0) {
+                this.frame++;
+            }
+            this.sX = this.frames.swimming[this.frame % this.frames.swimming.length];
         }
 
         // In which direction is the player looking
@@ -11022,6 +11119,9 @@ class World {
         this.cheepCheepSpawnLine = worldData[this.worldID].cheepCheepSpawnLine;
         this.theme = worldData[this.worldID].theme || "overworld";
         this.spawnLocation = worldData[this.worldID].spawnLocation;
+
+        this.parent.worldNum = worldData[this.worldID].worldNum;
+        this.parent.levelNum = worldData[this.worldID].levelNum;
 
         this.build(this.worldID);
 
@@ -11373,8 +11473,6 @@ class Game {
         this.name = "MARIO";
         this.score = 0;
         this.coins = 0;
-        this.worldNum = 1;
-        this.levelNum = 1;
         this.lives = 3;
         // this.destination = {worldID: "test"};
         this.destination = {worldID: 11};
@@ -11443,6 +11541,19 @@ class Game {
         this.statusBar = new StatusBar(this);
 
         this.setVolume(GAME_VOLUME);
+    }
+
+    coinCollected() {
+        this.audioFiles.sounds.coin.currentTime = 0;
+        this.audioFiles.sounds.coin.play();
+        this.score += 200;
+        this.coins++;
+        if (this.coins === 100) {
+            this.lives++
+            this.coins = 0;
+            this.audioFiles.sounds.oneUp.currentTime = 0;
+            this.audioFiles.sounds.oneUp.play();
+        }
     }
 
     setVolume(volume) {
@@ -11566,7 +11677,7 @@ class Game {
                 this.world.scroll(deltaX);
             }
             
-            if (!this.transition && this.frame % 60 === 0) this.time--;
+            if (!this.transition && this.frame % 40 === 0) this.time--;
 
             if (!this.hurryUp && this.time < 100) {
                 this.hurryUp = true;

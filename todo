@@ -1,40 +1,20 @@
-- Add checkpoints object into TeleportTrigger, requirement to avoid teleport
-- Maybe create bowserBridge class for axe transition / Axe transition (remove bridge, freeze bowser, let him fall down)
-- Clean up worldData -> piranhas, add them into pipes
+Future Features & Fixes:
+- Check in which levels we have infinite bulletBills
+- Points for collecting items, bowser, flagpole reach, broken blocks?
+- Remove bowserBridge on axe collision, let bowser fall
+- Adjust levels with unique path and back teleporting
 - "Thank you Mario! But our princess is in another castle!"
-- levelEndLine in castle is closest to mushroomRetainer
-- elevatorPlatform.type "falling" does only go down when mario is on it
 - 2-4 & 5-4 & 6-2-2: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
-- Fix Bloober movement
 - Some bowsers throw nails
 - Fix jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
-- Implement time mechanic (levels have different time limits, add to world data, 1 ingame second = .6 real seconds)
-- Implement Coin collect mechanic (100 coins = +1 life)
-- Implement Score mechanic
+- Enemy kill combo awards more points: 100 - 200 - 400 - 500 - 800 - 1000 - 2000 - 4000 - 5000 - 8000 - 1UP - 1UP - 1UP ...
 - 1Up mushroom appearance is actually is a bit more limited (see reference for details)
-- Credit pixel art scaler, reference picture websites
+- Credit pixel art scaler, reference picture websites (in mainMenu.png)
 - becoming big / uncrouching under narrow space = moonwalk to right until unstuck
-- If we die after clearing 50% of the level, we spawn in the middle, except 4-4
+- If we die after clearing 50% of the level, we spawn in the middle, except 4-4 (Add midLevelRespawnOffset)
 - If jump is held character jumps a little bit higher, set gravity -.05 or something (bonus yaccel?)
-- Major cleanups
 - Sometimes shells don't kill enemies if they are too close, maybe fix
-- Does timer reset after sublevel?
-- Put bowser in enemy class
-- Put axes into tiles with special collision
-- Adjust timeLimit for all levels
 - Only one lakitu on screen at a time
-- Check in whch levels we have infinite bulletBills
 - Sometimes enemies are in wrong place after scrollOffset (lvl 1 near flag)
-
-Game logic:
-
-1.) Initial state
-2.) User wants to move
-3.) Pseudo move character model to desired location
-4.) Check if any collisions would happen
-4.1) Move him in closest place of collision, set velocity of this axis to 0
-4.2) Check if we have to scroll screen (did mario cross the magic border? Do we have any more level to the rigth? How far did he cross the border?)
-4.3) Apply this deltaX to all objects (mario, background, blocks, etc.) game.scroll()
-5.) Draw everything
