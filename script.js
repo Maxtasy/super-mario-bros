@@ -4841,6 +4841,7 @@ const worldData = {
         music: "overworld",
         width: 14320,
         levelEndLine: 14000,
+        hasBulletBills: true,
         timeLimit: 300,
         spawnLocation: {
             x: 160, 
@@ -9971,6 +9972,7 @@ class Character {
                 this.xVel = 0;
                 g.transition = false;
                 g.transitionType = null;
+                g.castleEndReached = true;
                 setTimeout(() => {
                     g.loadWorld(this.h, this.state.current)
                 }, 3000);
@@ -11475,7 +11477,7 @@ class Game {
         this.coins = 0;
         this.lives = 3;
         // this.destination = {worldID: "test"};
-        this.destination = {worldID: 11};
+        this.destination = {worldID: 14};
 
         this.transition = false;
         this.transitionType = null;
@@ -11636,6 +11638,7 @@ class Game {
         this.currentHeight = height || 1;
         this.currentCharacterState = state || "normal";
         this.currentWorld = this.destination.worldID;
+        this.castleEndReached = false;
 
         if (timeleft) this.time = timeleft;
         else this.time = worldData[this.currentWorld].timeLimit || 400;
@@ -11698,9 +11701,19 @@ class Game {
         this.frame++;
     }
 
+    drawCastleEndText() {
+        const text = "Thank you Mario! But our princess is in another castle!";
+        ctx.font = "60px VT323";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "center"; 
+        ctx.fillText(text, this.screensize.width  / 2, this.screensize.height  / 2);
+    }
+
     draw() {
         if (this.gameState.current === this.gameState.play) this.world.draw();
         if (this.gameState.current === this.gameState.play || this.gameState.current === this.gameState.preLevel) this.statusBar.draw();
+        if (this.castleEndReached) this.drawCastleEndText();
     }
 }
 

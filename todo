@@ -1,11 +1,10 @@
 Future Features & Fixes:
-- Check in which levels we have infinite bulletBills
+- 521, 622, 721: An unlimited number of Cheep-Cheeps will swim into the screen from the right. A maximum of three Cheep-Cheeps can be on the screen at one time.
 - Points for collecting items, bowser, flagpole reach, broken blocks?
 - Remove bowserBridge on axe collision, let bowser fall
 - Adjust levels with unique path and back teleporting
-- "Thank you Mario! But our princess is in another castle!"
 - 2-4 & 5-4 & 6-2-2: elevatorPlatforms are size 1.5 normally, I made it 2. Maybe fix
-- Some bowsers throw nails
+- Some bowsers throw hammers
 - Fix jumpingBoard (Jump off the Jumping Board as Mario is bouncing on it to give his jump a little extra height. With the right timing, Mario can leap 10¼ blocks from the top of Jumping Board. )
 - Red KoopaTroopas walk off ledges if they were KoopaParatroopers before
 - Add Flagpole score regions (see reference for details)
