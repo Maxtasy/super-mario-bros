@@ -11477,7 +11477,7 @@ class Game {
         this.coins = 0;
         this.lives = 3;
         // this.destination = {worldID: "test"};
-        this.destination = {worldID: 14};
+        this.destination = {worldID: 11};
 
         this.transition = false;
         this.transitionType = null;
