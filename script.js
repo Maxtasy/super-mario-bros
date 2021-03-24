@@ -8983,6 +8983,31 @@ class Piranha {
         this.parent.worldElements.piranhas.splice(index, 1);
     }
 
+    fireballHit() {
+        if (this.type === "koopaParatroopa") {
+            this.type = "koopaTroopa";
+            this.setProperties();
+            this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.kick.play();
+        } else if (this.type === "bowser") {
+            this.hitpoints--;
+
+            if (this.hitpoints <= 0) {
+                this.plopDeath();
+                this.parent.parent.audioFiles.sounds.kick.currentTime = 0;
+                this.parent.parent.audioFiles.sounds.kick.play();
+            } else {
+                this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
+                this.parent.parent.audioFiles.sounds.bump.play();
+            }
+        } else if (this.type === "buzzyBeetle" || this.type === "bulletBill") {
+            this.parent.parent.audioFiles.sounds.bump.currentTime = 0;
+            this.parent.parent.audioFiles.sounds.bump.play();
+        } else {
+            this.plopDeath();
+        }
+    }
+
     updateVelocities() {
         if (!this.collision) {
             this.yVel += this.gravity;
